@@ -1,0 +1,37 @@
+<style type="text/css">
+    li.info-element{
+        font-weight: bold;
+    }
+    li.info-element:hover{
+        color: #31b0ff;
+    }
+</style>
+<div class="wrapper-content">
+    <form method="get" class="form-horizontal" id="floorForm">
+    	<input class="form-control" type="hidden" name="floorId" value="${(floor.id)!''}">
+       	<input class="form-control" type="hidden" name="areaId" value="${areaId!''}">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">楼层</label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" name="serialNumber" value="${floor.serialNumber!''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" name="floorName" value="${(floor.floorName)!''}">
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="col-sm-3 control-label">简述</label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" name="describe" value="${(floor.describe)!''}">
+            </div>
+        </div> -->
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-3">
+                <button class="btn btn-primary" type="submit">保存</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,216 @@
+ <link href="${base}css/modules/alarm-manage.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+<div class="wrapper-content alarm-style" id="alarm-manage">
+	<div class="row">
+		<div class="col-sm-12 no-padding">
+		    <div class="ibox float-e-margins">
+		        <div class="ibox-title">
+		            <h5>报警处理列表</h5>
+		            <div class="ibox-tools"></div>
+		        </div>
+		        <div class="ibox-content">
+		        
+                    <@codeValidation codes=operationCodes operationCode="view">
+                    <@codeValidation codes=operationCodes operationCode="search">
+		        	<div class="filter-line">
+	                	<form method="get" id="alarm-searchform" style="float: right">
+	                		<input type="hidden" name="eventSourceId" role="user-params">
+	                		<input type="hidden" name="page" value="${params.curr!1}" role="user-params">
+	                		<input type="hidden" name="limit" value="${params.limit!10}" role="user-params">
+	                		<input type="hidden" name="handlerStatus" value="${params.handlerStatus!''}">
+							<select class="form-control" name="subSystemCode" role="user-params">
+								<option value="">全部系统</option>
+								<#if subsystems?? && subsystems?size gt 0>
+									<#list subsystems as ss>
+									<option value="${ss.code!''}">${ss.name!'-'}</option>
+									</#list>
+								</#if>
+							</select>
+							<select class="form-control" name="viewStatus" role="user-params"
+								<#if params.handlerStatus == 200>disabled="disabled"</#if>
+							>
+								<option value="">全部</option>
+								<option value="1">已读</option>
+								<option value="0">未读</option>
+							</select>
+							<input type="hidden" name="rangeType" value="${params.rangeType!''}" role="user-params">
+							<input type="hidden" name="eventAlertTimeStart" value="${params.eventAlertTimeStart!''}" role="user-params">
+							<input type="hidden" name="eventAlertTimeEnd" value="${params.eventAlertTimeEnd!''}" role="user-params">
+							<input class="form-control" id="alarm-sform-date-range" role="user-params" placeholder="选择报警时间段进行查询" name="timeSelect">
+							<input class="form-control" name="keyword" value="${params.keyword!''}" role="user-params" placeholder="输入报警关键字查询">
+							
+	                        <button type="button" class="btn btn-primary submit"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-default reset"><i class="fa fa-refresh"></i></button>
+	                 	</form>
+	                </div>
+	                </@codeValidation>
+	                <div class="tabs-container">
+	                	<ul class="nav nav-tabs handlerStatus">
+		                    <li class="<#if params.handlerStatus == 0>active</#if>" data-status="0">
+		                        <a href="javascript:;">待处理</a>
+		                    </li>
+		                    <li class="<#if params.handlerStatus == 200>active</#if>" data-status="200">
+		                        <a href="javascript:;">已处理</a>
+		                    </li>
+		                </ul>
+	                </div>
+		            <table class="footable table table-stripped toggle-arrow-tiny personal-i-check" id="alarm-table" data-paging="false">
+		                
+		            </table>
+		            <div class="tools-bar">
+		            <#if params.handlerStatus == 0>
+	                    <div class="checkbox i-checks personal-i-check switch" style="left: 18px;top:-1px;">
+                        	<input type="checkbox" value="all" name="selected-all">
+              		 	</div>
+	                    <a href="javascript:void(0);" class="setRead switch">标记为已读</a>
+	                    <a href="javascript:void(0);" class="setAllRead switch">全部标记为已读</a>
+	                    <span class="time-search" style="margin-left: 16px;">
+	                    	<a href="javascript:void(0);" role="all" class="selected">全部</a>
+	                    	<a href="javascript:void(0);" role="today">今日</a>
+	                    	<a href="javascript:void(0);" role="yesterday">昨日</a>
+	                    	<a href="javascript:void(0);" role="week">本周</a>
+	                    </span>
+	                </#if>
+	                </div>
+		            <div class="text-right" id="alarm-page"></div>
+		            </@codeValidation>
+		        </div>
+		    </div>
+		    <div class="cover show">
+		    	<div class="icon"></div>
+		    	<div class="context">
+		    		<i></i>
+		    		<p></p>
+		    	</div>
+		    	
+		    </div>
+		</div>
+	</div>
+</div>
+
+<script id="alart_table_tpl" type="text/html">
+<thead>
+	<tr>
+		{{# if(d.params.handlerStatus == 200) { }}
+        	<th data-toggle="true">报警时间</th>
+        	<th>处理时间</th>
+        {{# } else { }} 
+        	<th data-toggle="true" data-sort-ignore="true" width='70px'>
+            	
+            </th>
+        	<th>报警时间</th>
+		{{# } }}
+			<th>严重级别</th>
+            <th>简要描述</th>
+            <th>子系统</th>
+            <th>设备名</th>
+            <th data-sort-ignore="true">第三方平台接入</th>
+            <th data-hide="all">恢复报警</th>
+            <th data-hide="all">联动信息</th>
+            <th data-hide="all">描述</th>
+		{{# if(d.params.handlerStatus == 200) { }}
+			 <th data-sort-ignore="true">操作</th>
+		{{# } else { }}
+			 <th data-sort-ignore="true">操作</th>
+		{{# } }}
+	</tr>
+</thead>
+<tbody>
+	{{# if(d.pages && d.pages.length > 0) { }}
+		{{# layui.each(d.pages, function(index, item){ }}
+			<tr {{# if(item.viewStatus == 0){ }}
+					class="unRead"
+				{{# } }}
+			>
+				{{# if(d.params.handlerStatus == 0){ }}
+				<td>
+					<div class="checkbox i-checks">
+                    	<input type="checkbox" value="{{item.id}}" name="alarm-item" data-id="{{item.id}}" data-viewStatus="{{item.viewStatus}}">&nbsp;
+      		 		</div>
+				</td>
+				{{# } }}
+				<td>
+				{{# if(item.eventAlertTime) { }}
+					{{new Date(item.eventAlertTime).Format("yyyy-MM-dd hh:mm")}}
+				{{# } else { }}
+					未知
+				{{# } }}
+				</td>
+				{{# if(d.params.handlerStatus == 200) { }}
+                <td>
+                     {{# if(item.handlerTime) { }}
+						{{new Date(item.handlerTime).Format("yyyy-MM-dd hh:mm")}}
+					{{# } else { }}
+						未知
+					{{# } }}
+				</td>
+                {{# } }}
+			<td><span class="eventAlertLevel"
+				{{# if(item.eventExtend && item.eventExtend.font && item.eventExtend.font.color) { }}
+					style="background:{{item.eventExtend.font.color}};"
+				{{# } }}
+			>{{item.eventAlertLevelName?item.eventAlertLevelName:'暂缺'}}</span></td>
+			<td>{{item.eventAlertContent?item.eventAlertContent:'暂未接入'}}</td>
+			<td>{{item.businessSystemName?item.businessSystemName:'暂未接入'}}</td>
+			<td>{{item.deviceName?item.deviceName:'暂未接入'}}</td>
+			<td>
+				{{# if(item.version && item.businessSystemName && item.version=="vedio_haikang_childsystem1_v1.0.1") { }}
+					<a href="javascript:platformLogin.login('{{item.version}}')" class="btn btn-outline btn-default">打开第三方</a>
+				{{# } else { }}
+					暂不支持
+				{{# } }}
+			</td>
+			<td>暂未接入</td>
+			<td>暂未接入</td>
+			<td>{{item.eventAlertContent?item.eventAlertContent:'暂未接入'}}</td>
+			<td class="table-opers">
+				{{# if(d.params.handlerStatus == 0) { }}				
+				<a href="javascript:void(0);" class="text-primary c1" role="deal-info" data-id="{{item.id}}"><i class="icon deal-info"></i>处理</a>&nbsp;
+				<a href="javascript:goPage('anomaly-location?id={{item.id}}');" class="text-primary c6"><i class="icon location"></i>定位</a>&nbsp;
+				{{# } }}
+				{{# if(d.params.handlerStatus == 200) { }}					
+				<a href="javascript:;" class="text-primary c5" role="open-dealhistory-panel" data-id="{{item.id}}"><i class="icon history"></i>追踪</a>&nbsp;
+				<a href="javascript:goPage('anomaly-location?id={{item.id}}');" class="text-primary c6"><i class="icon location"></i>定位</a>&nbsp;
+				{{# } }}					
+				
+			</td>
+		</tr>
+		{{# }) }}
+	{{# } else { }}
+		{{# if(d.params.handlerStatus == 200) { }}
+        	<tr><td colspan=8>暂无数据</td></tr>
+        {{# } else { }} 
+        	<tr><td></td><td colspan=7>暂无数据</td></tr>
+		{{# } }}
+    {{# } }}
+</tbody>
+</script>
+<script src="${base}js/modules/views/alarm/alarm-manage.js"></script>
+<script src="${base}js/modules/views/alarm/deal-info.js"></script>
+<script>
+$('#alarm-searchform select[name="subSystemCode"]').val(JSON.parse('<@obj2json obj=params ></@obj2json>').businessSystemCode);
+$('#alarm-searchform select[name="viewStatus"]').val(JSON.parse('<@obj2json obj=params ></@obj2json>').viewStatus);
+$('#alarm-manage .cover').hide();
+initTable({
+	modelName: 'alarm',
+	curr: '${pages.currentPage!1}',
+	limit: '${pages.pageSize!10}',
+	totalPage: '${pages.totalPageNum!0}',
+	totalCount: '${pages.totalCount!0}'
+},function(res){
+		console.log('lalal',res);
+		limit = $('#alarm-searchform input[name="limit"]').val();
+		if(limit != res.limit) {
+			res.curr = 1;
+		}
+		$('#alarm-searchform input[name="limit"]').val(res.limit);
+		$('#alarm-searchform input[name="page"]').val(res.curr);
+		AlarmManage.search({limit:res.limit,curr:res.curr});
+});
+
+$('.i-checks').iCheck({
+    checkboxClass: 'icheckbox_square-green',
+    radioClass: 'iradio_square-green',
+});
+AlarmManage.init({eventSourceId: '${params.eventSourceId}',operationCodes:'${operationCodes}'});
+
+</script>

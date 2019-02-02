@@ -1,0 +1,161 @@
+.map-selection {
+	position: relative;
+	width: 100%;
+	height: unset;
+	min-height: 100px;
+}
+
+.map-container {
+	width: 100%;
+	height: 100%;
+}
+
+.map-selection .point-info {
+	position: absolute;
+	height: 85px;
+	top: 50%;
+	margin-top: -82px;
+	width: 400px;
+	left: 50%;
+	margin-left: -200px;
+}
+.map-selection .point-info > span {
+	display: inline-block;
+	text-align: center;
+	height: 35px;
+	line-height: 35px;
+	padding: 0 10px;
+	border: 1px solid #eee;
+	background-color: #fff;
+	border-radius: 10px;
+	position: relative;
+	left: 50%;
+}
+
+.map-selection .point-info > span::after {
+	content: '';
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	bottom: -6px;
+	background-color: #fff;
+	transform:rotate(45deg);
+	-ms-transform:rotate(45deg); 	/* IE 9 */
+	-moz-transform:rotate(45deg); 	/* Firefox */
+	-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+	-o-transform:rotate(45deg); 	/* Opera */
+	right: 50%;
+	margin-right: -6px
+}
+
+.map-selection .point-info > i.coordinate {
+	display: block;
+	width: 32px;
+	height: 32px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(coordinate.png);
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	margin-left: -16px;
+	z-index: 9;
+}
+.map-selection .point-info > i.coordinate-animate {
+	display: block;
+    opacity: 0;
+	width: 7px;
+	height: 7px;
+	border-radius: 7px;
+	background-color: rgb(51, 153, 222);
+	position: absolute;
+	top: 77px;
+	left: 50%;
+	margin-left: -3px;
+	/*animation:kuosan 2s 1;
+	-webkit-animation:kuosan 2s 1;  Safari 和 Chrome */
+
+}
+.c-animating {
+	animation:kuosan 2s 1;
+	-webkit-animation:kuosan 2s 1;
+}
+.map-selection .status-oper {
+	background-color: rgb(245,245,245);
+	height: 60px;
+}
+.map-selection .status-oper > div {
+	float: left;
+	box-sizing: border-box;
+}
+
+.map-selection .status-oper > div.selection-address {
+	width: 80%;
+	height: 40px;
+	padding: 0px 20px;
+	margin: 10px 0;
+	line-height: 20px;
+	border-right: 1px solid #ccc;
+}
+
+.map-selection .status-oper > div.confirm {
+	width: 20%;
+	padding: 15px 20px;
+	line-height: 30px;
+	text-align: center;
+}
+
+.map-selection .status-oper > div.confirm > a {
+	text-decoration: none;
+	color: rgb(51, 153, 222);
+	font-size: 18px;
+}
+
+
+@keyframes kuosan {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1);
+        opacity: .8;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: .5;
+    }
+    75% {
+        transform: scale(2);
+        opacity: .2;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+@-webkit-keyframes "kuosan" {
+    0% {
+        -webkit-transform: scale(0);
+        opacity: 1;
+    }
+    25% {
+        -webkit-transform: scale(1);
+        opacity: .8;
+    }
+    50% {
+        -webkit-transform: scale(1.5);
+        opacity: .5;
+    }
+    75% {
+        -webkit-transform: scale(2);
+        opacity: .2;
+    }
+    100% {
+        -webkit-transform: scale(0);
+        opacity: 0;
+    }
+}

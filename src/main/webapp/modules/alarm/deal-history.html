@@ -1,0 +1,45 @@
+<div class="wrapper-content">
+	<#setting datetime_format='yyyy-MM-dd HH:mm'>
+	<div id="vertical-timeline" class="vertical-container dark-timeline">
+		<#if info.histories??>
+		<#list info.histories as history>
+		<div class="vertical-timeline-block">
+			<!-- <div class="vertical-timeline-icon yellow-bg">
+				<i class="fa fa-hand-lizard-o"></i>
+			</div>
+			 -->
+			<div class="vertical-timeline-icon blue-bg">
+				<i class="fa fa-smile-o"></i>
+			</div>
+			<div class="vertical-timeline-content">
+				<h4 style="font-size: 16px;">处理详情</h4>
+				<p>
+					处理人： ${history.handlerUserName!'-'}<br>
+					异常类型：${history.handlerTypeName!'-'}<br>
+					处理信息： ${history.handlerMessage!'-'}
+				</p>
+				<span class="vertical-date">${history.handlerTime?number_to_datetime}</span>
+			</div>
+		</div>
+		</#list>
+		</#if>
+		<div class="vertical-timeline-block">
+			<div class="vertical-timeline-icon red-bg">
+				<i class="fa fa-lightbulb-o"></i>
+			</div>
+			<div class="vertical-timeline-content">
+				<h4>开始报警</h4>
+				<p>${info.eventAlertContent!'暂无描述'}</p>
+				<span>
+				<small>
+					<#if info.eventAlertTime??>
+						${info.eventAlertTime?number_to_datetime} 
+					<#else>
+						未知
+					</#if>
+				</small>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

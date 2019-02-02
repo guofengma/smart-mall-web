@@ -1,0 +1,49 @@
+[{
+	"key": "store",
+	"value": "商场信息管理"	
+},{
+	"key": "central-con",
+	"value": "中控管理"
+},{
+	"key": "user",
+	"value": "用户管理"
+},{
+	"key": "pattern",
+	"value": "商场模式"
+}, {
+	"key": "floor",
+	"value": "楼层"	
+}, {
+	"key": "device",
+	"value": "楼层设备"
+},{
+	"key": "door",
+	"value": "门禁系统配置"
+},{
+	"key": "subsystem",
+	"value": "子系统"
+},{
+	"key": "alarm",
+	"value": "报警系统"
+},{
+	"key": "commandTemplate",
+	"value": "命令模板"
+},{
+	"key": "area",
+	"value": "商场区域"
+},{
+	"key": "mall-pattern-calendar",
+	"value": "运行日历"
+},{
+	"key": "com-pattern",
+	"value": "组合模式"
+},{
+	"key": "document",
+	"value": "文档库"
+},{
+	"key": "group-devices",
+	"value": "设备分组"
+},{
+	"key": "report",
+	"value": "报表管理"
+}]

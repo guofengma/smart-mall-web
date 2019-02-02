@@ -1,0 +1,39 @@
+.sub-sys-pattern-form .sub-sys-pattern-detail{
+	width:100%;
+	min-width: 900px;
+	max-width: 1400px;
+}
+.sub-sys-pattern-form .device-msg .version {
+	height: 46px;
+	line-height: 30px;
+}
+.sub-sys-pattern-form .device-msg .status {
+	 padding: 8px 0!important;
+}
+.sub-sys-pattern-form .device-msg .status select,
+.sub-sys-pattern-form .device-msg .status span{
+	width: 200px;
+	display: inline-block;
+	text-align: left;
+}
+.sub-sys-pattern-form button {
+	margin-top:20px;
+}
+.sub-sys-pattern-form .ibox-content .items {
+	border:none;
+}
+.sub-sys-pattern-form .ibox-content .below {
+	padding-left: 0!important;
+}
+.sub-sys-pattern-form .name-group input {
+	width: 30%;
+    display: inline-block;
+    margin-left: 15px;
+}
+.sub-sys-pattern-form .name-group span {
+	font-size: 16px;
+	font-weight: 600;
+}
+.sub-sys-pattern-form .version-device-list {
+	margin:14px 0 13px 0;
+}

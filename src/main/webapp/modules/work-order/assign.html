@@ -1,0 +1,177 @@
+<style>
+#work-order-assign {
+	position: relative;
+    height: 100%;
+}
+
+.fixed-wrap > .rgt-content > .core > div {
+	height: 100%;
+	position: relative;
+}
+
+.fixed-wrap > .rgt-content > .core > div > .table {
+	position: absolute;
+	top: 40px;
+	bottom: 50px;
+	width: 100%;
+	overflow: hidden;
+	overflow-y: scroll;
+	margin-bottom: 0;
+}
+
+.fixed-wrap > .rgt-content > .core > div > .table > table {
+	margin-bottom: 0;
+}
+
+.fixed-wrap > .rgt-content > .core > div > div.paginate {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.fixed-wrap > .rgt-content > .core > div > div.paginate > div {
+	margin: 0;
+}
+
+#work-order-assign .fixed-wrap {
+	display: none;
+}
+
+#work-order-assign .fixed-wrap form input,
+#work-order-assign .fixed-wrap form select {
+	width: 150px !important;
+}
+
+
+#work-order-assign table th:first-child > div{
+	display: none;
+}
+
+.input-group-addon {
+	background-color: rgb(243, 245, 245);
+
+	border: 1px solid #E5E6E7;
+	
+	    border-left-color: rgb(229, 230, 231);
+	    border-left-style: solid;
+	    border-left-width: 1px;
+	
+	border-left-color: rgb(229, 230, 231);
+	
+	border-left-style: solid;
+	
+	border-left-width: 1px;
+	
+	border-radius: 1px;
+	
+	    border-top-left-radius: 1px;
+	    border-bottom-left-radius: 1px;
+	
+	border-top-left-radius: 1px;
+	
+	border-bottom-left-radius: 1px;
+	
+	color: inherit;
+	
+	font-size: 14px;
+	
+	font-weight: 400;
+	
+	line-height: 1;
+	
+	padding: 6px 12px;
+	
+	text-align: center;
+}
+
+dl.device-info {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+dl.device-info > dt {
+	width: 75px;
+	float: left;
+	padding: 10px 0;
+} 
+
+dl.device-info > dd {
+	width: 170px;
+	float: left;
+	padding: 10px 0;
+	min-height: 40px;
+} 
+
+</style>
+	<#setting datetime_format='yyyy-MM-dd HH:mm'>
+<div class="wrapper-content" id="work-order-assign">
+	<form method="get" class="form-horizontal assign-form" autocomplete="off">
+		<input type="hidden" name="abnormalId" value="${id}">
+		<input type="hidden" name="userIdFrom" value="${user.id}">
+		<input type="hidden" name="userNameFrom" value="${user.realName}">
+		<input type="hidden" name="userPhoneFrom" value="${user.mobile}">
+		<input type="hidden" name="operation" value="20">
+		<dl class="device-info">
+			<dt>所属系统</dt>
+			<dd>${(info.systemName)!'-'}</dd>
+			<dt>发生时间</dt>
+			<dd>${(info.happenTime?number_to_datetime)!'-'}</dd>
+			<dt>位置描述</dt>
+			<dd>${(info.place)!'-'}</dd>
+			<dt>设备编号</dt>
+			<dd>${(info.deviceCode)!'-'}</dd>
+			<dt>设备名称</dt>
+			<dd>${(info.deviceName)!'-'}</dd>
+			<dt>设备供应商</dt>
+			<dd>
+				<#if info.supplier?? && info.supplier?size gt 0 >
+				${info.supplier}
+				<#else>
+				-
+				</#if>
+			</dd>
+		</dl>
+		
+	    <div class="form-group">
+	        <label class="col-sm-2 control-label">姓名</label>
+	        <div class="col-sm-9">
+	        	<div class="input-group m-b">
+                    <input type="hidden" name="userIdTo" role="user-params">
+                    <input class="form-control" type="text" name="userNameTo" role="user-params">
+                    <a class="input-group-addon" href="javascript:;" data-opt="pickUser"><i class="fa fa-user text-navy"></i></a>
+                </div>
+				
+	        </div>
+	    </div>
+	    <div class="form-group">
+	        <label class="col-sm-2 control-label">电话</label>
+	        <div class="col-sm-9">
+	            <input class="form-control" type="text" readonly name="userPhoneTo" role="user-params">
+	        </div>
+	    </div>
+	    <div class="form-group">
+	        <label class="col-sm-2 control-label">备注</label>
+	        <div class="col-sm-9">
+	            <textarea class="form-control" name="memo" placeholder="请填写处理批注"></textarea>
+	        </div>
+	    </div>
+	    <div class="form-group">
+	        <div class="col-sm-5 col-sm-offset-2">
+	            <button class="btn btn-primary" type="submit">保存</button>
+	        </div>
+	    </div>
+	</form>
+	<div class="fixed-wrap">
+		<div class="rgt-content">
+			<div class="top-bar"><span>请勾选1个人进行任务指派</span><a href="javascript:;" class="btn btn-primary" data-opt="confirmPickedUser">确认</a></div>
+			<div class="core"></div>
+		</div>
+	</div>
+</div>
+<script src="${base}js/modules/views/work-order/assign.js?${.now?string('yyMMddhhmmSSsss')}"></script>
+<script>
+new AbnormalAssign({
+	systemCode: '${(info.systemCode)!"-"}'
+});
+</script>

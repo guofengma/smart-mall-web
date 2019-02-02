@@ -1,0 +1,61 @@
+<link href="${base}css/sort-table.css" rel="stylesheet" type="text/css"/>
+<link href="${base}css/modules/central-con-manage.css" rel="stylesheet" type="text/css"/>
+<div class="wrapper-content central-con" id="central-con">
+	<div class="row">
+		<div class="col-sm-9 col-xs-9">
+			<span class="tips tip-normal">提醒：您可以通过右下角的<blue>刷新按钮</blue>更新数据<i>，通过<blue>编辑按钮</blue>改变监控模块的排版方式</i>。</span>
+			<span class="tips tip-edit hide">提醒：您可以<@codeValidation codes=operationCodes operationCode="open-right-panel">通过右下角的<blue>“+”</blue>按钮增加监控模块，</@codeValidation>通过<blue>还原按钮</blue>恢复初始界面，点击<blue>“√”</blue>保存修改。</span>
+		</div>
+	
+		<ul id="central-con-bar" class="block__list block__list_tags" style="padding-right: 60px;">
+			<#include "system-panel.html">
+		</ul>
+		<ul class="view-opers">
+			<li class="toTop">
+				<a href="javascript:;" data-opt="toTop" title="回到顶部" class="hide"></a>
+			</li>
+			<li class="refresh">
+				<a href="javascript:;" data-opt="refresh" title="刷新"></a>
+			</li>
+			<li class="reset">
+				<a href="javascript:;" data-opt="reset" title="还原" class="hide"></a>
+			</li>
+			<li class="addView">
+			<@codeValidation codes=operationCodes operationCode="open-right-panel">
+				<a href="javascript:;" data-opt="addView" title="添加监控模块"></a>
+			</@codeValidation>
+			</li>
+			<li class="editView">
+				<a href="javascript:;" data-opt="editView" title="编辑"></a>
+			</li>
+		</ul>
+		<div class="fixed-wrap" style="display: none;">
+			<div class="rgt-content" style="width: 350px;">
+				<div class="top-bar"><span>监控面板管理</span><a href="javascript:;" class="btn btn-primary" data-opt="configView">确认</a></div>
+				<div class="core">
+	
+	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${base}js/sort-table.js"></script>
+<script src="${base}js/modules/views/central-con/sort.js"></script>
+<script src="${base}js/modules/views/central-con/manage.js"></script>
+<script>
+var subsystemPanels = '<@obj2json obj=subsystemPanels ></@obj2json>';
+<#if subsystemPanels??>
+	subsystemPanels = JSON.parse(subsystemPanels).result;
+</#if>
+CentralConManage.init({
+	systemPanels:subsystemPanels,
+	allStatus: JSON.parse('<@obj2json obj=allStatus ></@obj2json>'),
+	allSystemPanels: JSON.parse('<@obj2json obj=allSystemPanels ></@obj2json>').result,
+	operationCodes: '${operationCodes}'
+})
+CentralConSortFn.init({
+	systemPanels:subsystemPanels,
+	operationCodes: '${operationCodes}'
+});
+</script>

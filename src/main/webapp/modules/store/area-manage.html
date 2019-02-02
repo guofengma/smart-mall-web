@@ -1,0 +1,39 @@
+<div id="store-area-${info.id}" class="tab-pane">
+    <div class="panel-body">
+		<div class="row">
+			<div class="col-sm-3">
+				<a class="btn btn-block btn-primary floorMapOpts" data-opt="form-floor">新增楼层</a>
+				<ul class="sortable-list connectList agile-list ui-sortable floorList">
+					<li class="info-element">${info.name}俯视图</li>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+				<a class="btn btn-primary floorMapOpts" data-opt="upload-pic">上传楼层平面图</a>
+				<div class="empty-tip" style="display: none">
+					<div>
+						<img alt="" src="img/floors/no-floor-pg.png">
+					</div>
+				</div>
+				<div class="mag-eg-el-wrap img-thumbnail" style="display: none">
+					<div class="proportion">
+						<div mag-thumb="drag" class="mag-eg-el mee-thumb-drag">
+							<img src="" />
+						</div>
+						<div mag-zoom="drag" class="mag-eg-el mee-zoom-drag">
+							<img src="" />
+						</div>
+						<div class="filler"></div>
+					</div>
+					<div mag-ctrl="controls" class="controls-btns cb-ctrl-controls">
+						<a class="mag-eg-ctrl-zoom-out btn btn-outline" mag-ctrl-zoom-by="-0.5">
+							<i class="fa fa-minus"></i>
+						</a>
+						<a class="mag-eg-ctrl-zoom-in btn btn-outline" mag-ctrl-zoom-by="0.5">
+							<i class="fa fa-plus"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

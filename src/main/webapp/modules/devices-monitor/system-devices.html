@@ -1,0 +1,61 @@
+<#if devices?? && devices.resultList?? && devices.resultList?size gt 0>
+<div class="list">
+    <ul class="system-devices">
+        <#list devices.resultList as item>
+        <!-- 1. 目前只有门禁，视频，ap系统的接入存在状态
+             2. 有状态的系统，参考字典： 1-异常 null-其它 0-正常
+             3. 门禁和视频不存在单纯的正常描述，具体状态需要取businessState中去取
+        -->
+        <#assign state = item.physicalState>
+        <#assign bstate = item.businessState>
+        <#assign ifStateSystem = (item.systemCode == 'door' || item.systemCode == 'vedio' || item.systemCode == 'ap' || item.systemCode == 'passengerflow')?string('yes', 'no')>
+        <#if ifStateSystem == 'no'>
+            <#assign state = ''> <!-- 置空state，不存在状态 -->
+        </#if>
+        <li>
+            <a href="javascript:;" class="state-${state!'null'}" data-opt="locationDevice" data-floor-id="${item.floorId}" data-device-id="${item.id}" data-system-code="${item.systemCode}" right-click="1" data-locate="0">
+                <#if ifStateSystem == 'yes'>
+                    <i class="d-icon physicalState-${state!'null'}"></i>
+                </#if>
+                <span>${item.deviceName}</span>
+            </a>
+            <#if keySearch?? && keySearch == '1'>
+            <span class="key-search-floor-info" data-floor-id="${item.floorId}">
+                ${(item.floor.areaName)!'未知'}-${(item.floor.floorName)!'未知'}
+            </span>
+            <#else>
+            <#if ifStateSystem == 'yes'>
+            <span class="physicalState-${state!'null'}">
+            <#if state??>
+                <#if state == 1>
+                    <!--异常-->
+                <#else>
+                    <#if bstate??>
+                        <#list bstate as bs>
+                            ${bs.statusValue}
+                        </#list>
+                    <#else>
+                        <#if item.systemCode == 'ap'>
+                            <!--正常-->
+                        <#else>
+                            <!--其它-->
+                        </#if>
+                    </#if>
+                </#if>
+            <#else>
+            <!--其它-->
+            </#if>
+            </span>
+            </#if>
+            </#if>
+            
+        </li>
+        </#list>
+    </ul>
+    <div class="pagination text-right" data-total-count="${devices.totalCount}" data-limit="${devices.pageSize}" data-page="${devices.currentPage}" style="display:block"></div>
+    <div class="page-count">共${devices.totalCount}条/${devices.totalPageNum}页 第${devices.currentPage}页</div>
+    <div style="clear: both"></div>
+</div>
+<#else>
+<div class="list empty">暂无设备</div>
+</#if>

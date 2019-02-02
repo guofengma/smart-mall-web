@@ -1,0 +1,126 @@
+<style>
+	.buildingCons dt {
+		height: 45px;
+		line-height: 40px;
+		font-size: 18px;
+		border-bottom: 1px solid #ddd;
+		margin-bottom: 30px;
+	}
+
+	.buildingCons .buildingCon-box {
+		width: 460px; 
+		float: left;
+		box-shadow: 2px 1px 10px #ccc;
+		border-radius: 8px;
+		margin-bottom: 30px;
+		margin-right: 40px;
+		position: relative;
+	}
+	.buildingCons .buildingCon-box > ._t {
+		position: relative;
+		height: 50px;
+		line-height: 50px;
+		border-bottom: 1px solid #D8E2EB;
+		background: linear-gradient(90deg, #A1DCFB, #6BCBFC);
+		color: #ffffff;
+		border-radius: 8px 8px 0 0;
+		text-align: center;
+		font-size: 16px;
+		border-bottom: 1px solid #ddd;
+	}
+	.buildingCons .buildingCon-box > ._c {
+		padding: 10px 20px;
+		line-height: 25px;
+	}
+	
+	.buildingCons .buildingCon-box > ._c ul {
+		overflow: hidden;
+	}
+	.buildingCons .buildingCon-box > ._c li {
+		position: relative;
+		float: left;
+		width: 50%;
+		background: rgb(242,242,242);
+		border-right: 2px solid #fff;
+		border-bottom: 2px solid #fff;
+		padding: 8px;
+	}
+	
+	.buildingCons .buildingCon-box > ._c li:nth-child(odd)::before {
+		content:'';
+		background-color: rgb(58, 143, 226);
+		width: 4px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+	}
+	
+	.buildingCons .buildingCon-box > ._c li span {
+		display: inline-block;
+		float: left;
+		
+	}
+	.empty-page {
+		padding: 100px 50px;
+		text-align: center;
+	}
+
+	.empty-page img {
+		margin-bottom: 20px;
+	}
+</style>
+<div class="wrapper-content" id="buildingConManage">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins ">
+				<div class="ibox-title ">
+					<h5>楼宇监控</h5>
+					<div class="ibox-tools ">
+					</div>
+				</div>
+				<div class="ibox-content ">
+					<#if datas?? && datas?size gt 0 >
+					<dl class="buildingCons">
+						<#list datas as d>
+						<!-- <dt>${(d.variablename)!'-'}</dt> -->
+						<dd>
+							<div class="buildingCon-box ">
+								<div class="_t">${(d.variablename)!'-'}</div>
+								<div class="_c">
+									<#if d.items?? && d.items?size gt 0 >
+									<ul>
+										<#list d.items as item>
+										<li>
+											<span style="width: 70%">${item.name}</span>
+											<span class="text-navy">${item.value}&#176;</span>
+										</li>
+										</#list>
+									</ul>
+									<#else>
+										暂无数据
+									</#if>
+								</div>
+							</div>
+							<div style="clear: both; "></div>
+						</dd>
+						</#list>
+					</dl>
+					<#else>
+					<div style="padding: 150px 0;text-align:center">
+						<img src="img/sub-sys-bg.png" height="400px">
+						<div style="padding: 20px 0; color: #444; font-size: 18px">
+							连接不上子系统
+						</div>
+					</div>
+					</#if>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	new SupplierManage({});
+</script>

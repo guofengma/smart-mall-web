@@ -1,0 +1,75 @@
+<!-- 设备表单的一些数据渲染 -->
+<script type="text/html" id="fd_device_form_other_params_tpl">
+{{# if (d && d.length > 0) { }}
+	{{# layui.each(d, function(index, item){ }}
+	<div class="form-group">
+          	<label class="col-sm-3 control-label">*{{item.pDescription}}</label>
+          	<div class="col-sm-9">
+			{{# if(item.pControlType === 'textbox') { }}
+				<input class="form-control" placeholder="{{item.pDescription}}" type="text" name="{{item.pCode}}" value="{{item.pValue}}" role="user-params" data-regex="{{item.pRegexExp}}">
+        			{{# } }}
+		</div>
+          </div>
+	{{# }); }}
+{{# } }}
+</script>
+<!-- 楼层平面图渲染 -->
+<script  id="fd_floors_menu_datas" type="text/html">
+	{{# if(d && d.length > 0) { }}
+		<select class="form-control areas">
+			{{# layui.each(d, function(i, area){ }}
+				<option value="{{area.id}}">{{area.areaName}}</option>
+			{{# }) }}
+		</select>
+		<div class="floors">
+			{{# layui.each(d, function(i, area){ }}
+				<select class="form-control floor hide" id="fdmd-collapse-{{area.id}}">
+					{{# if(area && area.floors && area.floors.length > 0) { }}
+		                {{# layui.each(area.floors, function(j, floor){ }}		
+		                    <option value="{{floor.id}}" data-name="{{floor.floorName}}">
+								{{# if(floor.serialNumber < 0) { }}
+									B{{floor.serialNumber * -1}}
+								{{# } else { }}
+									{{floor.serialNumber}}F 
+								{{# } }}
+								
+							</option>
+		        		{{# }) }}
+					{{# } else { }}
+						<option value="">暂无楼层</option>
+					{{# } }}
+				</select>
+			{{# }) }}
+		</div>
+		<h5>设备及平面图</h5>
+	{{# } else { }}
+		<div class="text-center"></div>
+	{{# } }}
+</script>
+<!-- 设备监控的子系统及设备渲染 -->
+<script type="text/html" id="fd_device_system_tpl">
+	{{# if (d && d.data.length > 0) { }}
+		{{# layui.each(d.data, function(index, item){ }}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+				    <h5 class="panel-title">
+				    	<a role="device-by-syscode" data-syscode="{{item.systemCode}}" data-toggle="collapse" data-parent="#fd-device-system" href="#floor-devices-{{item.systemCode}}-{{d.moduleId}}" >
+				    		<i class="icon-img {{item.code}}-ico"></i>&nbsp;{{item.systemName}}</a>
+						<span></span>
+				    </h5>
+				</div>
+				<div id="floor-devices-{{item.systemCode}}-{{d.moduleId}}" class="panel-collapse collapse floor-devices-{{item.systemCode}}">
+				    <div class="panel-body no-padding">
+						<div class="sort-btn text-right">
+							<span>其他顺序</span>
+						</div>
+				        <ul class="list-group ss-device-lst"></ul>
+						<div class="text-right" id="floor-devices-{{item.code}}-{{d.moduleId}}-page"></div>
+				    </div>
+				</div>
+			</div>
+		{{# }); }}
+	{{# } else { }}
+		<p class="no-system text-center">未关联子系统<p>
+	{{# } }}
+</script>

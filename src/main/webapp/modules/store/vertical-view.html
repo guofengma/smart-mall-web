@@ -1,0 +1,97 @@
+<style>
+#store-vertical-view a[data-opt="del-match"] {
+	background-color: #f7bf57;
+	color: #ffffff;
+	border-color:#f7bf57;
+}
+#store-vertical-view a[data-opt="del-match"]:hover {
+	background-color: #ffffff;
+	color: #f7bf57;
+}
+</style>
+<div class="wrapper-content" id="store-vertical-view">
+    <div class="row">
+        <div class="col-sm-12 no-padding">
+            <div class="ibox float-e-margins" style="margin:0">
+                <div class="ibox-title">
+                    <h5>园区俯视图</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-white btn-bitbucket btn-xs" href="javascript: goPage('index',{subModule:'store-info'})">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" style="padding-bottom: 0">
+               		<div class="pg-oper-block">
+               			<div class="vertical-view-handler-empty" style="text-align: center;padding-top: calc((100vh - 580px) / 2);display:none">
+							<img src="img/floors/no-plan-graph.png" height="300">
+						</div>
+						<div class="vertical-view-handler col-sm-9">
+							<img src="">
+							<div class="move_target">
+								<img src="" width="200">
+							    <div class="coor"></div>
+							    <i></i>
+							</div>
+							<ul class="configed-area-pics">
+               					<#list configedAreas as ca>
+               					<#if ca??>
+								<li>
+									<a href="javascript:;" data-id="${ca.id}" data-x="${ca.layoutConfig.x?string['0.######']}" data-y="${ca.layoutConfig.y?string['0.######']}" data-scale="${ca.layoutConfig.ratio?string['0.######']}">
+	               						<img alt="" src="${ca.picture.picture.storage[2].fileStorageUrl}" style="width: 0px;">
+	               					</a>
+	               				</li>
+	               				</#if>
+               					</#list>
+							</ul>
+						</div>
+               			<ul class="area-pgs col-sm-3 hide">
+               				<#if unconfigAreas?? && unconfigAreas?size gt 0>
+               				<#list unconfigAreas as uca>
+               					<#if uca?? && uca.picture??>
+	               				<li>
+	               					<a href="javascript:;" data-id="${uca.id}">
+	               						<img alt="" src="${uca.picture.picture.storage[2].fileStorageUrl}">
+	               					</a>
+	               				</li>
+	               				</#if>
+               				</#list>
+               				<#else>
+               				暂无未配置的区域
+               				</#if>
+               			</ul>
+               		</div> 
+               		<div class="row" style="margin-top: 20px;">
+               			<div class="col-sm-12">
+               				<@codeValidation codes=operationCodes operationCode="vertical-view-upload">
+							<a class="btn btn-primary" href="javascript:;" data-opt="upload-layout">
+               					上传全局图
+               				</a>
+               				</@codeValidation>
+               				<@codeValidation codes=operationCodes operationCode="vertical-view-match">
+               				<!-- <a class="btn btn-info" href="javascript:;" data-opt="set-layout">
+               					位置信息匹配
+               				</a> -->
+               				</@codeValidation>
+               				<@codeValidation codes=operationCodes operationCode="vertical-view-del-match">
+	               				<#if (unconfigAreas?? && unconfigAreas?size gt 0) ||(unconfigAreas?? && unconfigAreas?size gt 0)>
+		               				<a class="btn btn-default" href="javascript:;" data-opt="del-match">
+		               					重新匹配
+		               				</a>
+	               				</#if>
+               				</@codeValidation>
+               			</div>
+               		</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${base}js/modules/views/store/vertical-view-handler.js"></script>
+<script src="${base}js/modules/views/store/vertical-view-manage.js"></script>
+<script>
+MallLayoutManage.init({
+	mallId: '${mallId}',
+	operationCodes: '${operationCodes}'
+});
+</script>

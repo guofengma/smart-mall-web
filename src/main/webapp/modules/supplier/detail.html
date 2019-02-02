@@ -1,0 +1,241 @@
+<style>
+
+.supplierDetailArea .name-line {
+	font-size: 18px;
+	line-height: 18px;
+	color: #333;
+	margin-bottom: 30px;
+}
+.supplierDetailArea .name-line > i.icon-img {
+	width: 84px;
+    height: 84px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.supplierDetailArea .name-line > i.fa-pencil {
+	cursor: pointer;
+}
+
+.supplierDetailArea .name-line > span {
+	margin-right: 10px;
+}
+.supplierDetailArea .item {
+	font-size: 16px;
+	line-height: 16px;
+	margin-bottom: 30px;
+	color: #666;
+}
+
+
+.supplierDetailArea .title-line {
+	height: 48px;
+	border-top: 1px solid #ddd;
+	font-size: 18px;
+	line-height: 63px;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+.supplierDetailArea table {
+	border: 1px solid #ddd;
+	margin-bottom: 30px;
+}
+
+.supplierDetailArea table th {
+	height: 55px;
+	line-height: 55px;
+	border-bottom: 1px solid #ddd;
+	padding: 0 20px;
+	font-size: 16px;
+} 
+
+.supplierDetailArea table td {
+	padding: 20px;
+	line-height: 30px;
+	font-size: 14px;
+}
+
+
+.supplierDetailArea .linkmans > li {
+	width: 350px;
+	box-shadow: 2px 1px 10px #ccc;
+	padding: 30px 20px;
+	border-radius: 8px;
+	float: left;
+	margin-right: 30px;
+	margin-bottom: 30px;
+}
+
+.supplierDetailArea .linkmans > li .name-line {
+	color: #333;
+	height: 18px;
+}
+.supplierDetailArea .linkmans > li > div {
+	margin-bottom: 20px;
+}
+.supplierDetailArea .linkmans > li > div:last-child{
+	margin-bottom: 0;
+}
+.supplierDetailArea .linkmans > li .name-line > span,
+.supplierDetailArea .linkmans > li .name-line > i.ginder {
+	float: left;
+	margin-right: 20px;
+}
+.supplierDetailArea .linkmans > li .name-line > i.ginder {
+	cursor:pointer;
+}
+.supplierDetailArea .linkmans > li .name-line > a.major-area,
+.supplierDetailArea .linkmans > li .name-line > a.edit {
+	float: right;
+	margin-left: 20px;
+	cursor:pointer;
+}
+
+.supplierDetailArea .linkmans > li i {
+	width: 18px;
+	height: 18px;
+	margin-top: 1px;
+	display: inline-block;
+	vertical-align: sub;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.supplierDetailArea .linkmans > li .name-line > a.major-area > i,
+.supplierDetailArea .linkmans > li .name-line > a.edit > i {
+	vertical-align: baseline;
+}
+
+.supplierDetailArea .linkmans > li > div > span {
+	margin-right: 30px;
+}
+.linkmans > li {
+	position: relative;
+}
+.linkmans > li > a.remove {
+   	position: absolute;
+	width: 20px;
+	height: 20px;
+	background-color: #eee;
+	line-height: 20px;
+	text-align: center;
+	border-radius: 20px;
+	right: -5px;
+	top: -5px;
+}
+
+</style>
+<div class="wrapper-content supplierDetailArea" style="height:100%;position: relative">
+	<div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>供应商详情</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-white btn-bitbucket btn-xs" href="javascript:;" onclick="goPage('index')">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+				    <div class="name-line">
+				    	<i class="icon-img ${info.type}"></i>
+				    	<span>${(info.name)!'-'}</span>
+				    	<a href="javascript:;" class="text-navy" data-opt="editBasic" data-id="${info.id}"><i class="fa fa-pencil"></i></a>
+				    </div>
+				    <div class="item">
+				    	供应商类型： ${(info.typeName)!'-'}
+				    </div>
+				    <div class="item">
+				    	固定电话：${(info.phone)!'-'}
+				    </div>
+				    <div class="item">
+				    	公司地址： ${(info.address)!'-'}<i class=""></i>
+				    </div>
+				    <div class="map-selection" style="height: 200px; width: 600px; margin-left: 80px; margin-top: -20px; margin-bottom: 20px;">
+						<div class="map-container" id="supllier-info-address-map"></div>
+						<div class="point-info">
+							<span></span>
+							<i class="coordinate"></i>
+							<i class="coordinate-animate"></i>
+						</div>
+					</div>
+				    <div class="title-line">供应设备
+					    <#if overBrand == 1>
+					    	<a class="btn btn-default" href="javascript:;" onclick="layer.msg('不可重复对一个供应系统进行供应品牌的勾选配置，因此最多可添加${typeLen}项配置');"><i class="fa fa-plus"></i></a>
+					    <#else>
+					   		<a class="btn btn-primary" href="javascript:;" data-opt="editSysBrands" data-link-id="${info.id}"><i class="fa fa-plus"></i></a>
+					    </#if>
+				    </div>
+				    <table class="col-xs-12 col-sm-8">
+				    	<tr>
+				    		<th>供应系统名称</th>
+				    		<th>供应品牌</th>
+				    		<th>操作</th>
+				    	</tr>
+				    	<#list relateBrands?keys as key>
+				    	<tr class="brands-tr">
+				    		<td>${relateBrands[key][0].system}</td>
+				    		<td>
+				    		<#list relateBrands[key] as brand>
+				    			${brand.brand}<br>
+				    		</#list>
+				    		</td>
+				    		<td>
+				    			<a href="javascript:;" class="text-navy" data-opt="editSysBrands" data-id="${relateBrands[key][0].id}" data-code="${key}" data-link-id="${info.id}"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+				    			<a href="javascript:;" class="text-navy" data-opt="removeSysBrand" data-id="${relateBrands[key][0].id}" data-code="${key}" data-link-id="${info.id}"><i class="fa fa-trash"></i></a>
+				    		</td>
+				    	</tr>
+				    	</#list>
+				    </table>
+				    <div style="clear: both"></div>
+				    <div class="title-line">联系人
+				    <#if info.contactsDto?size gte 9>
+				    	<a class="btn btn-default" href="javascript:;" onclick="layer.msg('最多可添加9位联系人');"><i class="fa fa-plus"></i></a>
+				    <#else>
+				   		<a class="btn btn-primary" href="javascript:;" data-opt="editLinkman" data-link-id="${info.id}"><i class="fa fa-plus"></i></a>
+				    </#if>
+				    </div>
+				    <ul class="linkmans">
+				    	<#list info.contactsDto as c>
+				    	<li>
+				    		<a class="remove" href="javascript:;" data-opt="removeLinkman" data-id="${c.id}" data-link-id="${info.id}">
+				    			<i class="fa fa-times" style="vertical-align: baseline;"></i>
+				    		</a>
+				    		<div class="name-line">
+				    			<span>${(c.name)!'-'}</span>
+				    			<i class="ginder sex${c.sex}"></i>
+				    			<a class="text-navy edit" href="javascript:;" data-opt="editLinkman" data-id="${c.id}" data-link-id="${info.id}"><i class="fa fa-pencil"></i></a>
+				    			<a class="text-navy major-area" href="javascript:;" data-opt="majorLinkman" data-id="${c.id}" data-link-id="${info.id}" data-major="${c.major}">
+				    			<i class="major<#if c.major == 1>ed</#if>"></i></a>
+				    		</div>
+				    		<div class="dept"><i class="position"></i>&nbsp;${c.position!'-'}</div>
+				    		<div class="contact">
+								<span><i class="tell"></i>&nbsp;${c.phone!'-'}</span>
+								<span><i class="qq"></i>&nbsp;${c.qq!'-'}</span>
+							</div>
+				    		<div class="email">
+								<i class="email"></i>&nbsp;${c.email!'-'}
+							</div>
+				    	</li>
+				    	</#list>
+				    </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+new SupplierDetail({
+	mapAddress: '${(info.address)!'-'}',
+	relateBrands: '<@obj2json obj=relateBrands ></@obj2json>'
+	
+});
+</script>

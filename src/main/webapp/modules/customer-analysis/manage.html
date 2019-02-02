@@ -1,0 +1,149 @@
+<style>
+	#customer-analysis-manage .head-line {
+		height: 40px;
+	}
+
+	
+	#customer-analysis-manage .head-line > div.today-flow {
+		float: left;
+		padding-left: 31px;
+		font-weight: bold;
+		font-size: 18px;
+		background: transparent url(img/tools/passengerflow/passengerflow-2.png) no-repeat 0px 0px;	
+	}
+	
+	#customer-analysis-manage .head-line > div.update-info {
+		float: left;
+		font-size: 16px;
+		color: #666;
+		margin-left: 15px;
+	}
+	
+	#customer-analysis-manage .head-line > div.range-date {
+		float: right;
+		position: relative;
+	}
+	
+	#customer-analysis-manage .head-line > div.range-date > div.range-input {
+		position: absolute;
+		top:25px;
+		right: 0;
+		width: 200px;
+		display: none;
+		z-index: 9;
+	}
+	#customer-analysis-manage .add-box {
+		height:550px;
+		background: transparent url(/img/p-no-set.png) no-repeat 50% 20px;
+	}
+	#customer-analysis-manage .add-box p {
+		margin:520px 0 20px 0;
+	}
+	#customer-analysis-manage .add-box a {
+		border-radius:14px 14px;
+	}
+	#customer-analysis-manage .gray_bg {
+		background: #F8F8F8;
+		text-align: center;
+	}
+	
+	#customer-analysis-manage .gray_bg .title {
+		margin: 0 8px;
+		padding-top: 8px;
+    	font-size: 17px;
+   		color: #6C6C6C;
+   		font-family: 'Microsoft YaHei';
+   		text-align: left;
+	}
+	#customer-analysis-manage .gray_bg .echart-box {
+		height: calc(100% - 36px);
+		width: 100%;
+		display: inline-block;
+	}
+	/* #customer-analysis-manage .sex-ratio-pie .echart-box, 
+	#customer-analysis-manage .age-ratio-circle .echart-box{
+		max-height: 300px;
+	} */
+	#customer-analysis-manage .no-data {
+		height: 100%;
+    	background: url(/img/central-con/no-data.png) no-repeat;
+   		background-position: 50% 50%;
+    	background-size: 80px 74px;
+	}
+	#customer-analysis-manage .range-date a.custom-range {
+		color: #3A9DE9;
+	}
+	#customer-analysis-manage .range-date a.custom-range:hover {
+		color: #999999;
+	}
+</style>
+<div class="wrapper-content" id="customer-analysis-manage">
+	<div class="row">
+		<div class="col-sm-12 no-padding">
+		    <div class="ibox float-e-margins">
+		        <div class="ibox-content">
+		        	<#if status?? && status == true>
+		        	<div class="row">
+						<div class="col-sm-12">
+							<section class="head-line">
+								<div class="today-flow">今日客流数<span class="text-navy">${today.total!0}</span>人</div>
+								<#if analysis.nowTime??>
+									<div class="update-info">统计至 <span>${analysis.nowTime?split(' ')[1]}</span></div>
+								</#if>
+								<div class="range-date">
+									<span>${dateRangeMemo}</span>
+									<a class="custom-range" href="javascript:;" href-opt="custom-range">自定义</a>
+									<div class="range-input">
+										<input class="form-control time-select" placeholder="-">
+									</div>
+								</div>
+							</section>
+							<div class="daily-line gray_bg" style="height: 400px; margin-bottom:15px;">
+								<h5 class="title">客流数日统计</h5>
+								<div class="echart-box"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="distribute-bar gray_bg" style="height: 400px">
+								<h5 class="title">客流量分布</h5>
+								<div class="echart-box"></div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="sex-ratio-pie gray_bg" style="height: 400px">
+								<h5 class="title">进店性别分布</h5>
+								<div class="echart-box"></div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="age-ratio-circle gray_bg" style="height: 400px">
+								<h5 class="title">进店年龄分布</h5>
+								<div class="echart-box"></div>
+							</div>
+						</div>
+					</div>
+					<#else>
+					<div class="col-sm-12 add-box text-center">
+						<p class="text-center"></p>
+						<a href="javascript: goModule({moduleName:'store',directive:'sub-system-form'})" class="add-sub-sys btn btn-primary">前去接入</a>
+					</div>
+					</#if>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>
+<script src="${base}js/modules/views/customer-analysis-manage.js"></script>
+<script>
+<#if status?? && status == true>
+	CustomerAnalysisManage.init({
+		beginTime: '${beginTime}',
+		endTime: '${endTime}',
+		<#if analysis??>
+		analysis: JSON.parse('<@obj2json obj=analysis ></@obj2json>')
+		</#if>
+	});
+</#if>
+</script>

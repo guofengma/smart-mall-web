@@ -1,0 +1,116 @@
+<!-- 指令模板 列表 -->
+<script id="command_template_list_tpl" type="text/html">
+{{# if(d && d.length > 0) { }}
+{{# layui.each(d, function(index1, brand){ }}
+{{# layui.each(brand.childSystems, function(index2, cs){ }}
+{{# layui.each(cs.versions, function(index3, v){ }}		
+	<div class="version">
+ 		<div class="title">{{brand.bName}}-{{cs.cName}}-{{v.vVersion}}</div>
+ 		<div class="command-templates">
+ 			<div class="above clear">
+ 				<p class="col-sm-4">指令名称</p>
+        		<p class="col-sm-4">指令参数</p>
+        		<p class="col-sm-4">操作</p>
+ 			</div>
+ 			<div class="below clear">
+				{{# if(v.commandTemplate && v.commandTemplate.length > 0) { }}
+				{{# layui.each(v.commandTemplate, function(index4, ct){ }}
+ 					<p class="col-sm-4">{{ct.name}}</p>
+        			<p class="col-sm-4"><a class="text-navy detail" data-id= "{{ct.id}}">查看详情</a></p>
+        			<p class="col-sm-4" data-id= "{{ct.id}}">
+        				<a href="javascript:;" title="编辑" class="edit"><i class="fa fa-pencil text-navy">&nbsp;</i></a>&nbsp;&nbsp;
+        				<a href="javascript:;" title="删除" class="remove"><i class="fa fa-trash text-navy">&nbsp;</i></a>&nbsp;&nbsp;
+        			</p>
+        		{{# }) }}
+				{{# } else { }}
+					<p class="col-sm-12 no-data">
+					{{# if(v.vPatternType && v.vPatternType == 3) { }}
+						无需配置
+					{{# } else { }}
+						暂无数据
+					{{# } }}
+					</p>
+				{{# } }}
+ 			</div>
+ 		</div>
+ 	</div>
+{{# }) }}
+{{# }) }}
+{{# }) }}
+{{# } else { }}
+	<p class="col-sm-12 no-data">暂无数据</p>
+{{# } }}
+</script>
+<!-- 指令模板 详情 -->
+<script id="command_template_detail_tpl" type="text/html">
+<div class="command-template-detail">
+   	<h4>指令名称：{{d.name}}</h4>
+	{{# if(d.commandModuleDetail && d.commandModuleDetail.length > 0) { }}
+	{{# layui.each(d.commandModuleDetail, function(index1, cmd){ }}
+   		<div class="configure">
+   			<p>指令动作：{{cmd.commandName}}</p>
+   			<div class="parameters">
+				{{# layui.each(cmd.commandParameter, function(index2, cp){ }}
+   					<p>{{cp.pDescription}}：{{cp.pValue}}</p>
+				{{# }) }}
+   			</div>
+   		</div>
+	{{# }) }}
+	{{# } else { }}
+		<p class="no-data">暂无数据</p>
+	{{# } }}
+</div>
+</script>
+<!-- 指令模板 参数 -->
+<script id="command_template_form_configure_tpl" type="text/html">
+	{{# if(d && d.length > 0) { }}
+		<div class="configure clear">
+			<i class="fa fa-times text-navy remove" title="删除参数"></i>
+        	<div class="form-group">
+				<label class="col-sm-2 control-label">指令动作</label>
+                <div class="col-sm-6">
+					<select class="form-control" name="commandCode">
+						<option disabled selected>请选择</option>
+						{{# layui.each(d, function(index, item){ }}
+							<option value="{{item.fName}}">{{item.fDescription}}</option>
+						{{# }) }}
+					</select>
+                </div>
+			</div>
+			<div class="parameters"></div>
+		</div>
+	{{# } else { }}
+		<div class="col-sm-12 no-data">暂无数据</div>
+	{{# } }}
+</script>
+<script id="command_template_form_parameters_tpl" type="text/html">
+{{# if(d && d.length > 0) { }}
+{{# layui.each(d, function(index1, item){ }}
+	<div class="form-group" data-string = '{{item.string}}'>
+		<label class="col-sm-2 control-label">{{item.pDescription}}</label>
+		<div class="col-sm-6">
+			{{# if(item.pControlType && item.pControlType == "input") { }}
+				<input class="form-control value-box" placeholder="请输入{{item.pDescription}}" type="text" name="pValue" data-reg="{{item.pRegexExp}}">
+			{{# } else if(item.pControlType && item.pControlType == "radio") { }}
+				{{# layui.each(d.pOptional, function(index, pop){ }}
+					<label class="checkbox-inline i-checks"><input class="value-box" type="radio" value="{{pop.value}}" name="pValue"> <i></i> {{pop.key}}</label>
+				{{# }) }}
+			{{# } else if(item.pControlType && item.pControlType == "checkbox") { }}
+				 {{# layui.each(d.pOptional, function(index, pop){ }}
+					<label class="checkbox-inline i-checks"><input class="value-box" type="checkbox" value="{{pop.value}}" name="pValue"> <i></i> {{pop.key}}</label>
+				{{# }) }}
+			{{# } else if(item.pControlType && item.pControlType == "select") { }}
+				<select class="form-control value-box" name="pValue">
+					<option disabled selected>请选择</option>
+					{{# layui.each(d.pOptional, function(index, pop){ }}
+						<optionvalue="{{pop.value}}">{{pop.key}}</option>
+					{{# }) }}
+				</select>			
+			{{# } else if(item.pControlType && item.pControlType == "date") { }}
+				<input class="form-control time-set value-box" id="date-{{index1}}" type="text" name="pValue" data-reg="{{item.pRegexExp}}">
+			{{# } }}
+		</div>
+	</div>
+{{# }) }}
+{{# } }}	
+</script>	

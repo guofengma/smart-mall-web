@@ -1,0 +1,12 @@
+<#list devices as item>
+    <#assign ifStateSystem = (item.systemCode == 'door' || item.systemCode == 'vedio' || item.systemCode == 'ap' || item.systemCode == 'passengerflow')?string('yes', 'no')>
+    <#assign iconColor = 'gray'>
+    <#if item.physicalState == 1>
+        <#assign iconColor = 'red'>
+    </#if>
+    <!-- 设备状态为正常，或者不存在设备状态， 永恒显示蓝色-->
+    <#if item.physicalState == 0> 
+        <#assign iconColor = 'blue'>
+    </#if>
+    <a class="d-point" href="javascript:;" style="top: ${item.y}px; left:${item.x}px" data-opt="detail" data-device-id="${item.id}" data-system-code="${item.systemCode}" right-click="1" data-locate="1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-${item.systemCode}-<#if ifStateSystem == 'no'>blue<#else>${iconColor}</#if>" data-color="<#if ifStateSystem == 'no'>blue<#else>${iconColor}</#if>"></use></svg></a>
+</#list>

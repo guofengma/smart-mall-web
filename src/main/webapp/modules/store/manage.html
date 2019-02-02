@@ -1,0 +1,151 @@
+<style type="text/css">
+#store-manage .panel-body {
+	padding: 10px 0 0 0;
+}
+li.info-element {
+	font-weight: bold;
+}
+
+li.info-element:hover {
+	color: #31b0ff;
+}
+
+.img-thumbnail {
+	position: relative;
+	overflow: auto;
+	width: 100%;
+	background: transparent;
+	height: calc(100vh - 196px);
+}
+#store-manage div.floor-lst {
+	height: calc(100vh - 236px);
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+#store-manage div.floor-lst > ul {
+	padding-top: 0;
+}
+
+.empty-tip {
+	text-align: center;
+}
+
+.empty-tip>div {
+	margin: 50px 0;
+}
+#store-manage .pg-bg {
+	width: 100%;
+	height: calc(100vh - 290px);
+	background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    cursor: grab;
+}
+#floor-devices-html .panel-body {
+	height: calc(100vh - 162px);
+	position: relative;
+}
+</style>
+<div class="wrapper-content" id="store-manage" style="position: relative; padding-bottom:0;">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="tabs-container">
+                <ul class="nav nav-tabs">
+                	<li class="store-info"><a data-toggle="tab" href="#sm-brief" aria-expanded="true">${storeinfo.name!'商场信息'}</a></li>
+                    <@codeValidation codes=operationCodes operationCode="area-manage">
+                  		<li class="aera-floor"><a data-toggle="tab" href="#aera-floor-html" aria-expanded="true">区域及楼层管理</a></li>
+					</@codeValidation>
+					<li class="sub-system-manage"><a data-toggle="tab" href="#sub-system-manage-html" aria-expanded="true">子系统管理</a></li>
+					<li class="floor-devices"><a data-toggle="tab" href="#floor-devices-html" aria-expanded="true" onclick="loadSysDevices()">商场设备管理</a></li>
+                </ul>
+                <div class="tab-content sm-tabs">
+                    <div id="sm-brief" class="tab-pane">
+                        <div class="panel-body">
+                        	<#include "brief.html"/>
+                        </div>
+                    </div>
+                    <div id="aera-floor-html" class="tab-pane">
+                        <div class="panel-body">
+                        	<#include "area-floor.html"/>
+                        </div>
+                    </div>
+                    <div id="floor-devices-html" class="tab-pane">
+                        <div class="panel-body">
+                        	
+                        </div>
+                    </div>
+                    <div id="sub-system-manage-html" class="tab-pane">
+                        <div class="panel-body"></div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+<script src="${base}js/modules/views/store/store-router.js"></script>
+<script src="${base}js/modules/views/store/floor-info.js"></script>
+<script src="${base}js/modules/views/floor-device/scale-panel.js"></script>
+
+
+<script src="${base}js/modules/views/device-upload.js"></script>
+<script src="${base}js/modules/views/sys-devices/floor-plan.js"></script>
+<script src="${base}js/modules/views/sys-devices/manage.js"></script>
+<script>
+let firstOption = true;
+setTimeout(function(){
+	StoreRouter.init({
+		mallId: '${mallId}',
+		floorId: '${floorId}',
+		areaId: '${areaId}',
+		operationCodes: '${operationCodes}',
+	});
+	console.log()
+	if('${subModule}' && '${subModule}' != '') {
+		$('#store-manage ' + '.${subModule}' + ' a').trigger('click');
+	} else {
+		/* StoreRouter.getAreas({areaId:'${areaId}',floorId:'${floorId}'}); */
+		$('#store-manage  .store-info a').trigger('click');
+	}
+	
+})
+// var areaFloorManage = new AreaFloorManage({
+// 		opers: '${operationCodes}',
+// 		moduleId:'${devicesMonitorModuleId}'
+// 	}),
+// 	floorDeviceDataLoading = new FloorDeviceDataLoading(),
+// 	floorDeviceEvents = new FloorDeviceEvents();
+// $('#store-manage .floor-devices').on('click',function(){
+// 	areaFloorManage.init({viewStatus:'manage'});
+// }) 
+$('#store-manage .aera-floor a').unbind().on('click',function(){
+	if(firstOption) {
+		firstOption = false;
+		StoreRouter.getAreas({areaId:'${areaId}',floorId:'${floorId}'});
+	} else {
+		StoreRouter.getAreas();
+	}
+	 
+});
+$('#store-manage .sub-system-manage a').unbind().on('click',function(){
+	CommonUtil.ajaxRequest({
+        url: 'store/sub-system',
+        type: 'get',
+        data: {}
+    },function(res){
+    	$('#sub-system-manage-html .panel-body').html(res);
+    })
+});
+var storeDeviceManage = null;
+
+
+function loadSysDevices() {
+	storeDeviceManage = new deviceMonitorManage({
+		moduleId: '#floor-devices-html > div',
+		editModel: true,
+		name: 'storeDeviceManage'
+	});
+}
+</script>

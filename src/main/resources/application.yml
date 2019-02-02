@@ -1,0 +1,64 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://192.168.10.202:15000/eureka/
+server:
+  port: 8110
+  undertow:
+    io-threads: 16
+    worker-threads: 64
+    buffer-size: 1024
+    direct-buffers: true
+ribbon:
+  ReadTimeout: 600000
+  SocketTimeout: 600000
+hystrix:
+  command:
+    default:
+      execution:
+        #          isolation:
+        #            thread:
+        #              timeoutInMilliseconds: 600000
+        timeout:
+          enabled: false
+spring:
+  http:
+    multipart:
+      max-file-size: 10Mb
+      max-request-size: 10Mb
+  application:
+    code: smart-mall-web
+    name: smart-mall-web
+  redis:
+    database: 3
+    host: 192.168.10.202
+    port: 7001
+    pool:
+      min-idle: 0
+      max-idle: 8
+      max-wait: -1
+      max-active: 8
+    timeout: 0
+  rabbitmq:
+    host: 192.168.10.202
+    port: 5672
+    username: eminsys
+    password: emin@2017
+    virtual-host: /notify
+  freemarker:
+    allow-request-override: false
+    cache: true
+    checkTemplateLocation: true
+    charset: UTF-8
+    contentType: text/html
+    exposeRequestAttributes: true
+    exposeSessionAttributes: true
+    exposeSpringMacroHelpers: false
+    suffix: .html
+    templateLoaderPath: classpath:/
+    prefer-file-system-access: false
+    settings:
+      templateExceptionHandler: ignore

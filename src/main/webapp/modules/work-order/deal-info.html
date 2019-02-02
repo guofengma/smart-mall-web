@@ -1,0 +1,74 @@
+<style>
+    .bot-opers {
+        margin-top: 45px;
+    }
+    .bot-opers button {
+        width: 100%;
+    }
+</style>
+<form method="get" class="form-horizontal" id="abnormal-dealinfo-form" autocomplete="off">
+    <input type="hidden" name="relateId" value="${relateId}">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">异常类型</label>
+        <div class="col-sm-9">
+            <#list abnormalTypes as type>
+            <label class="radio-inline i-checks">
+                <input value="${type.code}" name="type" type="radio" <#if type_index==0>checked</#if>>&nbsp;${type.value}
+            </label>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">处理结论</label>
+        <div class="col-sm-9">
+            <textarea class="form-control" name="conclusion" placeholder="请填写处理结论"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">维修耗材</label>
+        <div class="col-sm-9">
+            <label class="radio-inline i-checks">
+                <input value="1" name="isHc" type="radio" checked>&nbsp;无耗材
+            </label>
+            <label class="radio-inline i-checks">
+                <input value="2" name="isHc" type="radio">&nbsp;有耗材
+            </label>
+        </div>
+    </div>
+    <div class="form-group hcDetail hide">
+        <div class="col-sm-9 col-sm-offset-2">
+            <textarea class="form-control" name="hcDetail" placeholder="请填写维修耗材详情"></textarea>
+        </div>
+    </div>
+    <div class="form-group bot-opers">
+        <div class="col-sm-3 col-sm-offset-2">
+            <button class="btn btn-primary" type="button" data-opt="deal" data-deal-type="15">转新单</button>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-primary" type="button" data-opt="deal" data-deal-type="5">还未修好</button>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-primary" type="button" data-opt="deal" data-deal-type="25">维修完毕</button>
+        </div>
+    </div>
+</form>
+<script src="${base}js/modules/views/work-order/deal-info.js?${.now?string('yyMMddhhmmSSsss')}"></script>
+<script>
+
+$('.i-checks').iCheck({
+    checkboxClass: 'icheckbox_square-green',
+    radioClass: 'iradio_square-green',
+});
+
+$('.i-checks').on('ifChanged', function(event){ //ifCreated 事件应该在插件初始化之前绑定 
+	if (event.target.name == 'isHc') {
+        var isHc = $('input[name="isHc"]' + ':checked').val();
+        if (isHc == 2) {
+            $('#abnormal-dealinfo-form .hcDetail').removeClass('hide');
+        } else {
+            $('#abnormal-dealinfo-form .hcDetail').addClass('hide');
+        }
+	}
+	
+});
+</script>

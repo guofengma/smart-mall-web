@@ -1,0 +1,109 @@
+<div class="wrapper-content device-form" id="sys-device-form-${timestamp}">
+    <form method="get" class="form-horizontal">
+		<input type="hidden" role="user-params" name="id" value="${item.id!''}">
+		
+		<input type="hidden" role="user-params" name="floorId" value="<#if item?? && item.floorId??>${item.floorId!''}<#else>${floorId}</#if>">
+		<div class="row">
+			<div class="col-sm-5" style="margin-top:-12px">
+				<h5 class="title">设备定点</h5>
+				<div class="fp-view" style="margin-top:0">
+					<#include 'device-point.html'>
+				</div>
+				<div class="text-center" style="font-size: 12px;"><label>平面图尺寸</label><span class="origin_pic_wh"></span></div>
+				<div class="form-group" style="margin-bottom: 0;">
+					<div class="col-sm-6 form-group">
+						<label class=" col-sm-4 control-label"><span class="text-danger">*</span>X</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" name="x" role="user-params" value="${x!''}">
+						</div>
+					</div>
+					<div class="col-sm-6 form-group">
+						<label class=" col-sm-4 control-label"><span class="text-danger">*</span>Y</label>
+						<div class="col-sm-8">
+								<input class="form-control" type="text" name="y" role="user-params" value="${y!''}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-7" style="height: 486px; overflow: hidden; overflow-y:scroll; margin-top: -12px;">
+				<h5 class="title">系统信息</h5>
+				<div class="form-group systemCode">
+					<label class="col-sm-3 control-label">所属系统</label>
+					<div class="col-sm-9">
+						<select class="form-control" name="systemCode" role="user-params">
+							<#list systems.addItems as s>
+							<option value="${s.systemCode}">${s.systemName}</option>
+							</#list>
+						</select>
+					</div>
+				</div>
+				<div class="form-group deviceTypeCode">
+					<label class="col-sm-3 control-label">系统版本</label>
+					<div class="col-sm-9">
+						<select class="form-control" name="deviceTypeCode" role="user-params">
+						</select>
+					</div>
+				</div>
+				<h5 class="title">设备信息</h5>
+				<div class="form-group">
+					<label class="col-sm-3 control-label"><span class="text-danger">*</span>设备名称</label>
+					<div class="col-sm-9">
+						<input class="form-control" placeholder="输入设备名称，例:摄像头01" type="text" name="deviceName" role="user-params" value="${item.deviceName!''}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label"><span class="text-danger">*</span>设备编号</label>
+					<div class="col-sm-9">
+						<input class="form-control" placeholder="输入设备编号，例：CA34529" type="text" name="deviceCode" role="user-params" value="${item.deviceCode!''}">
+					</div>
+				</div>
+				<div class="form-group supplier">
+					<label class="col-sm-3 control-label">供应商</label>
+					<div class="col-sm-9">
+						<select class="form-control" name="supplierId" role="user-params"></select>
+					</div>
+				</div>
+				<div class="form-group remark">
+					<label class="col-sm-3 control-label">位置描述</label>
+					<div class="col-sm-9">
+						<input class="form-control" placeholder="描述位置，例：大厅东北角" type="text" name="remark" role="user-params" value="${item.remark!''}">
+					</div>
+				</div>
+				<h5 class="title">基本信息</h5>
+				<#assign baseinfo = item.deviceOtherInfo>
+				<div class="other-info">
+					<#include "form_baseinfo.html">
+				</div>
+				<div class="form-group relationId">
+					<label class="col-sm-3 control-label"><span class="text-danger">*</span>序列号</label>
+					<div class="col-sm-9">
+						<input class="form-control" placeholder="硬件唯一标识，必填" type="text" name="relationId" role="user-params" value="${item.relationId!''}">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row form-opts" style="margin-top: 20px;">
+			<div class="col-sm-6 text-center">
+				<button class="btn btn-default" type="button" role="reset">重置</button>
+			</div>
+			<div class="col-sm-6 text-center">
+				<button class="btn btn-primary" type="submit">保存</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script src="${base}js/modules/views/sys-devices/device-point.js"></script>
+<script src="${base}js/modules/views/sys-devices/form.js"></script>
+
+<script>
+	var moduleId = '#sys-device-form-${timestamp} form';
+	
+	new sysDeviceForm({
+		moduleId: moduleId,
+		deviceId: '${(item.id)!""}',
+		vcode: '${(item.deviceTypeCode)!""}',
+		scode: '${systemCode}',
+		supplierId: '${(item.supplierId)!""}',
+		manageName: '${manageName!""}'
+	})
+</script>

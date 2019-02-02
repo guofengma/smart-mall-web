@@ -1,0 +1,164 @@
+<style>
+    #system-devices-selector {
+        margin: 0;
+        margin-top: 20px;
+        height: 535px;
+    }
+    
+    #system-devices-selector > div {
+        height: 100%;
+        overflow: auto;
+    }
+    
+    #system-devices-selector > div:first-child {
+        border-right: 1px solid #e7eaec;
+    }
+    
+    #system-devices-selector .devices-and-floors {
+        position: relative;
+        padding-right: 95px;
+        margin-top: 15px;
+    }
+    
+    #system-devices-selector .devices-and-floors > div.floors-lst {
+        position: absolute;
+        width: 80px;
+        right: 0;
+        top: 0;
+        text-align: center;
+        padding-top: 15px;
+        height: 418px;
+        border-left: 1px solid #e7eaec;
+        margin-top: -15px;
+    }
+    
+    #system-devices-selector .devices-and-floors > div.floors-lst li {
+        padding: 5px;
+        position: relative;
+        cursor: pointer;
+        height: 35px;
+    }
+    
+    #system-devices-selector .devices-and-floors > div.floors-lst li:hover,
+    #system-devices-selector .devices-and-floors > div.floors-lst li.active {
+        font-weight: bold;
+    }
+    
+    #system-devices-selector .devices-and-floors > div.floors-lst li.active {
+        color: #3A8FE2;
+    }
+    #system-devices-selector .devices-and-floors > div.floors-lst li.active::before {
+        content: '';
+        width: 10px;
+        height: 10px;
+        display: block;
+        position: absolute;
+        border: 1px solid #e7eaec;
+        background: #fff;
+        transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        border-bottom: 0;
+        border-left: 0;
+        left: -6px;
+        top: 50%;
+        margin-top: -5px;
+    }
+    
+    #system-devices-selector .selector-title {
+        position: relative;
+        padding: 5px 0;
+        height: 40px;
+        border-bottom: 1px solid #e7eaec;
+    }
+    #system-devices-selector .selector-title > div {
+        float: left;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    
+    #system-devices-selector .selector-title > a {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+    }
+    
+    #system-devices-selector ul.selector-lst {
+        height: 410px;
+        overflow: auto;
+    }
+    #system-devices-selector ul.selector-lst > li {
+        background-color: rgba(58,143,226, .6);
+        color: #fff;
+        padding: 5px;
+        border-radius: 3px;
+        float: left;
+        margin-right: 15px;
+        margin-top: 15px;
+    }
+    #system-devices-selector ul.selector-lst > li > a[data-opt="selector-splice"] {
+        display: none;
+    }
+    #system-devices-selector ul.selector-lst > li:hover > a,
+    #system-devices-selector ul.selector-lst > li.selected > a {
+        
+        display: inline-block;
+        margin-left: 5px;
+        padding-left: 5px;
+        border-left: 1px solid #fff;
+    }
+    #system-devices-selector .selector-btns {
+        padding: 10px 0;
+    }
+    
+</style>
+<div class="row" id="system-devices-selector">
+    <div class="col-sm-8">
+        <form class="search-bar">
+            <button type="button" class="btn btn-default" role="reset"><i class="fa fa-refresh"></i></button>
+            <button type="button" class="btn btn-primary" role="submit"><i class="fa fa-search"></i></button>
+            <div class="search-input">
+                <input type="hidden" name="systemCode" value="${systemCode}" role="user-params">
+                <input type="hidden" name="areaId" value="${areaId}" role="user-params">
+                <input type="hidden" name="floorId" role="user-params">
+                <input type="hidden" name="page" value="1" role="user-params">
+                <input type="hidden" name="limit" value="10" role="user-params">
+                <input class="form-control" type="text" name="name" role="user-params" placeHolder="搜索设备">
+            </div>
+        </form>
+        <div class="tabs-container">
+            <ul class="nav nav-tabs areas-lst">
+                <#list areas as area>
+                <li class="<#if area_index==0>active</#if>" data-area-id="${area.id}">
+                    <a href="javascript:;">${area.areaName}</a>
+                </li>
+                </#list>
+            </ul>
+        </div>
+        <div class="devices-and-floors">
+            <div class="devives-lst"></div>
+            <div class="text-right" id="${systemCode}-ungroup-devices-page"></div>
+            <div class="floors-lst">
+            <ul>
+                <li class="active" data-floor-id="0">全部</li>
+                <#list floors as f>
+                <li data-floor-id="${f.id}">${f.serialNumber}</li>
+                </#list>
+            </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="selector-title">
+            <div>已选（<span data-bind="selector-count">0</span>）</div>
+            <a href="javascript:;" class="text-navy" data-opt="selector-clear">清除全部</a>
+        </div>
+        <ul class="selector-lst"></ul>
+        <div class="text-right selector-btns">
+            <button type="button" class="btn btn-default" role="close-panel">取消</button>
+            <button type="button" class="btn btn-primary" role="save-relates">保存</button>
+        </div>
+    </div>
+</div>

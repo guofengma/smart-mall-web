@@ -1,0 +1,398 @@
+.devices-monitor {
+    height: calc(100vh - 102px);
+    position: relative;
+}
+i.door-ico {
+    background-image: url(../../../img/tools/door/door-ico.png);
+}
+.active > div.title i.door-ico {
+    background-image: url(../../../img/tools/door/door-ico-selected.png);
+}
+
+i.vedio-ico {
+    background-image: url(/img/tools/vedio/vedio-ico.png);
+}
+.active > div.title i.vedio-ico {
+    background-image: url(/img/tools/vedio/vedio-ico-selected.png);
+}
+i.passengerflow-ico {
+    background-image: url(/img/tools/passengerflow/passengerflow-ico.png);
+}
+.active > div.title i.passengerflow-ico {
+    background-image: url(/img/tools/passengerflow/passengerflow-ico-selected.png);
+}
+i.ap-ico {
+    background-image: url(/img/tools/ap/ap-ico.png);
+}
+.active > div.title i.ap-ico{
+    background-image: url(/img/tools/ap/ap-ico-selected.png);
+}
+
+
+i.physicalState-0 {
+	background: transparent url(/img/tools/door/circle-0.png) no-repeat 0 0px;
+	background-size: 16px 16px;
+}
+i.physicalState-1 {
+	background: transparent url(/img/tools/door/circle-1.png) no-repeat 0 0px;
+	background-size: 16px 16px;
+}
+i.physicalState-null {
+	background: transparent url(/img/tools/door/circle-null.png) no-repeat 0 0px;
+	background-size: 16px 16px;
+}
+.physicalState-0 {
+	color: #2F97E6;
+}
+.physicalState-1 {
+	color: #f91723;
+}
+.icon-img {
+    display: inline-block;
+    height: 18px; 
+    width: 18px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: text-bottom;
+}
+i.batch-import {
+    background-image: url(/img/tools/batch-import.png);
+}
+.sys-devices {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 30px 40px 0;
+}
+
+.sys-devices .title {
+    font-size: 16px;
+    color: #333;
+}
+
+.sys-devices .oper-center > .title {
+    position: relative;
+    padding-left: 13px;
+    height: 20px;
+    line-height: 16px;
+    margin-bottom: 20px;
+}
+
+.sys-devices .oper-center > .title::before {
+    content: '';
+    width: 3px;
+    height: 20px;
+    background-color: #2f97e6;
+    position: absolute;
+    left: 0;
+    top: 0
+}
+
+.sys-devices .oper-center {
+    width: 350px;
+    height: 100%;
+    float: left;
+    background-color: #f7f9fb;
+    padding: 20px;    
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.sys-devices .oper-center .filter {
+    padding: 10px 0;
+}
+.sys-devices .oper-center .filter .dropdown {
+    float: left;
+    margin-right: 10px;
+}
+
+div.dropdown > button{
+    position: relative;
+    background-color: #fff;
+    color: #333;
+    border-color: #dae2ea;
+    border-radius: 4px;
+    text-align: left;
+    padding: 6px 20px 6px 12px;
+}
+
+div.dropdown > button > span.caret {
+    position: absolute;
+    top: 13px;
+    right: 5px;
+}
+
+.sys-devices .oper-center .filter .dropdown > button[id="areaList"] {
+    width: 85px;
+}
+.sys-devices .oper-center .filter .dropdown > button[id="floorList"] {
+    width: 73px;
+}
+.sys-devices .oper-center .filter .dropdown > button[id="systemList"] {
+    width: 115px;
+}
+
+.sys-devices .oper-center .filter form > input {
+    width: 210px;
+    float: left;
+}
+.sys-devices .oper-center .tabs-container .nav-tabs > li.active:after {
+    border: 0;
+    background: #2f97e6;
+    width: calc(100% - 25px);
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    left: 0;
+    height: 3px;
+    bottom: -3px;
+    left: 15px;
+}
+.sys-devices .oper-center .by-system > div.title {
+    background-color: transparent;
+    margin: 0 -28px 0 -29px;
+    padding: 0 20px;
+}
+
+.sys-devices .oper-center .by-system > div.title > a {
+    padding: 17px 12px;
+    display: block;    
+    position: relative;
+    overflow: hidden;
+}
+
+.sys-devices .oper-center .by-system > div.title > a .sys-icon,
+.sys-devices .oper-center .by-system > div.title > a .caret-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+
+.sys-devices .oper-center .by-system > div.title > a .sys-icon {
+    float: left;
+    margin-right: 8px;
+}
+
+.sys-devices .oper-center .by-system > div.title > a .caret-icon {
+    position: absolute;
+    top: 17px;
+    right: 12px;
+    font-size: 24px;
+    line-height: 14px;
+    text-align: center;
+}
+
+.sys-devices .oper-center .by-system > div.title > a > span {
+    height: 16px;
+    line-height: 16px;
+    display: block;
+    float: left;
+}
+
+.sys-devices .oper-center div.by-system > div.content {
+    display: none;
+}
+
+.sys-devices .oper-center div.by-system.active > div.title {
+    background-color: #dbeaf6;
+    color: #2f97e6;
+}
+.sys-devices .oper-center div.by-system.active > div.title > a {
+    color: #2f97e6;
+}
+.sys-devices .oper-center div.by-system.active > div.content {
+    display: block;
+    background: #eef4f8;
+    margin: 0 -20px;
+    padding: 0 20px 1px;
+    /* overflow: hidden; */
+}
+.sys-devices .oper-center div.by-system.active > div.title i.fa-angle-right::before {
+    content:"\f107";
+}
+.sys-devices .oper-center .stat-oper {
+    padding: 15px 0;
+    line-height: 28px;
+    color: #2f97e6;
+}
+.sys-devices .oper-center .stat-oper div.dropdown {
+    float: right;
+    margin-left: 8px;
+}
+
+.sys-devices .oper-center .stat-oper div.dropdown > button {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.sys-devices .oper-center ul.system-devices li {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.sys-devices .oper-center ul.system-devices li > span,
+.sys-devices .oper-center ul.system-devices li > a {
+    float: left;
+    width: 60%;
+    display: block;
+    line-height: 15px;
+}
+
+.sys-devices .oper-center ul.system-devices li > a:hover {
+    font-weight: bold;
+}
+.sys-devices .oper-center ul.system-devices li > a:hover.state-1 {
+	color: #f91723;
+}
+
+.sys-devices .oper-center ul.system-devices li > a:hover.state-0 {
+    
+    color: #3A8FE2;
+}
+
+.sys-devices .oper-center ul.system-devices li > span {
+    width: 40%;
+    text-align: right;
+
+}
+
+.sys-devices .oper-center ul.system-devices li > a > i.d-icon {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: sub;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.sys-devices .view-center {
+    width: calc(100% - 390px);
+    height: 100%;
+    float: left;
+    background-color: #eee;
+    margin-left: 40px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.sys-devices .view-center > .title {
+    overflow: hidden;
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    padding: 0 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+
+}
+.sys-devices .view-center > .title > div {
+    width: 30%;
+    float: left;
+    padding-bottom: 8px;
+}
+.sys-devices .view-center > .title > div.stat {
+    width: 70%;
+    text-align: right;
+}
+.sys-devices .view-center > .core {
+    height: calc(100% - 50px);
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.fp-view {
+    width: 100%;
+    height: 360px;
+    overflow: hidden;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.device-detail h5.title,
+.device-form h5.title  {
+    line-height: 30px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.device-form h5.title {
+    margin-bottom: 10px;
+}
+.stat > span {
+    margin-right: 20px;
+}
+
+.stat > span:last-child {
+    margin-right: 0;
+}
+
+
+.layui-disabled, .layui-disabled:hover {
+    color: #999 !important;
+}
+.sys-devices .pagination,
+.sys-devices .pagination > div {
+    margin: 0;
+    font-size: 12px;
+}
+
+.sys-devices .page-count {
+    float: left;
+    margin-bottom: 20px;
+}
+.sys-devices .pagination {
+    margin-bottom: 20px;
+    float: right;
+}
+
+.sys-devices .pagination > div > a {
+    padding: 0 5px;
+    height: 15px;
+    line-height: 15px;
+}
+
+.sys-devices .text-danger{
+    color: #f95f5b;
+}
+
+.sys-devices div.empty {
+    padding-bottom: 20px;
+}
+
+.sys-devices #filter2 > form {
+    position: relative;
+    height: 36px;
+    width: 100%;
+}
+
+.sys-devices #filter2 > form input {
+    width: calc(100% - 46px);
+    height: 36px;
+    border-radius: 4px;
+    margin-right: 10px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #666;
+}
+
+.sys-devices #filter2 > form button[type="submit"] {
+    position: absolute;
+    border: 0;
+    background: transparent;
+    color: #2f97e6;
+    top: 0px;
+    right: 46px;
+
+}
+
+
+.sys-devices #filter2 > form .btn {
+    padding: 7px 10px;
+
+}

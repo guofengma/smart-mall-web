@@ -1,0 +1,233 @@
+<div class="wrapper-content hide" id="treenode-choosen">
+	<div class="ztree-panel" style="height: 400px;">
+		<ul id="treenode-choosen-tree" class="ztree"></ul>
+  	</div>
+  	<div class="footer-btns" style="padding-top: 10px; text-align: right;"><button type="button" class="btn btn-primary" role="selected-submit">确定</button></div>
+</div>
+<script>
+	var loadTreeInit = function(p, callback) {
+		var title = p.title,
+			checkedNodes = [],
+			disabledIds = null,
+			multiSelect = false,
+			queryParentNode = p.queryParentNode?p.queryParentNode:false,//是否查询父节点，true or false
+			openLayerWindow = p.openLayerWindow?p.openLayerWindow:false;//是否关闭当前弹框，true保留，false关闭，默认关闭
+			
+		if (p) {
+			title = p.title ? p.title : title;
+			multiSelect = p.multiSelect ? p.multiSelect : multiSelect;
+			if (!multiSelect) {
+				checkedNodes = p.checkedNodes ? [p.checkedNodes] : checkedNodes;
+			} else {
+				checkedNodes = p.checkedNodes ? p.checkedNodes : checkedNodes;
+			}
+			disabledIds = p.disabledIds ? p.disabledIds : null;
+			wrapId = 'treenode-choosen';
+			if (!wrapId) return false;
+			loadUrl = p.loadUrl;
+			if (!loadUrl) return false;
+			
+		}
+		$('#' + wrapId).removeClass('hide');
+		var layerWindowId = null;
+		layerWindowId = layer.open({
+			type: 1,
+			title: title,
+			skin: 'layui-layer-demo', //样式类名
+			closeBtn: 1, //不显示关闭按钮
+			anim: 2,
+			shadeClose: true, //开启遮罩关闭
+			area : [ '700px', 'auto' ], //宽高
+			content: $('#' + wrapId),
+			end: function() {
+				layer.close(layerWindowId);
+			}
+		});
+		var eminZtreeParams = {};
+		if (p.sync) {
+			$.ajaxSettings.async = false;
+			CommonUtil.ajaxRequest({
+		    	url: p.loadUrl,
+			}, function(res) {
+				if (typeof res == 'string') {
+					res = JSON.parse(res);
+					if (!res.success) {
+						layer.msg('同步加载树节点数据出错!' + (res.message ? '原因是：' + res.message : ''), {icon: 5});
+						return false;
+					}
+				}
+				
+				eminZtreeParams.sync = {
+					zNodes: res,
+					expandAll: true	
+				}
+				
+			});
+			$.ajaxSettings.async = true;
+		} else {
+			eminZtreeParams.async = {
+				url : loadUrl,
+				expandAll: true,
+				autoParam: p.autoParam ? p.autoParam : null
+			};
+		}
+		
+		eminZtreeParams.id = wrapId + '-tree';
+		if (p.idKey) {
+			eminZtreeParams.idKey = p.idKey;
+		}
+		if (p.pIdKey) {
+			eminZtreeParams.pIdKey = p.pIdKey;
+		}
+		if (checkedNodes) {
+			eminZtreeParams.checkList = checkedNodes;
+		}
+		if (disabledIds) {
+			eminZtreeParams.disabledIds = disabledIds;
+		}
+		
+		if (multiSelect) {
+			eminZtreeParams.check = {
+				enable: true,
+				chkStyle: "checkbox",
+				chkboxType: { "Y": "", "N": "" }
+			}
+		} else {
+			eminZtreeParams.check = {
+				enable: true,
+				chkStyle: "radio",
+				chkboxType: { "Y": "", "N": "" },
+				radioType: "all"
+			}
+		}
+		eminZtree(eminZtreeParams, function(zTree, cur, type) {
+			var nodes = [];
+			
+			checkedNodes = [];
+			
+			if (multiSelect) {
+				nodes = zTree.getCheckedNodes(true);
+				for (var i = 0; i < nodes.length; i++) {
+					checkedNodes.push({
+						id: nodes[i].id,
+						name: nodes[i].name,
+						code: nodes[i].adCode
+					})
+				}	
+			} else {
+				
+				if(queryParentNode){
+					
+						var city = null,
+							province = null;
+						if(cur.pid){
+							var temp = cur.getParentNode();
+							if(temp.level == 2) {
+								city = {
+										id: temp.id,
+										name: temp.name,
+										code: temp.adCode	
+								};
+								temp = temp.getParentNode();
+								province = {
+										id: temp.id,
+										name: temp.name,
+										code: temp.adCode	
+								};
+								
+							} else if (temp.level == 3){
+								province = {
+										id: temp.id,
+										name: temp.name,
+										code: temp.adCode	
+								};
+							}
+							
+						}
+						checkedNodes.push({
+							id: cur.id,
+							name: cur.name,
+							code: cur.adCode,
+							level: cur.level,
+							city: city,
+							province: province
+							
+						})
+				} else {
+					if (cur.checked) {
+						checkedNodes.push({
+							id: cur.id,
+							name: cur.name,
+							code: cur.adCode
+						});
+					}
+				}
+				
+			}
+		});
+		$('#' + wrapId + ' button[role="selected-submit"]').unbind('click').bind('click', function() {
+			if (checkedNodes.length > 0) {
+				if(!openLayerWindow) {
+					layer.close(layerWindowId);
+				};
+				
+				if (typeof callback == 'function') {
+					if (!multiSelect) {
+						checkedNodes = checkedNodes[0];
+					}
+					callback(checkedNodes,layerWindowId);
+				}	
+			} else {
+				layer.msg('未选择任何节点', {icon: 5});
+			}
+			
+		});
+	};
+	var regionPicker = (function(){
+		var init = function(p, callback) {
+				p.title =  p.title ? p.title :  '选择所属区域（单选）';
+				p.loadUrl = 'region/findByPid';
+				
+				loadTreeInit(p, function(res,layerWindowId) {
+					callback(res,layerWindowId);
+				});
+			};
+			
+		return {
+			init: init
+		};
+	}());
+	var orgChartPicker = (function() {
+		var init = function(p, callback) {
+				p.title =  p.title ? p.title :  '选择所属组织（多选，至少1个）';
+				p.idKey = "id";
+				p.pIdKey = "parentId";
+				p.sync = true;
+				p.loadUrl = 'org-chart/findAll';
+				
+				loadTreeInit(p, function(res,layerWindowId) {
+					callback(res,layerWindowId);
+				});
+				
+			};
+		
+		return {
+			init: init
+		};
+	}());
+	
+	var volunteerProcessionPicker = (function() {
+		var init = function(p, callback) {
+				p.title =  p.title ? p.title :  '选择所属应急队伍（单选）';
+				p.loadUrl = 'volunteer-procession/findByPid';
+				
+				loadTreeInit(p, function(res) {
+					callback(res);
+				});
+			};
+		
+		return {
+			init: init
+		};
+	}());
+</script>

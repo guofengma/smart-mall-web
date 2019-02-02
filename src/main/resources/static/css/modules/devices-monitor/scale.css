@@ -1,0 +1,32 @@
+div.scale-panel {
+	background-color: #ffffff;
+	padding: 5px 0;
+	right: -112px;
+	border: 1px solid #D9E2EB;
+	/* box-shadow: rgba(0, 0, 0, 0.118) 0px 1px 6px, rgba(0, 0, 0, 0.118) 0px 1px 4px; */
+	box-shadow: rgba(0, 0, 0, 0.118) 0px 1px 6px;
+}
+div.scale-panel > a.item {
+	width: auto;
+	border-radius:0;
+	margin: 0;
+	box-shadow: none;
+	padding: 0 10px;
+	border-left: 1px solid #eeeeee;
+}
+div.scale-panel > a.item:first-child {
+	border: none;
+}
+
+div.scale-panel ul.percentage-items {
+	position: absolute;
+    background: #ffffff;
+    left: 30px;
+}
+div.scale-panel ul.percentage-items li {
+	padding: 5px 10px;
+	cursor: pointer;
+}
+div.scale-panel ul.percentage-items li:hover {
+	color: #2F97E6;
+}

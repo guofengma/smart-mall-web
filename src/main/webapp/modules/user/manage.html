@@ -1,0 +1,56 @@
+<style>
+	#staff-manage .filter-line .ibox-tools {
+		float: right;
+	}
+	#user-table .resetPassword i {
+		height: 14px;
+		width: 14px;
+		background: url('img/user/icon_restpasssword.png') no-repeat 0 0;
+		background-size: 14px 14px;
+	}
+</style>
+<div class="wrapper-content" id="staff-manage">
+	<div class="row">
+		<div class="col-sm-12 no-padding">
+		    <div class="ibox float-e-margins">
+		        <div class="ibox-title">
+		            <h5>用户管理</h5>
+		        </div>
+		        <div class="tabs-container">
+	                <ul class="nav nav-tabs">
+	                	<li class="staff"><a data-toggle="tab" href="#staff-html" aria-expanded="true">员工管理</a></li>
+	                  	<li class="repair-group"><a data-toggle="tab" href="#repair-group-html" aria-expanded="true">维修班组管理</a></li>
+	                </ul>
+	                <div class="tab-content sm-tabs">
+	                    <div id="staff-html" class="tab-pane">
+	                        <div class="panel-body"></div>
+	                    </div>
+	                    <div id="repair-group-html" class="tab-pane">
+	                        <div class="panel-body"></div>
+	                    </div>
+	                </div>
+	            </div>
+		    </div>
+		</div>
+		
+	</div>
+</div>
+<script src="${base}js/modules/views/user/manage.js"></script>
+<script src="${base}js/modules/views/user/repair-group.js"></script>
+<script src="${base}js/modules/views/user/repair-group-create.js"></script>
+<script>
+var userManageFn = new UserManage(),
+	repairGroupFn = new RepairGroupManage();
+$('#staff-manage ul.nav-tabs .staff a').on('click',function(){
+	userManageFn.init();
+})
+$('#staff-manage ul.nav-tabs .repair-group a').on('click',function(){
+	repairGroupFn.init();
+})
+<#if subModule??>
+	$('#staff-manage .${subModule} a').trigger('click');
+<#else>
+	$($('#staff-manage ul.nav-tabs li a')[0]).trigger('click');
+</#if>
+
+</script>

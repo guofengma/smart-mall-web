@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>玺颂科技·智慧商场一体化管理平台 - 登录</title>
+	<link href="img/favicon.ico?${.now?string('yyMMddhhmmSSsss')}" rel="shortcut icon">
+    <link href="css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.3.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
+    <style>
+    	#loginForm input {
+		    color: #666;
+		}
+		
+		.input-tips {
+		    margin-left: 5px;
+		    margin-bottom: 0 !important;
+		    color: #fff;
+		}
+		
+		.signinpanel .form-control {
+		    margin-bottom: 15px;
+		}
+		
+		.signinpanel form {
+		    background: rgba(255, 255, 255, 0.3);
+		}
+		
+		.no-margins {
+		    /* color:#1A7BB9; */
+		    color: #fff;
+		}
+		
+		.layui-layer-dialog .layui-layer-content {
+		    color: #333 !important;
+		}
+		
+		.m-t i.fa {
+		    color: #1A7BE6;
+		}
+		
+		div.signin {
+		    width: 100%;
+		    padding: 0;
+		    margin: 0;
+		    height: 100%;
+		    background-image: url("/img/login/background.jpg");
+		    background-position:left center;
+		    background-repeat: no-repeat;
+		    -webkit-background-size: cover;
+		    -moz-background-size: cover;
+		    -o-background-size: cover;
+		    background-size: cover;
+		    color: rgba(255, 255, 255, .95);
+		    overflow: hidden;
+		}
+		
+		.containPanel {
+		    height: 508px;
+		    width:960px;
+		    margin-top: 10%;
+		
+		}
+		
+		.containPanel .row {
+		    height: 100%;
+		
+		
+		}
+		
+		.containPanel .leftPanel {
+		    height: 100%;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    vertical-align: middle;
+		    background: linear-gradient(to right, rgba(174, 208, 233, 0.2), rgba(22, 120, 194, 0.2));
+		}
+		
+		.containPanel .leftPanel img {
+		    width: 120px;
+		    height: 120px;
+		}
+		
+		.containPanel .rightPanel {
+		    height: 100%;
+		    background: white;
+		}
+		
+		.containPanel .rightPanel .loginTitle,
+		.containPanel .rightPanel .sub-loginTitle {
+		    color: #666; /*09eca;*/
+		    margin-top: 40px;
+		    font-size: 24px;
+		    padding: 10px;
+		    text-align: center;
+		}
+		
+		.containPanel .rightPanel .sub-loginTitle {
+			font-size: 18px;
+			margin: 0;
+			margin-bottom: 10px;
+		}
+		
+		.containPanel .rightPanel .form-group {
+		    min-height: 60px;
+		    text-align: left;
+		    margin: auto;
+		    width: 75%;
+		}
+		.containPanel .rightPanel .error{
+		    margin: 5px;
+		}
+		
+		.containPanel .rightPanel #loginForm .form-control {
+		
+		    width: 100%;
+		    margin: auto auto;
+		    border: 1px solid #dddddd;
+		}
+		/*.containPanel .rightPanel #loginForm input.valid{
+		    background: url("img/login/right.png") no-repeat 95% center;
+		    background-size: 16px;
+		}
+		
+		.containPanel .rightPanel #loginForm input.valid:focus {
+			background: none;
+		}*/
+		.containPanel .rightPanel input{
+		    text-align: left;
+		    height:48px;
+		}
+		
+		
+		.tip{
+		    margin:auto;
+		    padding:15px 0;
+		    width: 85%;
+		    font-size:14px;
+		    text-align: center;
+		    color:#999999;
+		    cursor: pointer;
+		}
+		.codeParent{
+		    position: relative;
+		}
+		img.validateCode{
+		    position:absolute;
+		    right:10px;
+		    top:10px;
+		}
+		.loginBtnParent{
+		    padding-top:30px
+		}
+		.loginBtn{
+		    width: 100%;
+		    background-color: rgb(47,151,230);
+		    margin: auto;
+		    border-color:#609eca;
+		    padding: 8px;
+		}
+		.loginBtn:hover {
+			background-color:#50a1da;
+			color: #fff;
+		}
+		
+		.signin .codeParent {
+			position: relative;
+		}
+		.signin .codeParent input {
+			display: inline-block!important;
+    		width: 170px!important;
+		}
+		.signin #validateCode {
+			height: 48px;
+		    width: 103px;
+		    margin-top: -3px;
+		    position: absolute;
+			top: 0;
+			right: 0
+		} 
+		@media screen and (max-width: 1600px) {
+		    .containPanel {
+		        height: 428px;
+		        width:800px;
+		        margin-top: 10%;
+		
+		    }
+		    .containPanel .rightPanel input{
+		        text-align: left;
+		        font-size:12px;
+		        height:38px;
+		    }
+		    .containPanel .rightPanel .form-group {
+		        min-height:60px;
+		    }
+		    img.validateCode{
+		        position:absolute;
+		        right:4px;
+		        top:7px;
+		        height:25px;
+		    }
+		    .containPanel .rightPanel .loginTitle {
+		        color: #609eca;
+		        margin-top: 20px;
+		        margin-bottom: 20px;
+		        font-size: 25px;
+		        padding: 8px;
+		        text-align: center;
+		    }
+		    .loginBtnParent{
+		        padding-top:12px
+		    }
+		    .containPanel .rightPanel .error{
+		        margin: 2px;
+		        font-size:12px;
+		    }
+		    .tip{
+		        margin:auto;
+		        padding:7px 0;
+		        width: 85%;
+		        font-size:12px;
+		        text-align: center;
+		        color: #747474;
+		    }
+		    .signin .codeParent input {
+				display: inline-block!important;
+	    		width: 140px!important;
+			}
+			.signin #validateCode {
+				height: 38px;
+			    width: 83px;
+			    margin-top: -3px;
+			} 
+		}
+		
+		@media screen and (max-width: 1440px) {
+		    .containPanel {
+		        height: 388px;
+		        width:760px;
+		        margin-top: 10%;
+		
+		    }
+		    .containPanel .rightPanel input{
+		        text-align: left;
+		        font-size:12px;
+		        height:38px;
+		    }
+		    .containPanel .rightPanel .form-group {
+		        min-height:60px;
+		    }
+		    img.validateCode{
+		        position:absolute;
+		        right:4px;
+		        top:7px;
+		        height:25px;
+		    }
+		    .containPanel .rightPanel .loginTitle {
+		        color: #609eca;
+		        margin-top: 20px;
+		        margin-bottom: 20px;
+		        font-size: 20px;
+		        padding: 8px;
+		        text-align: center;
+		    }
+		    .loginBtnParent{
+		        padding-top:12px
+		    }
+		    .containPanel .rightPanel .error{
+		        margin: 2px;
+		        font-size:12px;
+		    }
+		    .tip{
+		        margin:auto;
+		        padding:7px 0;
+		        width: 85%;
+		        font-size:12px;
+		        text-align: center;
+		        color: #747474;
+		    }
+		    .signin .codeParent input {
+				display: inline-block!important;
+	    		width: 130px!important;
+			}
+			.signin #validateCode {
+				height: 38px;
+			    width: 80px;
+			    margin-top: -3px;
+			} 
+		}
+		@media screen and (max-width: 1366px) {
+		    .containPanel {
+		        height: 358px;
+		        width:700px;
+		        margin-top: 10%;
+		
+		    }
+		    .containPanel .rightPanel input{
+		        text-align: left;
+		        font-size:11px;
+		        height:38px;
+		    }
+		    .containPanel .rightPanel .form-group {
+		        min-height:50px;
+		    }
+		    img.validateCode{
+		        position:absolute;
+		        right:3px;
+		        top:8px;
+		        height:23px;
+		    }
+		    .containPanel .rightPanel .loginTitle {
+		        color: #609eca;
+		        margin-top: 10px;
+		        margin-bottom: 0;
+		        font-size: 20px;
+		        padding: 8px;
+		        text-align: center;
+		    }
+		    .loginBtnParent{
+		        padding-top:10px
+		    }
+		    .containPanel .rightPanel .error{
+		        margin: 2px;
+		        font-size:10px;
+		    }
+		    .tip{
+		        margin:auto;
+		        padding:7px 0;
+		        width: 85%;
+		        font-size:12px;
+		        text-align: center;
+		        color: #999999;
+		    }
+		    .signin .codeParent input {
+				display: inline-block!important;
+	    		width: 115px!important;
+			}
+			.signin #validateCode {
+				height: 37px;
+			    width: 77px;
+			    margin-top: -3px;
+			}  	
+		}
+		
+		@media screen and (max-width: 1280px) {
+		    .containPanel {
+		        height: 308px;
+		        width:660px;
+		        margin-top: 10%;
+		
+		    }
+		    .containPanel .rightPanel input{
+		        text-align: left;
+		        font-size:10px;
+		        height:28px;
+		    }
+		    .containPanel .rightPanel .form-group {
+		        min-height:40px;
+		    }
+		    img.validateCode{
+		        position:absolute;
+		        right:3px;
+		        top:4px;
+		        height:20px;
+		    }
+		    .containPanel .rightPanel .loginTitle {
+		        color: #609eca;
+		        margin-top: 20px;
+		        margin-bottom: 20px;
+		        font-size: 20px;
+		        padding: 8px;
+		        text-align: center;
+		    }
+		    .loginBtnParent{
+		        padding-top:10px
+		    }
+		    .containPanel .rightPanel .error{
+		        margin: 2px;
+		        font-size:10px;
+		    }
+		    .tip{
+		        margin:auto;
+		        padding:7px 0;
+		        width: 85%;
+		        font-size:12px;
+		        text-align: center;
+		        color: #747474;
+		    }
+		    .signin .codeParent input {
+				display: inline-block!important;
+	    		width: 110px!important;
+			}
+			.signin #validateCode {
+				height: 28px;
+			    width: 69px;
+			    margin-top: -3px;
+			}  	
+		}
+		.mall-logo {
+			position: fixed;
+			top: 30px;
+			left: 0;
+		}
+		
+    </style>
+</head>
+<body auto-flag="loginPageWelcomeU">
+	<div class="mall-logo"><img src="img/login/mall-logo.png" height="60"></div>
+	<div class="row signin">
+	    <div class="col-sm-6 col-xs-offset-3 containPanel">
+	        <div class="row">
+	            <div class="col-sm-7 leftPanel">
+	                <img src="img/login/logo.png">
+	            </div>
+	            <div class="col-sm-5 rightPanel">
+	                <form id="loginForm" action="/loginIn">
+	                    <div class="loginTitle">
+	                       	智慧商场一体化管理平台
+	                    </div>
+	                    <div class="sub-loginTitle">
+	                    	红星美凯龙定制版
+	                    </div>
+	                    <div class="form-group">
+	                        <input class="form-control" type="text" placeholder="账号/手机号码/电子邮箱" name="username">
+	                    </div>
+	                    <div class="form-group">
+	                        <input class="form-control" type="password" placeholder="请输入由数字、英文组成的密码" name="password">
+	
+	                    </div>
+	                    <div class="form-group codeParent" >
+	                        <input class="form-control" type="text" placeholder="请输入计算结果" name="code" maxlength="5">
+							<img id="validateCode"/>
+	                    </div>
+	                    <div class="form-group loginBtnParent" >
+	                        <button class="btn btn-block loginBtn">登录</button>
+	                    </div>
+	                    <div class="tip">忘记密码？</div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</body>
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/bootstrap.min.js?v=3.4.0"></script>
+<script src="js/plugins/validate/jquery.validate.min.js"></script>
+<script src="js/plugins/layer/layer.min.js"></script>
+<script src="js/jquery.md5.js"></script>
+<script>
+$(function(){
+	var icon = "<i class='fa fa-times-circle'></i> ";
+    var Validate = function (id, url, eventBinds) {
+        this.id = id;
+        this.jq = $("#" + id);
+        this.url = url;
+        this.config = {width: 120, height: 300};
+        this.sequence = "";
+        this.createSequence = function () {
+            return "user-" + new Date().getTime() + "-" + Math.random().toString(36).substr(2);
+        };
+        this.init = function () {
+            var _config = {
+                width: 80,
+                height: 30,
+                fontName:"华文彩云"
+            };
+            $.extend(this.config, _config);
+            var _this = this;
+            var length = eventBinds.length;
+            for (var j = 0; j < length; j++) {
+                this.jq.on(eventBinds[j], function () {
+                    _this.request();
+                });
+            }
+            this.request();
+            return this;
+        };
+        this.request = function () {
+            this.sequence = this.createSequence();
+            this.handlerSrc(this.createUrl());
+        };
+        this.handlerSrc = function (url) {
+            console.info("当前验证码访问路径:url=" + encodeURI(url));
+            this.jq.attr("src", encodeURI(url));
+        };
+        this.createUrl = function () {
+            return url + "?sequence=" + this.sequence
+                + "&fontName="+this.config.fontName
+                + "&width="+this.config.width
+                + "&height="+this.config.height
+                +"&"+ new Date().getTime();
+        };
+        this.getCurSequence =function(){
+            return this.sequence;
+        }
+        return this.init();
+    }
+
+    var validate = new Validate("validateCode", "/getValidImg", ["click"]);
+
+	sessionStorage.isModify = false;
+    $("#loginForm").validate({
+        rules: {
+        	username: {
+                required: true,
+                minlength: 2  
+            },
+            password: {
+                required: true,
+                passwordR:true,
+                rangelength:[6,16]
+            },
+            code:{
+                required: true
+            }
+        },
+        messages: {
+        	username: {
+                required: icon + '请输入账号',
+                minlength: icon + "账号不少于2个字符",
+                
+            },
+            password: {
+                required: icon + '请输入密码',
+                passwordR:icon + '密码格式错误',
+                rangelength: icon + "密码长度为6-16"
+            },
+            code:{
+            	required: icon + '请填写验证码',
+            }
+        },
+        submitHandler:function(form){
+        	var data = $(form).serializeObject();
+        	var url = form.action;
+        	
+        	data.password = $.md5(data.password)
+            data.sequence=validate.getCurSequence();
+        	loading = layer.load();
+        	$.ajax({
+            	url:url,
+            	type:"post",
+            	dataType:"json",
+            	data:data,
+            	success:function(res, status, xhr){  
+            		console.log('res',res)
+            		layer.close(loading);
+            		if (!res.success) {
+           				layer.msg(res.message ? res.message : '登录失败',{icon: 5, time: 3000});
+                        setTimeout(function() {
+               				validate.request();
+                        });
+            		} else {
+            			window.location.replace("/");
+            		} 
+            	},
+            	error:function(){
+            		setTimeout(function(){
+            			layer.alert('抱歉，资源访问失败',{
+            				closeBtn: 1
+            			},
+            			function(){
+        	    			layer.close(loading);
+        	   				history.go(-1);
+        	    			layer.closeAll('dialog');
+            			}
+            			);
+                        validate.request();
+            		},1000)
+            	}
+            })
+        	
+        }     
+    });
+    $.validator.addMethod("passwordR",function(value,element,params){  
+        var passwordR = /^[a-zA-Z\d~\!@#\$%\^&\*\(\)_\-\+=\{\[\}\]\|\\:;\"\'\<,\>\.\?\/]+$/;  
+        return this.optional(element)||(passwordR.test(value));  
+    },"*密码格式错误");
+})
+
+$.fn.serializeObject = function(){
+	var o = {};
+	var a = this.serializeArray();
+	$.each(a, function() {
+		if (o[this.name] !== undefined) {
+			if (!o[this.name].push) {
+				o[this.name] = [o[this.name]];
+			}
+			o[this.name].push(this.value || '');
+		} else {
+			o[this.name] = this.value || '';
+		}
+	});
+	return o;
+};
+$('.signin .tip').unbind().on('click',function(){
+	window.location.replace("/retrieve-password");
+})
+
+</script>
+</html>

@@ -1,0 +1,205 @@
+<style>
+	#store-info .storepic{
+		width: 450px;
+		height: 450px;
+		position:relative;
+		margin: 0 auto;
+	}
+	#store-info .storepic > div.oper {
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    padding: 5px 10px;
+	    background: #eee;
+	    cursor: pointer;
+	    display: none;
+	}
+	
+	#store-info .storepic:hover > div.oper {
+		display: block
+	}
+	#store-info .storepic > img{
+		width: 450px;
+		height: 450px;
+	}
+	
+	#store-info .storepi .picture{
+		width: 450px;
+		height: 450px;
+		position:absolute;
+		left:0;
+		top:0;
+	}
+	#store-info .storepic .shadow{
+		width: 466px;
+		height:71px;
+		position:absolute;
+		bottom:0px;
+		left:0px;
+		margin-bottom:-30px;
+		margin-left:-8px;
+	}
+	#store-info .storepic .addpic{
+		width: 80px;
+		height: 80px;
+		position:absolute;
+		left:50%;
+		bottom:0;
+		margin-left:-40px;
+		margin-bottom:-40px;
+		cursor: pointer;
+	}
+	
+	#store-info .il-input {
+		display: block;
+	}
+	#store-info .il-title,
+	#store-info .il-cnt {
+		display: block;
+		font-weight: 100;
+	}
+	
+	#store-info .il-title {
+		font-size: 14px;
+		color: #60646b;
+		margin-bottom: 12px;
+	}
+	
+	#store-info .il-cnt {
+		font-size: 14px;
+		color: #60646b;
+		font-weight: 500;
+		cursor: pointer;
+		display: none;
+	}
+	
+	#store-info .il-top-line {
+		margin-bottom: 28px;
+	}
+	
+	#store-info .info-line {
+		margin-bottom: 20px;
+	}
+	
+	#store-info .il-top-line .il-cnt {
+		font-size: 18px;
+		color: #2f97e6;
+		font-weight: 700;
+	}
+	
+	#store-info .info-line .il-input > input {
+		color: #60646b;
+		border: 0;
+		border-bottom: 1px solid #eee;
+		padding: 5px 0;
+		width: 100%;
+		
+	}
+	
+	#store-info .info-line .il-input > input:hover {
+		border-color: #2f97e6
+	}
+	
+	#store-info .il-top-line .il-input {
+		font-size: 18px;
+	}
+	
+	#store-info .il-top-line .il-input > span {
+		color: #2f97e6;
+	}
+	#store-info .il-top-line .il-input > input {
+		border: 0;
+		width: auto;
+	}
+	#store-info {
+		margin-top: 20px;
+	}
+	.btn-pg-manage {
+		background-color: rgba(222,238,251,.4);
+		border-color: #2f97e6;
+		color: #3A8FE2;
+		border-radius: 4px;
+		font-size: 14px;
+	}
+</style>
+<form method="get" class="store-info" id="store-info">
+	<div class="row">
+		<div class="col-lg-5 col-sm-7">
+			<div class="storepic upload-mallpic">
+				<div class="picture">
+					<img src="img/storefloor.png">
+				</div>
+				<div class="shadow">
+					<img src="img/storefloorshadow.png">
+				</div>
+				<div class="addpic" role="add-pic">
+					<img src="img/store-add.png">
+				</div>
+			</div>
+			<div class="storepic show-mallpic hide">
+				<div class="picture"
+					style="z-index: 2; border-radius: 8px; overflow: hidden">
+					<img src="img/storefloor.png" width="450px" height="450px">
+				</div>
+				<div class="shadow" style="z-index: 3">
+					<img src="img/storefloorshadow.png">
+				</div>
+				<div class="oper" role="clear-pic">
+					<i class="fa fa-trash text-primary"></i>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-7 col-sm-5">
+			<div class="info-line il-top-line">
+				<label class="il-cnt">${(storeinfo.name!'')?html}</label>
+				<div class="il-input">
+					<span>商场名称：</span> <input type="text" placeholder="请输入商场名称"
+						role="user-params" name="name" value="${(storeinfo.name!'')?html}">
+				</div>
+			</div>
+			<div class="info-line">
+				<label class="il-title">商场地址</label> <label class="il-cnt">${(storeinfo.address!'')?html}</label>
+				<div class="il-input">
+					<input type="text" placeholder="请输入商场地址" role="user-params"
+						name="address" value="${(storeinfo.address!'')?html}">
+				</div>
+			</div>
+			<div class="info-line">
+				<label class="il-title">商场电话</label> <label class="il-cnt">${(storeinfo.mobile!'')?html}</label>
+				<div class="il-input">
+					<input type="text" placeholder="请输入商场联系电话" role="user-params"
+						name="mobile" value="${(storeinfo.mobile!'')?html}">
+				</div>
+			</div>
+
+			<div class="info-line">
+				<label class="il-title">负责人姓名</label> <label class="il-cnt">${(storeinfo.chargerPersonName!'')?html}</label>
+				<div class="il-input">
+					<input type="text" placeholder="请输入商场负责人姓名" role="user-params"
+						name="chargerPersonName" value="${(storeinfo.chargerPersonName!'')?html}">
+				</div>
+			</div>
+
+			<div class="info-line">
+				<label class="il-title">商场描述</label> <label class="il-cnt">${(storeinfo.describe!'')?html}</label>
+				<div class="il-input">
+					<input type="text" placeholder="请输入商场描述" role="user-params"
+						name="describe" value="${(storeinfo.describe!'')?html}">
+				</div>
+			</div>
+			<@codeValidation codes=operationCodes operationCode="vertical-view-manage">
+			<a class="btn btn-pg-manage" href="javascript:goPage('vertical-view')">园区俯视图</a>
+			</@codeValidation>
+		</div>
+	</div>
+</form>
+<script src="${base}js/modules/views/store/store-info.js"></script>
+<script>
+<@codeValidation codes=operationCodes operationCode="edit">
+<#if storeinfo??>
+	StoreInfo.setInfo(JSON.parse('<@obj2json obj=storeinfo ></@obj2json>'));
+</#if>
+StoreInfo.init();
+</@codeValidation>
+StoreInfo.init();
+</script>

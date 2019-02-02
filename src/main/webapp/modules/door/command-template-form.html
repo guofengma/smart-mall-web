@@ -1,0 +1,64 @@
+<div class="wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5><#if commandTemplateId??>编辑<#else>添加</#if>指令</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-white btn-bitbucket btn-xs" href="javascript: goPage('index',{type:'command-template-set'})">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+               		 <form method="get" class="form-horizontal command-template-form" id="${moduleCode}-command-template-form" autocomplete="off">
+             		 	<input type="hidden" name="id">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">版本</label>
+                            <div class="col-sm-10">
+								<select class="form-control" name="versionCode">
+									<option style="color:#999999;" disabled selected>请选择</option>
+									<#list brands as b>
+										<#list b.childSystems as c>
+											<#list c.versions as v>
+												<#if v.versionPatternType?? && v.versionPatternType == '3'>
+													<option value="${v.vCode}" disabled style="color:#999999;">${v.vVersion}(${b.bName}-${c.cName}) 无需配置</option>
+												<#else>
+													<option value="${v.vCode}">${v.vVersion}(${b.bName}-${c.cName})</option>
+												</#if>
+											</#list>
+										</#list>
+									</#list>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">指令名称</label>
+                            <div class="col-sm-10">
+								<input class="form-control" placeholder="请填写指令名称" type="text" name="name">
+                            </div>
+                        </div>
+                    	<div class="form-group hide">
+                            <label class="col-sm-2 control-label">参数配置</label>
+                            <div class="col-sm-10">
+                            	<div class="configures"></div>
+	                            <div class="col-sm-12 add-configure">
+                            		<i class="fa fa-plus text-navy" title="添加参数"></i>
+                            	</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${base}js/modules/views/command-template-form.js"></script>
+<script>
+CommandTemplateForm.init({moduleCode: '${moduleCode}',moduleName:'${moduleName}',commandTemplateId:'${commandTemplateId}'})
+</script>

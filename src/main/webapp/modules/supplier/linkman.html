@@ -1,0 +1,63 @@
+<form role="form" class="form-horizontal supplierLinkmanForm" id="sl${nowTime}">
+	<input type="hidden" name="id" value="${(linkman.id)!''}">
+	<input type="hidden" name="supplierId" value="${(supplierId)!''}">
+	<input type="hidden" name="major" value="${(linkman.major)!''}">
+	<div class="form-group">
+		<label class="control-label col-sm-3">姓名 *</label>
+		<div class="col-sm-8">
+			<input name="name" type="text" value="${(linkman.name)!''}" class="form-control required">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">性别 *</label>
+		<div class="col-sm-8">
+			<label class="checkbox-inline i-checks">
+				<input type="radio" class="i-checks" value="0" name="sex" checked <#if !linkman.sex?? || linkman.sex==0>checked</#if>>男 
+			</label>
+			<label class="checkbox-inline i-checks">
+				<input type="radio" class="i-checks" value="1" name="sex" <#if linkman.sex==1>checked</#if>>女
+			</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">职位 *</label>
+		<div class="col-sm-8">
+			<input name="position" type="text" value="${(linkman.position)!''}" class="form-control required">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">电话 *</label>
+		<div class="col-sm-8">
+			<input name="phone" type="text" value="${(linkman.phone)!''}"
+				class="form-control required">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">QQ号</label>
+		<div class="col-sm-8">
+			<input name="qq" type="text" value="${(linkman.qq)!''}"
+				class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">邮箱</label>
+		<div class="col-sm-8">
+			<input name="email" type="text" value="${(linkman.email)!''}"
+				class="form-control">
+		</div>
+	</div>
+</form>
+<script>
+	<#if nowTime??>
+		new SupplierLinkman({
+			formId: '#sl${nowTime}'
+		})
+	<#else>
+		var now = new Date().getTime();
+		$('#sl').attr('id', 'sl' + now);
+		new SupplierLinkman({
+			formId: '#sl' + now,
+			nocheck: true
+		})
+	</#if>
+</script>

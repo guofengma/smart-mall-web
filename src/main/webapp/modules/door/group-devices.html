@@ -1,0 +1,139 @@
+<style>
+    
+    .group-devices {
+        margin-top: 20px;
+    }
+    .group-devices .row .col-sm-4 {
+        width: 280px;
+    }
+    
+    .group-devices .row .col-sm-8 {
+        width: calc(100vw - 500px);
+    }
+    .group-devices button.btn-info {
+        background-color:#fff;
+        border-color:#3A8FE2;
+        color: #3A8FE2;
+    }
+    .group-devices button.add-info {
+        background-color:#3A8FE2;
+        border-color:#3A8FE2;
+        color: #fff;
+    }
+    .group-devices button[data-opt="add-group"] {
+        width: 100%;
+    }
+    .device-opts form {
+        width: 280px;
+        float: right;
+    }
+    .device-opts .add-devices[disabled="disabled"] {
+    	background: #999999;
+    	border-color: #999999;
+    }
+    .device-opts .remove-devices[disabled="disabled"] {
+    	color: #999999;
+    	border-color: #999999;
+    }
+    .device-group-lst {
+        /* border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc; */
+        background: #F3F5F5;
+    }
+    .device-group-lst li {
+        background: #fff;
+        /* border-top: 1px solid #ccc; */
+        padding: 5px;
+    }
+    
+    .device-group-lst li:last-child {
+        /* border-bottom: 1px solid #ccc; */
+    }
+    
+    .device-group-lst li > a {
+        display: block;
+        width: 100%;
+        padding: 5px 0;
+    }
+    .device-group-lst li > div {
+        display:none;
+        line-height: 20px;
+        padding: 5px 0;
+    }
+    
+    .device-group-lst li:hover,
+    .device-group-lst li.selected {
+        background: #F0F8FF;
+    }
+    
+    .device-group-lst li.selected > div {
+        display: block;
+    }
+    .device-group-lst a.icon-img{
+    	height: 24px;
+    	padding-left:20px;
+    	background-size: 15px 15px;
+    	background-position: 0 8px;
+    	background-repeat: no-repeat;
+    }
+    .device-group-lst a.vedio {
+    	background-image: url(img/tools/vedio/vedio.png);
+	}
+	.device-group-lst a.door {
+    	background-image: url(img/tools/door/door.png);
+	}
+	.device-group-lst li div span {
+		color: #408FE2;
+		font-size: 14px;
+	}
+
+</style>
+<div class="group-devices">
+    <div class="contextmenu" id="${moduleCode}-group-oper-enter">
+        <div class="item">
+            <a href="javascript:;" role="edit"><i class="fa fa-pencil"></i>&nbsp;编辑</a>
+        </div>
+        <div class="item">
+            <a href="javascript:;" role="remove"><i class="fa fa-trash"></i>&nbsp;删除</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-info add-info" data-opt="add-group">添加分组</button>
+        </div>
+        <div class="col-sm-8 device-opts">
+            <form class="search-bar group-devices-search-form">
+                <button type="button" class="btn btn-default" role="reset"><i class="fa fa-refresh"></i></button>
+                <button type="button" class="btn btn-primary" role="submit"><i class="fa fa-search"></i></button>
+                <div class="search-input">
+                    <input type="hidden" name="systemCode" role="user-params">
+                    <input type="hidden" name="groupId" role="user-params">
+                    <input type="hidden" name="page" role="user-params" value="1">
+                    <input type="hidden" name="limit" role="user-params" value="10">
+                    <input class="form-control" type="text" name="name" role="user-params" placeHolder="搜索设备">
+                </div>
+            </form>
+            <button type="button" class="btn btn-info add-info add-devices" data-opt="add-devices">添加组设备</button>
+            <!-- <button type="button" class="btn btn-info remove-devices" data-opt="remove-devices">移至未分组</button> -->
+            <button type="button" class="btn btn-info" data-opt="move-devices">移动设备</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <form class="search-bar group-search-form">
+                <button type="button" class="btn btn-default" role="reset"><i class="fa fa-refresh"></i></button>
+                <button type="button" class="btn btn-primary" role="submit"><i class="fa fa-search"></i></button>
+                <div class="search-input">
+                    <input type="hidden" name="systemCode" value="${moduleCode}">
+                    <input class="form-control" type="text" name="name" role="user-params" placeHolder="搜索设备分组">
+                </div>
+            </form>
+            <ul class="device-group-lst"></ul>
+        </div>
+        <div class="col-sm-8 group_devices_view">
+            <div class="data-list">点击分组查询关联设备</div>
+            <div class="text-right" id="${moduleCode}-group-devices-page"></div>
+        </div>
+    </div>
+</div>
+

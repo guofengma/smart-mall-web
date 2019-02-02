@@ -1,0 +1,53 @@
+	.sub-sys-type {
+		margin-bottom: 20px;
+	}
+	.sub-sys-type h5 {
+		margin-bottom: 15px;
+		font-size: 16px;
+		font-weight: 600;
+	}
+	.sub-sys-type .type-container li {
+		width: 320px;
+		height:100%;
+		float: left;
+		border:1px solid #eeeeee;
+		border-top: none;
+		padding-left:10px;
+	}
+	.sub-sys-type .type-container {
+		width:auto;
+		margin:15px 0;
+		
+	}
+	.sub-sys-type .brand {
+		background: #E5E5E5;
+		padding: 5px 0 5px 15px;
+		color: #ffffff;
+	}
+	.sub-sys-type li .left {
+		float: left;
+		display: inline-block;
+		width: 120px;
+		margin: 10px 0;
+	}
+	.sub-sys-type li .versions {
+		float: left;
+		width: 180px;
+	}
+	.sub-sys-type li .version {
+		height:100%;
+	}
+	#sub-sys-types button {
+		margin:10px 20px;
+		
+	}
+	
+	#sub-sys-types .sub-sys-type-door .brand {
+		background: linear-gradient(90deg, #588FFF, #8FB7FF);
+	}
+	#sub-sys-types .sub-sys-type-vedio .brand {
+		background: linear-gradient(90deg, #6BCBFC, #A1DCFB);
+	}
+	#sub-sys-types .sub-sys-type-passengerflow .brand {
+		background: linear-gradient(90deg, #FF8662, #FF9B7F);
+	}

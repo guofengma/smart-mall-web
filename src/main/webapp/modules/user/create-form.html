@@ -1,0 +1,106 @@
+<style>
+.sw-theme-circles > ul.step-anchor > li{
+        width:42%;
+    }
+    .sw-theme-circles > ul.step-anchor > li > a{
+        width:50px;
+        height:50px;
+        padding:17px 0;
+        margin-top:20px;
+        display: inline-block;
+    }
+    .help-block{
+        display: inline;
+    }
+    .sw-theme-circles .sw-container{
+        min-height: 240px;
+
+    }
+    .justify-content-end {
+        display: flex;
+        justify-content: center;
+    }
+    .daterangepicker {
+        z-index: 99991079;
+    }
+    .sw-btn-group .btn{
+        margin-right:30px;
+    }
+    .device-box,
+    .linkman-box {
+    	float: left;
+    	width: 300px;
+    	padding: 20px;
+    	border: 1px solid #eee;
+    	margin-right: 20px;
+		border-radius: 4px;
+		margin-bottom: 20px;
+		position: relative;
+    }
+    
+    .device-box > a,
+    .linkman-box > a {
+    	position: absolute;
+		width: 20px;
+		height: 20px;
+		background-color: #eee;
+		line-height: 20px;
+		text-align: center;
+		border-radius: 20px;
+		right: -5px;
+		top: -5px;
+    }
+    .brand-item {
+	    float: left;
+	    margin-right: 10px;
+    }
+    .add-box {
+    	float: left;
+		width: 80px;
+		height: 80px;
+		background-color: #eee;
+		font-size: 30px;
+		border-radius: 4px;
+		line-height: 80px;
+		text-align: center;
+		cursor: pointer;
+    }
+</style>
+<div class="wrapper-content repair-group-create-form-area" style="height:100%;position: relative">
+	<div class="row">
+        <div class="col-sm-12 no-padding">   
+		    <div id="repair-group-create-smartwizard">
+		        <ul style="margin-bottom: 20px">
+		            <li class="text-center">
+		                <a href="#repair-group-create-step-1">
+		                    1
+		                </a>
+		                <p>
+		                    <small>基本信息</small>
+		                </p>
+		            </li>
+		            <li class="text-center">
+		                <a href="#repair-group-create-step-2">
+		                    2
+		                </a>
+		                <p>
+		                    <small>选择组员</small>
+		                </p>
+		            </li>
+		        </ul>
+		
+		        <div>
+		            <div id="repair-group-create-step-1" class="">
+						<#include "basic.html">	
+		            </div>
+		            <div id="repair-group-create-step-2">
+		                <#include "choose-members.html">
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+new RepairGroupCreate({});
+</script>

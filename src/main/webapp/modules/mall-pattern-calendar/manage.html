@@ -1,0 +1,288 @@
+<style>
+.pattern-area {
+	padding: 15px;
+	background: rgb(250, 251, 253);
+	box-shadow: 2px 1px 15px #ccc;
+}
+.pattern-area .title {
+	font-size: 18px;
+}
+
+.pattern-area .sub-title {
+	font-size: 14px;
+}
+
+.pattern-area .set-lst {
+	margin-top: 10px;
+}
+
+.pattern-area .set-lst li {
+	margin-top: 5px;
+	min-height: 24px;
+}
+.pattern-area .set-lst li .name {
+	float: left;
+	padding-right: 6px;
+}
+.pattern-area .set-lst li .content {
+	text-align: right;
+	float: right;
+}
+.pattern-area .btn-group .btn{
+	margin-top: 15px;
+	float: none;
+}
+.pattern-area .no-pattern {
+	margin-top: 15px;
+}
+.mpc-pattern-choose-area {
+	margin:0!important;
+}
+.mpc-pattern-choose-area .msg {
+	margin:10px 0;
+}
+.mpc-pattern-choose-area .choose {
+	padding-left: 0;
+}
+#mall-pattern-calendar-manage {
+	min-width: 800px;
+}
+#mall-pattern-calendar .mark-list ul {
+	float: right;
+	
+}
+#mall-pattern-calendar .mark-list li {
+	float: none;
+}
+#mall-pattern-calendar-manage .info .date em {
+	font-style: normal;
+	color: #666666;
+}
+#mall-pattern-calendar-manage .info .lunar {
+	color: #666666;
+}
+
+#mall-pattern-calendar-manage .pattern-area ul li {
+	margin: 15px 15px;
+}
+#mall-pattern-calendar {
+	min-width: 500px;
+}
+#mall-pattern-calendar-manage .color-circel {
+	position: absolute;
+	display: inline-block;
+	top:0px;
+	height: 60px;
+	width: 60px;
+	border-radius: 100% 100%;
+	background: #feeeee;   
+    z-index: 0;
+}
+#mall-pattern-calendar-manage .info {
+	position: relative;
+	z-index: 1;
+}
+#mall-pattern-calendar-manage .cur-day .info span {
+	color: #e31616!important;
+}
+#mall-pattern-calendar-manage .cur-day .info em {
+	color: #e31616!important;
+}
+#mall-pattern-calendar-manage .cur-day .mp-tag {
+	z-index: 1;
+}
+#mall-pattern-calendar .term{
+	margin-top: -6px;
+	display: none;
+} 
+#mall-pattern-calendar .festival.show,
+#mall-pattern-calendar .term.show{
+	color: #0f94ed;
+	text-align: center;
+}
+#mall-pattern-calendar .first-lunarday {
+	border: none;
+}
+
+.layui-layer .go-run-setting {
+	text-decoration: underline;
+}
+.layui-layer .go-run-setting:hover {
+	color: orange;
+}
+#mall-pattern-calendar-manage .ibox-content {
+	padding-top: 0;
+}
+#mall-pattern-calendar-manage .btn-box {
+	height: 60px
+}
+#mall-pattern-calendar-manage .btn-box .tips {
+	padding: 0px;
+}
+#mall-pattern-calendar-manage .tips p {
+	display: inline-block;
+	padding: 10px 25px;
+	border: 1px solid #eeeeee;
+	background: #F9F9F9;
+}
+#mall-pattern-calendar-manage .tips p span {
+	color: #188DF0;
+}
+#mall-pattern-calendar-manage .text-right {
+	position: relative;
+}
+#mall-pattern-calendar-manage .text-right .help {
+	position: absolute;
+	display: inline-block;
+    height: 16px;
+    width: 16px;
+    background: url(/img/central-con/help.png) no-repeat;
+    background-size: 16px 16px;
+    vertical-align: bottom;
+    cursor: pointer;
+}
+#mall-pattern-calendar-manage .upload-btn{
+	margin: 8px 8px 0 0;
+}
+
+</style>
+<div class="wrapper-content" id="mall-pattern-calendar-manage">
+	<div class="row">
+		<div class="col-sm-12 no-padding">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>运行日历</h5>
+					<div class="ibox-tools">
+						<a class="btn btn-white btn-bitbucket btn-xs" href="javascript: goPage('index')">
+                            <i class="fa fa-times"></i>
+                        </a>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-sm-9 btn-box">
+							<div class="tips col-sm-9">
+								<p>提醒：当前日历还未初始化，您可通过“<span>导入日历</span>”去配置</p>
+							</div>
+							<div class="col-sm-3 text-right">
+								<button class="btn btn-primary upload-btn">导入日历</button>
+								<span class="help"></span>
+							</div>
+							
+						</div>
+						<div class="col-sm-9">
+							<div class="calendar-grid" id="mall-pattern-calendar">
+								<div class="atab">
+									<ul>
+										<li class="cur">月</li>
+										<li>年</li>
+									</ul>
+								</div>
+								<div class="container">
+									<div class="render-month render render-show">
+										<h2>
+											<span class="btn btn-prev"><</span> <span class="title">2017年9月</span>
+											<span class="btn btn-next">></span>
+										</h2>
+										<ul class="week">
+											<li>周日</li>
+											<li>周一</li>
+											<li>周二</li>
+											<li>周三</li>
+											<li>周四</li>
+											<li>周五</li>
+											<li>周六</li>
+										</ul>
+										<ul class="day"></ul>
+									</div>
+									<div class="render-full-year render">
+										<div class="title">
+											<h2>
+												<span class="btn btn-prev"><</span> <span class="_t">2017年</span>
+												<span class="btn btn-next">></span>
+											</h2>
+											<p>
+												<span class="lunar-year"><i></i>丁酉鸡年</span> <span class="info"><i></i>农历初一</span>
+											</p>
+										</div>
+										<ul class="month"></ul>
+									</div>
+								</div>
+								<div class="mark-list">
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="pattern-area clear"></div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/html" id="mpc_pattern_detail_data">
+<div class="title">{{d.month}}月{{d.day}}日</div>
+{{# if (d.mallPattern && d.mallPattern != '') { }}
+<div class="sub-title">{{d.mallPattern.name}}</div>
+<ul class="set-lst">
+	{{# layui.each(d.mallPattern.mallPatternTime, function(i, mpt){ }}
+	<li class="clear">
+		<div class="name">{{mpt.name}}</div>
+		<div class="content" data-timeSortId={{mpt.id?mpt.id:''}} data-index={{i}}>
+			{{# if (mpt.subsystemPatternSetId && mpt.subsystemPatternSetId != '') { }}
+				<a href="javascript:;" data-opt="pattern-set" class="pattern-btn">{{mpt.subsystemPatternSetName}}</a>
+				<a href="javascript:;" data-opt="pattern-set" class="no-pattern-btn hide">未选择</a>
+				<i class="fa fa-pencil text-navy edit hide" data-subsystemPatternSetId="{{mpt.subsystemPatternSetId}}" title="编辑"></i>
+			{{# } else { }}
+				<a href="javascript:;" data-opt="pattern-set" class="pattern-btn">
+				<a href="javascript:;" data-opt="pattern-set" class="no-pattern-btn">未选择</a>
+				<i class="fa fa-pencil text-navy edit hide" title="编辑"></i>
+			{{# } }}
+		</div>
+	</li>
+	{{# }); }}
+</ul>
+<div class="col-sm-12 btn-group text-center clear">
+	<button class="btn btn-primary edit-btn" data-value='{"yyyymmdd":"{{d.yyyymmdd}}","mallPatternId":"{{d.mallPattern.id}}","mallPatternName":"{{d.mallPattern.name}}","day":"{{d.month}}月{{d.day}}日"}'>编辑</button>
+</div>
+{{# } else { }}
+<p class="no-pattern">未选择模式</>
+<div class="col-sm-12 btn-group text-center clear">
+	<button class="btn btn-primary config-btn" data-value='{"yyyymmdd":"{{d.yyyymmdd}}","day":"{{d.month}}月{{d.day}}日"}'>配置</button>
+</div>
+{{# } }}
+</script>
+<script type="text/html" id="mpc_pattern_choose_data">
+<div  class="mpc-pattern-choose-area row clear">
+	{{#if(d.mallPatternId && d.mallPatternId != '') { }}
+		<p class="col-sm-12 msg">{{d.day}}当前计划运行<span style="color:red;">{{d.mallPatternName}}</span></p>
+		<div class="col-sm-4">您可以修改为</div>
+	{{# } else { }}
+		<p class="col-sm-12 msg">{{d.day}}当前计划运行未配置运行计划</p>
+		<div class="col-sm-4">您可以指定为</div>
+	{{# } }}
+	<div class="col-sm-8 choose">
+		<select class="form-control" name="mallPatternId"> 
+			{{# if (d && d.mallPatterns.length > 0) { }}
+				<option value=''  selected = "selected" disabled>请选择</option>
+				{{# layui.each(d.mallPatterns, function(index, item){ }}
+					<option value='{{item.id}}'>{{item.name}}</option>
+				{{# }); }}
+			{{# } else { }}
+				<option value=''  selected = "selected" disabled>暂无可用商场模式</option>
+			{{# } }}
+		</select>
+	</div>
+</div>
+</script>
+<script src="${base}js/modules/views/mall-pattern/upload-calendar.js"></script>
+<script>
+CalendarGrid.init({
+	containerSelector: '#mall-pattern-calendar',
+	operationCodes:'${operationCodes}'
+})
+CalendarUpload.init();
+</script>

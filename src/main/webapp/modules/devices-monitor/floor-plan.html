@@ -1,0 +1,75 @@
+<link href="${base}css/modules/devices-monitor/scale.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet" onload="displayDm()">
+<style>
+    div.floor-plan {
+        display: inline-block;
+        position: relative;
+    }
+    div.floor-plan > a.d-point,
+    div.floor-plan > point.move-location {
+        position: absolute;
+        z-index: 22;
+    }
+    
+    div.floor-plan > a.d-point > svg,
+    div.floor-plan > point.move-location {
+        width: 20px;
+        height: 20px;
+
+    }
+    div.floor-plan > point.move-location {
+        cursor: move;
+        top: 0;
+    }
+    
+    div.floor-plan > point.move-location > i {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-image: url(/img/tools/star.png);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation: shanshuo 3s ease-out;
+        -webkit-animation: shanshuo 3s ease-out;
+        -moz-animation: shanshuo 3s ease-out;
+        animation-iteration-count: infinite;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-iteration-count: infinite;
+
+    }
+</style>
+<div class="hide" id="floor-plan-${timestamp}">
+    <div class="floor-plan">
+        <img src="${floorPic}">
+        <i class="fixed-transparent" style="display: block"></i>
+        <#list devices as item>
+            <#assign ifStateSystem = (item.systemCode == 'door' || item.systemCode == 'vedio' || item.systemCode == 'ap' || item.systemCode == 'passengerflow')?string('yes', 'no')>
+            <#assign iconColor = 'gray'>
+            <#if item.physicalState == 1>
+                <#assign iconColor = 'red'>
+            </#if>
+            <!-- 设备状态为正常，或者不存在设备状态， 永恒显示蓝色-->
+            <#if item.physicalState == 0> 
+                <#assign iconColor = 'blue'>
+            </#if>
+            
+            <a class="d-point" href="javascript:;" style="top: ${item.y}px; left:${item.x}px" data-opt="detail" data-device-id="${item.id}" data-system-code="${item.systemCode}" right-click="1" data-locate="1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-${item.systemCode}-<#if ifStateSystem == 'no'>blue<#else>${iconColor}</#if>" data-color="<#if ifStateSystem == 'no'>blue<#else>${iconColor}</#if>"></use></svg></a>
+        </#list>
+        <point class="move-location hide"><i></i></point>
+    </div>
+    <div class="data-opts scale-panel">
+        <a class="item direction-left " href="javascript:;" title="展开" data-opt="optsDirection"><i class="fa fa-caret-left"></i></a>
+        <a class="item" href="javascript:;" data-opt="switchScale"><span></span>%&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+        <a class="item opt" href="javascript:;" data-opt="enlargeScale" title="放大设备及平面图"><i class="fa fa-search-plus"></i></a>
+        <a class="item opt" href="javascript:;" data-opt="minishScale" title="缩小设备及平面图"><i class="fa fa-search-minus"></i></a>
+        <a class="item opt" href="javascript:;" data-opt="maximize" title="最大化设备及平面图"><i class="fa fa-window-maximize"></i></a>
+        <ul class="percentage-items hide">
+            <li>100%</li><li>125%</li><li>150%</li><li>200%</li><li>400%</li>
+        </ul>
+    </div>
+</div>
+<script>
+function displayDm() {
+    $('#floor-plan-${timestamp}').removeClass('hide');
+}
+</script>

@@ -1,0 +1,71 @@
+	<#if allSystemPanels.result?? && allSystemPanels.result?size gt 0 >
+		<#if subsystemPanels.result?? && subsystemPanels.result?size gt 0 >
+		<#list subsystemPanels.result as item>
+			<li class="
+			<#if item.hasHourPassengerFlow??>
+				col-lg-${item.userSystemMonitorDtos?size * 3 + 3}
+				col-md-${item.userSystemMonitorDtos?size * 4 + 4}
+				col-sm-${item.userSystemMonitorDtos?size * 4 + 4} 
+			<#else>
+				col-lg-${item.userSystemMonitorDtos?size * 3}
+				col-md-${item.userSystemMonitorDtos?size * 4}
+				col-sm-${item.userSystemMonitorDtos?size * 4}
+			</#if>
+			sub-sys-item sub-sys-type-${item.code}" data-code="${item.code}" data-serialNumber="${item.serialNumber}">
+			<div class="li-container">
+				<@codeValidation codes=operationCodes operationCode="remove-system">
+					<a href="javascript:;" data-opt="removeView"></a>
+				</@codeValidation>
+				<div class="above text-left">
+					<span class="system-name">${item.name}</span>
+					<#if item.subModuleNum?? && item.subModuleNum gt 1>
+					<@codeValidation codes=operationCodes operationCode="manage-sub-module">
+						<button class="btn show-sub-modules">显示模块</button>
+					</@codeValidation>
+					</#if>
+				</div>
+				<div class="below echart-group 
+				<#if item.hasHourPassengerFlow??>
+					children-${item.userSystemMonitorDtos?size + 1}
+				<#else>
+					children-${item.userSystemMonitorDtos?size}
+				</#if>
+				">
+				
+					<#list item.userSystemMonitorDtos as m>
+						
+						<div class="echart-item 
+						<#if m.code=='passengerflow-visitor-count'>
+							two-part
+						<#else>
+							one-part
+						</#if>
+						" data-code="${m.code}" data-serialNumber="${m.serialNumber}">
+							<div class="border-hide">
+								<h5>
+									${m.name}
+									<#if !(m.code=='passengerflow-visitor-count')>
+										<i class="help"></i>
+									</#if>
+								</h5>
+								<div class="content">
+									<div class="no-data"></div>
+								</div>
+							</div>
+						</div>
+					</#list>
+				</div>
+			</div>
+		</li>
+		</#list>
+		<#else>
+			<div class="col-sm-12 no-sub-panel text-center">
+				<p class="text-center">当前未选中任何监控模块</p>
+			</div>
+		</#if>
+	<#else>
+		<div class="col-sm-12 add-box text-center">
+			<p class="text-center"></p>
+			<a href="javascript: goModule({moduleName:'store',directive:'sub-system-form'})" class="add-sub-sys btn btn-primary">子系统配置</a>
+		</div>
+	</#if>

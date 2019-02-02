@@ -1,0 +1,304 @@
+<link href="${base}css/modules/store-sub-system-form.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+<div class="wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>子系统配置</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-white btn-bitbucket btn-xs" href="javascript: goPage('index',{subModule: 'sub-system-manage'})">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                	<form id="sub-sys-types">
+               			<#if allSubSys?? && allSubSys?size gt 0>
+                		<input type="hidden" name="id">
+               			<#list allSubSys as sys>
+               			<#if sys.autoConfig?? && sys.autoConfig == '1'>
+               			<div class="sub-sys-type sub-sys-type-${sys.type}" data-code="${sys.code}" data-value='{"type":"${sys.type}","name":"${sys.name}","code":"${sys.code}","patternType":"${sys.patternType}"}'>
+	               		 	<h5>${sys.name}</h5>
+	               		 	<#if sys.brands?? && sys.brands?size gt 0>
+	          					<#list sys.brands as brand>
+	          						<ul class="type-container" brand-code="${brand.bCode}" data-value='{"bName":"${brand.bName}","bCode":"${brand.bCode}"}' name="${sys.code}">
+			               		 		<p class="brand">${brand.bName}</p>
+			               		 		<div class="below" style="display:inline-block;min-width:62px;">
+			               		 			<#if brand.childSystems?? && brand.childSystems?size gt 0>
+					          					<#list brand.childSystems as c>
+					          						<li c-code="${c.cCode}" data-value='{"cCode":"${c.cCode}","cName":"${c.cName}"}' name="${brand.bCode}">
+						               		 			<p class="left" style="font-size:16px">${c.cName}</p>
+						               		 			<div class="versions">
+						               		 				<#if c.versions?? && c.versions?size gt 0>
+									          					<#list c.versions as v>
+									          						<#if v.isEnabled?? && v.isEnabled == true>
+									          						<div class="version">
+								               		 					<div class="checkbox i-checks" style="font-size:16px">
+									                                       <input type="checkbox" value="${v.vCode}" name="${c.cCode}" data-value='{"vCode":"${v.vCode}","vVersion":"${v.vVersion}","isEnabled":"true","versionAddDevice":"${v.versionAddDevice}","versionPatternType":"${v.versionPatternType}"}'> ${v.vVersion}
+								               		 					</div>
+								               		 				</div>
+								               		 				</#if>
+									          					</#list>
+									          				<#else>
+									          					版本号为空
+									          				</#if>
+						               		 			</div>
+						               		 		</li>
+					          						
+					          					</#list>
+					          				<#else>
+					          					品牌系统为空
+					          				</#if>
+				               		 	</div>
+			               		 	</ul>
+	          					</#list>
+	          				<#else>
+	          					品牌为空
+	          				</#if>
+	               		</div>
+	               		</#if>
+	               		</#list>
+	               		
+	               		<#if directive?? && directive=="edit">
+	               			<div class="col-sm-12 text-right">
+	               				<a href="javascript:void(0)" class="cancel text-navy" style="text-decoration:underline">移除子系统</a>
+	               			</div>
+	               			<div class="col-sm-8 col-sm-offset-2 text-center">
+	               				<a href="javascript:void(0)" class="btn btn-default reset">重置</a>
+	                        	<a href="javascript:void(0)" class="btn btn-primary submit">确认编辑</a>
+	               			</div>
+	               		<#else>
+	               			<div class="col-sm-8 col-sm-offset-2 text-center">
+	               				<a href="javascript:goPage('index',{subModule: 'sub-system-manage'})" class="btn btn-default">取消</a>
+	                        	<a href="javascript:void(0)" class="btn btn-primary submit">添加</a>
+	               			</div>
+	               		</#if>
+	                    <#else>
+	               		<p class="no-sub-sys">暂无可配置子系统。</p>
+	               		</#if>
+                	</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var sysInfo = null;
+
+<#if sysInfo??>
+sysInfo = JSON.parse('<@obj2json obj=sysInfo ></@obj2json>');
+</#if>
+var subSysConfigFn = (function(ops){
+	var El = '#sub-sys-types',
+		directive = null,
+		subSysData = {},
+		oldData = {};
+	var init = function(data){
+		var sysInfo = data.sysInfo?data.sysInfo:{};
+		subSysData = {};
+		oldData = {};
+		El = '#sub-sys-types';
+		setTimeout(function(){
+			adapt();
+		},50);
+		if($.isEmptyObject(sysInfo)){
+			directive = 'add';
+		} else {
+			directive = 'edit';
+			sysInfo.brands.forEach(function(value, index){
+				value.childSystems.forEach(function(childSystem, index){
+					subSysData[childSystem.cCode] = childSystem.versions
+				})
+			})
+		}
+		oldData = subSysData;
+		
+		$('.i-checks').iCheck({
+		    checkboxClass: 'icheckbox_square-green',
+		    radioClass: 'iradio_square-green',
+		});
+		checkboxInit(subSysData);
+		
+		
+		
+		$(El + ' .submit').on('click',function(){
+			setSubSys();
+		});
+		//恢复
+		$(El + ' .reset').on('click',function(){
+			checkboxInit(oldData);
+		});
+		//移除子系统
+		$(El + ' .cancel').on('click',function(){
+			var code = $(El + ' .sub-sys-type').attr('data-code');
+			setTimeout(function(){
+				layer.confirm('确认移除？', {
+				    btn: ['确认','取消'], //按钮
+				    shade: true //显示遮罩
+				}, function(){
+					SubSysInterface.resetSys({code:code},function(){
+						layer.closeAll()
+						goPage('index',{subModule: 'sub-system-manage'});
+				    	layer.msg('移除成功！', {icon: 6, time:2000});
+					});
+				});
+			})
+		});
+	},
+	checkboxInit = function(data){
+		$(El + ' input[type="checkbox"]').iCheck('uncheck');
+		if(data && !$.isEmptyObject(data)) {
+			for(var key in data) {
+				var vs = data[key]
+				vs.forEach(function(value){
+					var inputEl = $(El + ' input[value="' + value.vCode + '"]')
+					inputEl.iCheck('check');
+				});
+			}
+		}
+	},
+	setSubSys = function(data) {
+		var formData = $(El).serializeObject()
+			id = formData.id;
+		delete formData.id;
+		
+		if($.isEmptyObject(formData)){
+			setTimeout(function(){
+				layer.msg('未选中任何配置',{icon:5});
+				return false;
+			})
+		} else {
+			var lis = {},//操作系统
+				uls = {},//品牌
+				sub_sys = [],
+				versions = {};//子系统
+			/* 获取版本 */
+			for(key in formData) {
+				var select_v = formData[key];
+				versions[key] = [];
+				if(typeof select_v == 'string') {
+					var value = $(El + ' input[value="' + select_v + '"]').attr('data-value');
+					
+					if(value.length > 0) {
+						value = JSON.parse(value);
+					}
+					versions[key].push(value);
+				} else {
+					for(var i = 0; i < select_v.length; i ++) {
+						var value = $(El + ' input[value="' + select_v[i] + '"]').attr('data-value');
+						
+						if(value.length > 0) {
+							value = JSON.parse(value);
+						}
+						versions[key].push(value);
+					}
+				}
+			};
+		} 
+		
+		
+		/* 获取选中的操作系统 */
+		for(key in formData) {
+			var temp = $(El + ' input[name="' + key + '"]').parents('li'),
+				value = temp.attr('data-value'),
+				name = temp.attr('name');
+			
+			if(value.length > 0) {
+				value = JSON.parse(value);
+			}
+			if(!lis[name]){
+				lis[name] = [value]; 
+			} else {
+				lis[name].push(value);
+			}	
+		}
+		
+		for(key in lis) {
+			var select_sys = lis[key];
+			for(var j = 0; j < select_sys.length; j++){
+				
+				select_sys[j].versions = versions[select_sys[j].cCode]
+			}
+			lis[key] = select_sys;	
+		};
+		/*获取选中的品牌 */
+		for(key in lis) {
+			var temp = $(El + ' li[name="' + key + '"]').parents('ul'),
+				value = temp.attr('data-value'),
+				name = temp.attr('name');
+			if(value.length > 0) {
+				value = JSON.parse(value);
+			}
+			if(!uls[name]){
+				uls[name] = [value];
+			} else {
+				uls[name].push(value);
+			}
+		}
+		
+		for(key in uls) {
+			var select_brand = uls[key];
+			for(var j = 0; j < select_brand.length; j++){
+				
+				select_brand[j].childSystems = lis[select_brand[j].bCode]
+			}
+			uls[key] = select_brand;	
+		};
+		
+		/* 获取子系统 */
+		for(key in uls) {
+			var temp = $(El + ' ul[name="' + key + '"]').parents('.sub-sys-type'),
+				value = temp.attr('data-value');
+			
+			if(value.length > 0) {
+				value = JSON.parse(value);
+			} 
+			sub_sys.push(value)
+			
+		}
+		for(var i = 0; i < sub_sys.length; i++) {
+			var code = sub_sys[i].code;
+			sub_sys[i].brands = uls[code];
+		};
+		
+		formData.id = id;
+		console.log('选中的子系统数据',sub_sys);
+		CommonUtil.operation({
+			moduleName: 'central-con',
+			oper: 'save',
+			type: 'post',
+            oper_cn: '保存',
+			params: {
+				subSystemList:JSON.stringify(sub_sys),
+				directive:directive
+			}
+		}, function(res) {
+			goPage('index',{subModule: 'sub-system-manage'})
+			layer.msg('子系统配置成功！', {icon: 6,time: 2000});
+		});
+	},
+	//品牌单的宽高设置
+	adapt = function() {
+		var uls = $(El + ' ul'),
+			uls_len = uls.length,
+			below_height,
+			below_width;
+		
+		if(uls_len == 0) {
+			return false;
+		};
+		
+		uls.each(function(index) {
+			below_height = $(this).find('.below')[0].clientHeight;
+			below_width = $(this).find('.below')[0].offsetWidth;
+	    	$(this).find('.brand').css({'width':$(this).find('.below')[0].offsetWidth + 'px'});
+	    	$(this).find('li').css({'height':below_height + 'px'});
+	    })
+		
+	};
+	return {
+		init: init
+	}
+}());
+subSysConfigFn.init({sysInfo:sysInfo});
+</script>

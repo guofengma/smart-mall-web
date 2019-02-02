@@ -1,0 +1,124 @@
+[{
+	"key": "save",
+	"value": "保存"	
+}, {
+	"key": "remove",
+	"value": "删除"	
+},{
+	"key": "delete",
+	"value": "删除"	
+}, {
+	"key": "detail",
+	"value": "详情"	
+}, {
+	"key": "floor-info/remove",
+	"value": "删除楼层"	
+},{
+	"key": "floor-info/save",
+	"value": "增加楼层"	
+},{
+	"key": "ecm/save",
+	"value": "增加商城信息"	
+},{
+	"key": "savePlanGraph",
+	"value": "上传保存楼层平面图"	
+},{
+	"key": "page",
+	"value": "加载分页列表"	
+},{
+	"key": "list",
+	"value": "加载列表"	
+},{
+	"key": "subSystems",
+	"value": "加载子系统"	
+},{
+	"key": "getVersionCodeByFloor",
+	"value": "加载楼层及设备版本"
+},{
+	"key": "formConfig",
+	"value": "加载表单参数配置"	
+},{
+	"key": "getPlanGraph",
+	"value": "查询楼层平面图"	
+},{
+	"key": "deal",
+	"value": "处理"	
+},{
+	"key": "findCommandModuleBySystemCode",
+	"value": "查询"
+},{
+	"key": "saveCombpattern",
+	"value": "保存"
+},{
+	"key": "saveMallPattern",
+	"value": "保存"
+},{
+	"key": "mallPatternDelete",
+	"value": "删除"
+},{
+	"key": "mallPatternDetail",
+	"value": "详情"
+},{
+	"key": "getLayoutConfigByAreaId",
+	"value": "获取区域俯视图"
+},{
+	"key": "saveLayoutConfig",
+	"value": "保存全局图"
+},{
+	"key": "saveMallPatternForYyyymmdd",
+	"value": "保存"
+},{
+	"key": "updateDayMallPattern",
+	"value": "保存"
+},{
+	"key": "modifyPassword",
+	"value": "修改密码"
+},{
+	"key": "doRead",
+	"value": "标记为已读"
+},{
+	"key": "getPage",
+	"value": "获取列表"
+},{
+	"key": "move",
+	"value": "移动"
+},{
+	"key": "folderCreateOrUpdate",
+	"value": "保存文件夹"
+},{
+	"key": "saveGroup",
+	"value": "保存分组"
+},{
+	"key": "removeGroup",
+	"value": "删除分组"
+},{
+	"key": "addDevices",
+	"value": "添加设备"
+},{
+	"key": "removeDevices",
+	"value": "移除设备"
+},{
+	"key": "moveDevices",
+	"value": "移动设备"
+
+},{
+	"key": "pageUngroupDevices",
+	"value": "获取未分组设备列表"
+},{
+	"key": "pageGroupDevices",
+	"value": "获取分组设备列表"
+},{
+	"key": "fileCreateOrUpdate",
+	"value": "上传文件"
+},{
+	"key": "lstGroup",
+	"value": "设备分组列表"
+},{
+	"key": "getPassengerFlow",
+	"value": "获取客流系统数据"
+},{
+	"key": "taskDetail",
+	"value": "报表查询"
+}]
+
+

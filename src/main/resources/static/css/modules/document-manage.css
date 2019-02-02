@@ -1,0 +1,160 @@
+
+#document-table .checkbox {
+	left: 14px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+#document-table .checkbox input[disabled="disabled"]{
+	margin-top: 0px;
+    margin-left: 0px;
+    height: 17px;
+    width: 17px;
+}
+#document-table tr {
+	height: 40px;
+}
+#document-table tbody tr:hover td {
+	background: #DFE8F0;
+}
+#document-table tr td {
+	border-width: 1px;
+}
+#document-table tr td i.fa {
+	font-size: 18px;
+}
+#document-manage .filter-line {
+	border-bottom: 1px solid #D9E2EB;
+}
+#document-manage .path {
+	position: absolute;
+	top: 5px;
+}
+#document-manage .path .left {
+	float: left;
+	font-weight: 600;
+}
+#document-manage .path li.left:hover {
+	text-decoration: underline;
+	color: #3A8FE2;
+	cursor: pointer;
+}
+#document-manage .folder-name,
+#document-manage .file-name {
+    display: inline-block;
+    cursor: pointer;
+}
+#document-searchform {
+	float: right;
+}
+#document-manage .btns{
+	float: left;
+	margin-top: 10px;
+}
+#document-manage ul .empty{
+	display: inline-block;
+	height: 20px;
+	width: 16px;	
+}
+#document-manage .footable-sort-indicator {
+	cursor: pointer;
+}
+#document-manage .sort-asc:before {
+	content: "\e012";
+}
+
+#document-manage .sort-desc:before {
+	content: "\e013"; 
+}
+.btn-yellow {
+	background: #f5c424;
+	color: #ffffff;
+}
+.btn-yellow:hover {
+	color: #f5c424;
+	background: #ffffff;
+	border-color: #f5c424;
+}
+
+/* 右键菜单 */
+#document-right-memu {
+	position: absolute;
+	background: #ffffff;
+	border: 1px solid #70B2E1;
+	color: #3A8FE2;
+}
+#document-right-memu li {
+	border-bottom: 1px solid #D7E5F2;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+#document-right-memu li:last-child {
+	border: none;
+}
+#document-right-memu li:hover {
+	background: #D2E0EC;
+}
+
+/* 文件夹新建/重命名弹框 */
+.layui-layer .form-group {
+	padding-left:0!important;
+	padding-right:0!important;
+	margin-left:0!important;
+	margin-right:0!important;
+}
+#document-form .folder-name  {
+	margin-top:20px;
+}
+#document-form .control-label {
+	margin-top:20px;
+	padding-right: 0px;
+	padding-top: 4px;
+}
+#document-form .control-label i {
+	font-size: 28px;
+	color: #f5c424;
+}
+#document-form button i{
+	font-size: 16px;
+}
+#document-form .btn.btn-success {
+	border-color: #1C84C6;
+}
+#document-form .btn.btn-success:hover {
+	color: #1C84C6;
+	border-color: #1C84C6;
+}
+#document-form .btn.btn-success:first-child {
+	margin-right: 20px;
+}
+/* 移动文件的弹框 */
+.document-change-folder {
+	margin: 15px;
+}   
+.document-change-folder i{
+	color: #f5c424;	
+}
+.document-change-folder .above span {
+	float: left;
+}
+.document-change-folder .above .add-folder {
+	float: right;
+}
+.document-change-folder .below {
+	margin-top: 15px;
+	padding: 10px;
+	width: 100%;
+	min-height: 230px;
+	border: 1px solid #D9E2EB;
+}
+.document-change-folder .folders li {
+	margin:5px 0 5px 15px;
+}
+.document-change-folder .folders .item {
+	display: inline-block;
+	cursor: pointer;
+}
+.document-change-folder .folders .item.selected span{
+	text-decoration: underline;
+	color: #3A8FE2;
+}
+

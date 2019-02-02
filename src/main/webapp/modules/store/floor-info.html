@@ -1,0 +1,60 @@
+   <div class="panel-body">
+	<div class="row">
+		<div class="col-sm-3" style="width:250px;">
+			<div class="floor-lst">
+				<ul class="sortable-list connectList agile-list ui-sortable floorList">
+				
+					<@codeValidation codes=operationCodes operationCode="a-vertical-view-query">
+					<li class="info-element" data-opt="floor-vertical-view">
+						俯视图
+						<div class="agile-detail">
+							<div class="pull-right">
+								<@codeValidation codes=operationCodes operationCode="a-vertical-view-upload">
+								<a class="text-primary" title="更新俯视图" data-opt="upload-pic"><i class="fa fa-picture-o"></i></a>
+								</@codeValidation>
+							</div>
+						</div>
+					</li>
+					</@codeValidation>
+					<@codeValidation codes=operationCodes operationCode="a-floor-manage">
+					<#list floorList as floor>
+					<li class="info-element" data-opt="floor-detail" data-id="${floor.id}">
+						<#if floor.serialNumber?index_of("-") gte 0>
+	               			${floor.serialNumber?replace('-','B')} ${floor.floorName}
+               			<#else>
+               				${floor.serialNumber}F ${floor.floorName}
+               			</#if>
+						<div class="agile-detail">
+							<div class="pull-right">
+								<@codeValidation codes=operationCodes operationCode="a-f-vertical-view-upload">
+								<a class="text-primary" title="更新楼层平面图" data-id="${floor.id}" data-opt="upload-pic"><i class="fa fa-picture-o"></i></a>
+								</@codeValidation>
+								<@codeValidation codes=operationCodes operationCode="a-floor-edit"> <a
+									class="text-primary" data-opt="form-floor"
+									data-id="${floor.id}" title="编辑楼层"><i class="fa fa-pencil"></i></a>
+								</@codeValidation> <@codeValidation codes=operationCodes
+								operationCode="a-floor-remove"> <a
+									class="text-primary" data-opt="remove"
+									data-id="${floor.id}" title="删除楼层"><i class="fa fa-remove"></i></a>
+								</@codeValidation>
+							</div>
+							${floor.describe}
+						</div>
+					</li> </#list>
+					</@codeValidation>
+				</ul>
+			</div>
+			<@codeValidation codes=operationCodes operationCode="a-floor-add"> 
+			<a class="btn btn-block btn-primary" data-opt="form-floor" title="新增楼层" style="margin-top: 10px;"><i class="fa fa-plus"></i></a>
+			</@codeValidation>
+		</div>
+		<div class="col-sm-9" style="width:calc(100% - 250px);">
+			<div class="empty-tip">
+				<div>
+					<img alt="" src="img/floors/no-floor-pg.png">
+				</div>
+			</div>
+			<div class="pg-bg" style="display: none;height:calc(100vh - 196px);"></div>
+		</div>
+	</div>
+</div>

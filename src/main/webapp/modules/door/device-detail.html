@@ -1,0 +1,157 @@
+<style>
+
+    #device-detail-tpl .device-location {
+        width: 20px;
+        height: 20px;
+        background-image: url(img/tools/star.png);
+        z-index: 999;
+        position: absolute;
+        /* -webkit-animation: shanshuo 3s ease-out;  
+	    -moz-animation: shanshuo 3s ease-out;  
+	    animation: shanshuo 3s ease-out;  
+	    -webkit-animation-iteration-count: infinite;  
+	    -moz-animation-iteration-count: infinite;
+	    animation-iteration-count: infinite;  */
+        animation: shanshuo 3s ease-out;
+        -webkit-animation: shanshuo 3s ease-out;
+        -moz-animation: shanshuo 3s ease-out;
+        animation-iteration-count: infinite;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-iteration-count: infinite;
+    }
+    #device-detail-tpl label {
+    	padding: 0;
+    }
+</style>
+<div class="wrapper-content" id="device-detail-tpl">
+    <div class="row">
+        <div class="col-sm-6">
+            <h5 style="font-size: 14px;margin-bottom:10px;">设备定位</h5>
+            <div class="col-sm-12 no-padding" style="height: 300px;background: rgb(243, 245, 245); overflow: hidden;margin-bottom:10px;border: 1px solid #eeeeee;">
+                <div class="mini-pg-bg" style="position: relative;">
+                    <img src="${info.planGraph.storage[0].fileStorageUrl}">
+                    <i class="img-icon device-location" style="top: ${info.y}px; left: ${info.x}px;"></i>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-6 control-label text-center">*X = ${info.x}</label>
+                
+                <label class="col-sm-6 control-label text-center">*Y = ${info.y}</label>
+                
+            </div>
+        </div>
+        <div class="col-sm-6" style="margin-top: 21px;">
+        	<div class="row">
+                <label class="col-sm-3 control-label">设备名称</label>
+                <div class="col-sm-9">${info.deviceName!'-'}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label">设备编号</label>
+                <div class="col-sm-9">${info.deviceCode!'-'}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label">位置描述</label>
+                <div class="col-sm-9">${info.remark!'-'}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label">设备类型</label>
+                <div class="col-sm-9">${info.systemName!'-'}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label">版本号</label>
+                <div class="col-sm-9" data-bind="version-name"></div>
+            </div>
+            <div class="other-info">
+                <#list info.deviceOtherInfo as other>
+                <div class="row">
+                    <label class="col-sm-3 control-label">${other.pDescription!'-'}</label>
+                    <div class="col-sm-9">${other.pValue!'-'}</div>
+                </div>
+                </#list>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label">序列号</label>
+                <div class="col-sm-9">${info.relationId!'-'}</div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script>
+function getVersions(brands) {
+    var versions = [];
+    
+    for (var i = 0; i < brands.length; i++) {
+        var b = brands[i];
+        for (var j = 0; j < b.childSystems.length; j++) {
+            var cs = b.childSystems[j];
+            for(var k = 0; k < cs.versions.length; k++) {
+                var v = cs.versions[k];
+                var version = {};
+                version.brandName = b.bName;
+                version.systemName = cs.cName;
+                version.versionCode = v.vCode;
+                version.versionName = v.vVersion;
+                versions.push(version);
+            }
+        }
+    }
+    return versions;
+}
+
+function getVersionInfoByCode(versions, code) {
+    var info = '';
+    for (var i = 0; i < versions.length; i++) {
+        var v = versions[i];
+        if (v.versionCode === code) {
+            info = v.versionName + '( ' + v.brandName + '-' + v.systemName + ')';
+        }
+    }
+    return info;
+}
+
+var brands = JSON.parse('<@obj2json obj=info.brands ></@obj2json>');
+var versions = getVersions(brands);
+var versionName = getVersionInfoByCode(versions, '${info.deviceTypeCode}');
+$('#device-detail-tpl [data-bind="version-name"]').html(versionName);
+
+function showPg() {
+    var formPgSelector = '#device-detail-tpl .mini-pg-bg';
+    var pgSelector = formPgSelector + ' > img';
+    var currentDevicePoint = formPgSelector + ' > i.device-location';
+    var img = new Image();
+    img.src = $(pgSelector).attr('src');
+    img.onload = function() {
+        var picW = img.width, // 原始图片宽度
+            picH = img.height, // 原始图片高度
+            posX = $(currentDevicePoint).position().left,
+            posY = $(currentDevicePoint).position().top,
+            containerW = 380,
+            containerH = 300,
+            picTop,picLeft;
+
+        if ((picW - posX) * 2 <= containerW) {
+            picLeft = picW - containerW;
+        } else {
+            if (posX - (containerW / 2) >= 0) {
+                picLeft = posX - (containerW / 2);
+            } else {
+                picLeft = 0;
+            }
+        }
+        
+        if ((picH - posY) * 2 <= containerH) {
+            picTop = picH - containerH;
+        } else {
+            if (posY - (containerH / 2) >= 0) {
+                picTop = posY - (containerH / 2);
+            } else {
+                picTop = 0;
+            }
+        }
+        $(formPgSelector).css('margin-left', -picLeft + 'px').css('margin-top', -picTop + 'px'); 
+    }
+    
+}
+showPg();
+</script>

@@ -1,0 +1,267 @@
+<style>
+.table-box {
+	overflow: hidden;
+ 	margin-bottom: 20px;
+	border: 1px solid #EBEBEB;
+ 	border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; 	
+}
+.repair-group-member-list table {
+ 	margin-bottom: 0;
+}
+.repair-group-member-list table thead {
+ 	background: #F3F5F5;
+}
+.repair-group-member-list table th,
+.repair-group-member-list table td {
+	border-bottom: 1px solid #EBEBEB!important;
+	border-left: 1px solid #EBEBEB!important;
+}
+.repair-group-member-list table tr th:first-child,
+.repair-group-member-list table tr td:first-child {
+	border-left: 0!important;
+}
+.repair-group-member-list table tr:last-child td {
+	border-bottom: 0!important;
+}
+.repair-group-member-list table td {
+	background: #fff!important;
+}
+.repair-group-member-list .group-msg {
+	padding-bottom: 20px;
+}
+.repair-group-member-list .group-msg > span {
+	padding-right: 15px;
+}
+.repair-group-member-list .group-msg span.group-name {
+	font-size:16px;
+}
+.repair-group-member-list .group-msg span.group-manager {
+	padding-left: 24px;
+	display: inline-block;
+    padding-top: 1px;
+	background: url('img/user/manager.png') no-repeat 0 0;
+	background-size: 18px 18px;
+}
+.repair-group-member-list .group-msg span.group-leader {
+	padding-left: 24px;
+	margin-left: 30px;
+	display: inline-block;
+    padding-top: 1px;
+	background: url('img/user/group-leader.png') no-repeat 0 0;
+	background-size: 18px 18px;
+}
+.repair-group-member-list .group-msg a {
+	color: #3A8FE2;
+	text-decoration: underline;
+}
+.repair-group-member-list .filter-line form {
+	float: right;
+}
+.repair-group-member-list .opers .num {
+	margin-right: 20px;
+}
+.repair-group-member-list table .i-checks {
+	margin: 0;
+}
+.repair-group-member-list table .name {
+	padding: 0;
+}
+.repair-group-member-list table .name .footable-toggle {
+	display: none!important;
+}
+.repair-group-member-list table .name span {
+	display: inline-block;
+	margin-left: -34px;
+    padding: 5px 0px;
+    width: 34px;
+    height: 26px;
+    vertical-align: -5px;
+   
+}
+.repair-group-member-list table .teamLeader span{
+	background-image: url('img/user/group-leader.png')!important;
+	background-repeat: no-repeat!important;
+	background-position: 5px 5px!important;
+	background-size: 20px 20px!important;
+}
+.repair-group-member-list .cancelMembers {
+	position: absolute;
+    bottom: 55px;
+    color: #fff;
+    background: #ED5565;
+}
+.repair-group-member-list .btn-primary[disabled] {
+	background-color: #aaaaaa;
+	border-color:#aaaaaa;
+}
+.repair-group-member-list div.group-msg,
+.repair-group-member-list div.filter-line {
+	border: 1px solid #EBEBEB;
+    border-bottom: 0;
+    padding-top: 16px;
+    padding-left: 10px;
+}
+.repair-group-member-list div.group-msg {
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+</style>
+<div class="wrapper-content repair-group-member-list">
+	<div class="row">
+		<div class="col-sm-12 no-padding">
+		    <div class="ibox float-e-margins">
+		        <div class="ibox-title">
+		            <h5>查看组员</h5>
+		            <div class="ibox-tools">
+						<a class="btn btn-white btn-bitbucket btn-xs" href="javascript: goPage('index',{subModule:'repair-group'})">
+                            <i class="fa fa-times"></i>
+                        </a>
+					</div>
+		        </div>
+		        
+		        <div class="ibox-content">
+		        	<div class="group-msg">
+			        	<span class="group-name">${manager.teamName}</span>
+			        	<span class="group-manager">
+			        		班组管理员：
+			        		<span>${manager.realName}&nbsp;${manager.mobile}&nbsp;</span>
+			        		<#if manager.isManager?? && manager.isManager == 'true'>
+			        		<a href="javascript:void(0)" class="transfer-manager" data-id="${manager.id}">转让</a>
+			        		</#if>
+			        	</span>
+			        	
+			        	<span class="group-leader">
+			        		组长：
+			        		<span>${leader.realName}&nbsp;${leader.mobile}&nbsp;</span>
+			        		<#if manager.isManager?? && manager.isManager == 'true'>
+			        		<a href="javascript:void(0)" class="transfer-leader" data-id="${leader.id}">重设</a>
+			        		</#if>
+			        	</span>
+			        </div>
+		        	
+		        	<div class="filter-line">
+		        		<div class="opers">
+		        			<span class="num">运维班组人数：<span>5</span>人</span>
+		        			<#if manager.isManager?? && manager.isManager == 'true'>
+		        			<a class="btn btn-primary add-member"><i class="fa fa-plus"></i>&nbsp;</i>添加组员</a>
+		        			</#if>
+		        		</div>
+	                	<form method="get" class="dr-search-form" id="repair-group-member-list-searchform">
+	                		<input class="form-control" type="hidden" name="teamId" value="${id!''}">
+	                		<input class="form-control" type="hidden" name="page" value="${page!''}" role="user-params">
+                            <input placeholder="姓名/手机号" class="form-control" type="text" name="keyword" value="${keyword!''}" role="user-params">
+                           	<select class="form-control" name="flockId" data-value="${flockId}" role="user-params">
+                          		<option value=''>全部</option>
+								<#list flocks as item>
+									<option value="${item.id}">${item.value}</option>
+								</#list>
+                           	</select>
+                            <button type="button" class="btn btn-primary submit"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-default reset"><i class="fa fa-refresh"></i></button>
+	                 	</form>
+	                 	<@codeValidation codes=operationCodes operationCode="search">
+	                 	</@codeValidation>
+	                </div>
+	                <div class="table-box">
+		            <table class="footable table table-stripped toggle-arrow-tiny personal-i-check" id="repair-group-member-list-table" data-page-size="100" data-paging="false">
+		                <thead>
+	                        <tr>
+	                        	<#if manager.isManager?? && manager.isManager == 'true'>
+	                        	<th width='70px' data-sort-ignore="true">
+	                        		<div class="checkbox i-checks personal-i-check switch" style="left: 18px;top:-1px;">
+                        				<input type="checkbox" value="all" name="selected-all">
+              		 				</div>
+	                        	</th>
+	                        	</#if>
+	                            <th class="text-center">姓名</th>
+	                            <th class="text-center" data-sort-ignore="true">权限</th>
+	                            <th class="text-center" data-sort-ignore="true">手机号</th>
+	                            <#if manager.isManager?? && manager.isManager == 'true'>
+		            				<th class="text-center" data-sort-ignore="true">操作</th>
+		           				 </#if>
+	                        </tr>
+						</thead>
+						<tbody></tbody>
+		            </table>
+		            </div>
+		            <div class="text-right" id="repair-group-member-list-page"></div>
+		            <#if manager.isManager?? && manager.isManager == 'true'>
+		            <button class="cancelMembers btn hide">从该组移除</button>
+		            </#if>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>
+<div class="transferManagerTableTpl-view hide">
+	<table class="table">
+		<thead>
+			<tr>
+				<th></th>
+				<th>姓名</th>
+				<th>角色</th>
+				<th>联系电话</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	<div class="text-right page"></div>
+</div>
+
+<script id="transferManagerTableTpl" type="text/html">
+	{{# if (d && d.length > 0) { }}
+		{{# layui.each(d, function(index, item){ }}
+			<tr>
+				<td>
+					<div class="radio i-checks" style="margin:0 0 0 10px;">
+						<input type="radio" value="{{item.id}}" name="memberId">
+                   	</div>
+				</td>
+				<td class="name">{{item.realName}}</td>
+				<td>{{item.flock}}</td>
+				<td>{{item.mobile}}</td>
+			</tr>	
+		{{# }); }}
+	{{# } else { }}
+		<tr><td class="text-center" colspan=4>暂无数据</td></tr>
+	{{# } }}
+</script>
+<script id="repairGroupMemberListTpl" type="text/html">
+	{{# if (d && d.data.length > 0) { }}
+		{{# layui.each(d.data, function(index, item){ }}
+			<tr>{{# if(d.isManager == 'true') { }}
+				<td>
+					{{# if(item.part != 10 && item.mId != item.id) { }}
+					<div class="checkbox i-checks switch" style="left: 18px;top:-1px;">
+                        <input type="checkbox" value="{{item.id}}" name="member-item">
+              		</div>
+					{{# } }}
+				</td>
+				{{# } }}
+				<td class="name text-center 
+				{{# if(item.part == 10) { }}
+					teamLeader
+				{{# } }}
+				">{{item.realName}}</td>
+				<td class="text-center">{{item.flock?item.flock:'未知'}}</td>
+				<td class="text-center">{{item.mobile}}</td>
+				{{# if(d.isManager == 'true') { }}
+				<td class="text-center">
+					{{# if(item.part != 10 && item.mId != item.id) { }}
+						<a class="text-navy cancel" data-id="{{item.id}}">移除</a>
+					{{# } }}
+				</td>
+				{{# } }}
+			</tr>	
+		{{# }); }}
+	{{# } else { }}
+		<tr><td class="text-center" colspan=5>暂无数据</td></tr>
+	{{# } }}
+</script>
+<script src="${base}js/modules/views/user/group-members.js"></script>
+<script type="text/javascript">
+	groupMembers.init({currentUserIsManager:'${manager.isManager}'});
+</script>
+
+				

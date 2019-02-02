@@ -1,0 +1,163 @@
+<style>
+    .device-detail {
+        width: 100%;
+        height: 500px;
+        position: relative;
+        box-sizing: border-box;
+    }
+    
+    .device-detail .lft-panel {
+        width: 360px;
+        height: 100%;
+        float: left;
+        padding: 10px;
+    }
+    
+    
+    .device-detail .rgt-info {
+        width: 430px;
+        height: 100%;
+        float: left;
+        padding: 10px 0;
+        margin-left: 8px;
+        overflow: hidden;
+        overflow-y: scroll;
+    } 
+    
+    
+    .device-detail .rgt-info > div {
+        overflow: hidden;
+    }
+    .device-detail .info > label,
+    .device-detail .info > div,
+    .device-detail .rgt-info > div > label,
+    .device-detail .rgt-info > div > div {
+        float: left;
+        line-height: 35px;
+    }
+    .device-detail .rgt-info > div > label {
+        margin-right: 10px;
+    }
+    .form-detail-opts {
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+</style>
+<div id="sys-device-detail-${timestamp}">
+<div class="device-detail">
+    <div class="lft-panel">
+        <h5 class="title">设备定点</h5>
+        <div class="fp-view">
+            <#include 'device-point.html'>
+        </div>
+        <div>
+            <div class="info" style="float: right;">
+                <label class="name">平面图</label>
+                <div class="value origin_pic_wh">
+                        
+                </div>
+            </div>
+            <div class="info" style="float: left;">
+                <label class="name">定点</label>
+                <div class="value">
+                        (${item.x}, ${item.y})
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rgt-info">
+        <h5 class="title">系统信息</h5>
+        <#if (item.systemName?? && item.systemName?length gt 0)>
+        <div>
+            <label class="name">所属系统</label>
+            <div class="value">
+                ${item.systemName}
+            </div>
+        </div>
+        </#if>
+        <div>
+            <label class="name">系统版本</label>
+            <div class="value versionTypeName">
+            </div>
+        </div>
+        
+        <#if (item.deviceName?? && item.deviceName?length gt 0) || (item.deviceCode?? && item.deviceCode?length gt 0) || (item.supplierName?? && item.supplierName?length gt 0) || (item.remark?? && item.remark?length gt 0)>
+        <h5 class="title">设备信息</h5>
+        </#if>
+        <#if (item.deviceName?? && item.deviceName?length gt 0)>
+        <div>
+            <label class="name">设备名称</label>
+            <div class="value">
+                ${item.deviceName}
+            </div>
+        </div>
+        </#if>
+        <#if (item.deviceCode?? && item.deviceCode?length gt 0)>
+        <div>
+            <label class="name">设备编号</label>
+            <div class="value">
+                ${item.deviceCode}
+            </div>
+        </div>
+        </#if>
+        <#if (item.supplierName?? && item.supplierName?length gt 0)>
+        <div>
+            <label class="name">供应商</label>
+            <div class="value">
+                <#if item.supplierName?? && item.supplierName?length gt 0>
+                ${item.supplierName}
+                <$else>
+                暂无
+                </#if>
+            </div>
+        </div>
+        </#if>
+        <#if (item.remark?? && item.remark?length gt 0)>
+        <div>
+            <label class="name">位置描述</label>
+            <div class="value">
+                ${item.remark}
+            </div>
+        </div>
+        </#if>
+        <#if (item.deviceOtherInfo?size gt 0) || (item.relationId?? && item.relationId?length gt 0)>
+        <h5 class="title">基本信息</h5>
+        </#if>
+        <#list item.deviceOtherInfo as other>
+        <div>
+            <label class="name">${other.pDescription}</label>
+            <div class="value">
+                ${other.pValue}
+            </div>
+        </div>
+        </#list>
+        <#if (item.relationId?? && item.relationId?length gt 0)>
+        <div>
+            <label class="name">序列号</label>
+            <div class="value">
+                ${item.relationId}
+            </div>
+        </div>
+        </#if>
+    </div>
+</div>
+<div class="form-detail-opts">
+    <div class="text-right">
+        <a href="javascript:;" title="编辑位置" data-device-id="${item.id}" class="unlink parent-click hide" oper-code="move" data-opt="move"><i class="fa fa-arrows text-navy">&nbsp;编辑位置</i></a>&nbsp;&nbsp;
+        <a href="javascript:;" title="编辑信息" data-device-id="${item.id}" class="unlink parent-click hide" oper-code="form" data-opt="form"><i class="fa fa-pencil text-navy">&nbsp;编辑信息</i></a>&nbsp;&nbsp;
+        <a href="javascript:;" title="删除" data-device-id="${item.id}" class="unlink parent-click hide" oper-code="remove" data-opt="remove"><i class="fa fa-trash text-navy">&nbsp;移除</i></a>
+    </div>
+</div>
+</div>
+<script src="${base}js/modules/views/sys-devices/device-point.js"></script>
+<script src="${base}js/modules/views/sys-devices/detail.js"></script>
+
+<script>
+    new sysDeviceDetail({
+        moduleId: '#sys-device-detail-${timestamp}',
+        scode: '${item.systemCode}',
+        vcode: '${item.deviceTypeCode}',
+        manageName: '${manageName}'
+    })
+</script>

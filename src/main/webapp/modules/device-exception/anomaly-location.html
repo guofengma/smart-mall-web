@@ -1,0 +1,322 @@
+<link href="${base}css/modules/devices-monitor/scale.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+<style>
+	#smw-anomaly-location {
+		padding: 20px 0;
+	}
+	#smw-anomaly-location .ibox-content {
+		padding: 0;
+	}
+	#smw-anomaly-location .de-pg-cnt,
+	#smw-anomaly-location .vv-pg-cnt {
+		height: calc(100vh - 332px);
+		position: relative;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		overflow: hidden;
+		border-top: none;
+    	border-bottom-left-radius: 3px 3px;
+    	border-bottom-right-radius: 3px;
+	}
+	
+	#smw-anomaly-location .de-pg-cnt .floor-title {
+		display: inline-block;
+		position: absolute;
+		left: 10px;
+		top: 10px;
+		z-index: 2;
+	}
+	#smw-anomaly-location .de-pg-cnt .floor-bg {
+		height: calc(100vh - 300px);
+		position: relative;
+		overflow: hidden;
+	}
+	#smw-anomaly-location .de-pg-cnt .floor-bg > a {
+		display: inline-block;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		cursor: move;
+	}
+	#smw-anomaly-location .de-pg-cnt .floor-bg > a > i.location-spot {
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		top: -20px;
+		left: -20px;
+	}
+	#smw-anomaly-location .de-pg-cnt .floor-bg > a > i.location-spot span {
+		display:inline-block;
+		width: 20px;
+		height: 20px;
+		background-image: url(img/tools/alarm.png);
+		background-size:contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		
+		 -webkit-animation: shanshuo 3s ease-out;  
+	    -moz-animation: shanshuo 3s ease-out;  
+	    animation: shanshuo 3s ease-out;  
+	    -webkit-animation-iteration-count: infinite;  
+	    -moz-animation-iteration-count: infinite;
+	    animation-iteration-count: infinite;
+		
+	}
+	#smw-anomaly-location .de-pg-cnt .floor-title > i,
+	#smw-anomaly-location .de-pg-cnt .floor-title > span {
+		display: block;
+		float: left;
+		background-size: contain;
+	}
+	
+	
+	#smw-anomaly-location .de-pg-cnt .floor-title > i.ft0 {
+		width: 25px;
+		height: 55px;
+		background-image: url(img/tools/ft-0.png);
+	}
+	#smw-anomaly-location .de-pg-cnt .floor-title > span.ft1 {
+		height: 55px;
+		line-height: 38px;
+		background-image: url(img/tools/ft-1.png);
+		color: #fff;
+		font-size: 16px;
+		font-weight: 600
+	}
+	#smw-anomaly-location .de-pg-cnt .floor-title > i.ft2 {
+		width: 36px;
+		height: 55px;
+		background-image: url(img/tools/ft-2.png);
+	}
+	
+	#smw-anomaly-location .de-pg-cnt > .plan-graph {
+		width: 100%;
+		height: 100%;
+	}
+	
+	#smw-anomaly-location .de-detail {
+		height: calc(100vh - 300px);
+		background-color: rgb(248, 249, 251);
+		margin-top: 61px;
+		padding: 30px 15px;
+	}
+	
+	#smw-anomaly-location .de-detail > div {
+		padding:5px 0 5px 10px; 
+	}
+	#smw-anomaly-location .de-detail > .title {
+		padding: 0;
+		margin-bottom: 20px;
+		line-height: 15px;
+		font-size: 14px;
+		font-weight: bold;
+		margin-bottom: 8px;
+	}
+	
+	#smw-anomaly-location .de-detail label {
+		font-weight: 500;
+	}
+	
+	#smw-anomaly-location .de-detail span,
+	#smw-anomaly-location .de-detail .span {
+		font-weight: 300;
+	}
+	#smw-anomaly-location .de-area {
+		position: absolute;
+		 -webkit-animation: alarm 3s ease-out;  
+	    -moz-animation: alarm 3s ease-out;  
+	    animation: alarm 3s ease-out;  
+	    -webkit-animation-iteration-count: infinite;  
+	    -moz-animation-iteration-count: infinite;
+	    animation-iteration-count: infinite; 
+	}
+	#smw-anomaly-location div.btn-group {
+		position: absolute;
+		bottom:5px;
+	}
+	#smw-anomaly-location a.btn-outline {
+		display: inline-block;
+		margin-right: 20px;
+		color: #3A8FE2;
+		border-color: #3A8FE2;
+	}
+	#smw-anomaly-location .left-below {
+		position: relative;
+	}
+	#smw-anomaly-location .dealinfo-form {
+		margin: 0 20px;
+		padding: 20px;
+    	border: 1px solid #cccccc;
+    	border-radius: 3px;
+	}
+	#smw-anomaly-location .dealinfo-form .width-100px {
+		float: left;
+		width: 100px;
+		text-align: left;
+		padding-left: 10px;
+	}
+	#smw-anomaly-location .dealinfo-form .center {
+		float: left;
+		width: calc(100% - 200px)
+	}
+	#smw-anomaly-location .dealinfo-form .btn {
+		margin-left: 20px;
+		position: absolute;
+		top: 19px;
+	}
+	#smw-anomaly-location .des {
+		font-size: 18px;
+	    border: 1px solid #cccccc;
+	    border-bottom: none;
+	    padding: 5px 10px;
+	    border-top-left-radius: 3px;
+    	border-top-right-radius: 3px;
+    	background: rgb(248, 249, 251);
+	}
+</style>
+<#setting datetime_format = 'yyyy-MM-dd HH:mm'>
+<div class="wrapper-content" id="smw-anomaly-location">
+	<div class="row">
+		<div class="col-sm-12">
+		    <div class="ibox float-e-margins">
+                   <div class="ibox-title">
+                       <h5>设备异常定位</h5>
+                       <div class="ibox-tools">
+                           <a class="close-link" href="javascript:goPage('index');">
+                               <i class="fa fa-times"></i>
+                           </a>
+                       </div>
+                   </div>
+                   <div class="ibox-content">
+					   <div class="row">
+						   <div class="col-sm-9">
+								<div class="tabs-container">
+									<ul class="nav nav-tabs">
+										<li class="active"><a data-toggle="tab" href="#de-pg-location" aria-expanded="true">楼层定位</a></li>
+										<li class=""><a data-toggle="tab" href="#de-vv-location" aria-expanded="false">园区定位</a></li>
+									</ul>
+									<div class="tab-content" style="padding: 20px;">
+										<div id="de-pg-location" class="tab-pane active">
+											<div class="de-pg-cnt">
+												<div class="floor-bg">
+													<a class="pg-bg">
+														<img src="img/no-pic.png">
+														<i class="icon-img location-spot" data-x="${device.x}" data-y="${device.y}">
+															<span></span>
+														</i>
+														<i class="fixed-transparent" style="display: block"></i>
+													</a>
+													
+													<div class="data-opts scale-panel hide" style="right:-73px;">
+														<a class="direction direction-left item" href="javascript:;" title="展开"><i class="fa fa-caret-left"></i></a>
+														<a class="percentage item" href="javascript:;"><span></span>%&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+														<a class="scale-pg item opt" href="javascript:;" data-opt="enlarge" title="放大设备及平面图"><i class="fa fa-search-plus"></i></a>
+														<a class="scale-pg item opt" href="javascript:;" data-opt="minish" title="缩小设备及平面图"><i class="fa fa-search-minus"></i></a>
+														<ul class="percentage-items hide">
+															<li>100%</li><li>125%</li><li>150%</li><li>200%</li><li>400%</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div id="de-vv-location" class="tab-pane">
+											<div class="vv-pg-cnt">
+												<img src="${vv.picture.storage[0].fileStorageUrl}">
+												<ul class="configed-area-pics">
+														<#list configedAreas as ca>
+														<#if ca??>
+														<li>
+															<a href="javascript:;" data-id="${ca.id}" data-x="${ca.layoutConfig.x?string['0.######']}" data-y="${ca.layoutConfig.y?string['0.######']}" data-scale="${ca.layoutConfig.ratio?string['0.######']}">
+																<img alt="" src="${ca.picture.picture.storage[0].fileStorageUrl}" style="width: 0px;">
+															</a>
+														</li>
+														</#if>
+														</#list>
+												</ul>
+												<div class="de-area"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="left-below">
+									<#if info.eventStatus == 20 || info.eventStatus == 50 || info.eventStatus == 60>
+									<div class="ibox-title">
+				                       	<h5>异常处理&nbsp;&nbsp;
+											<#if info.eventStatus != 60>   
+											<a class="btn btn-primary" href="javascript:;" role="open-assign-form"><i class="fa fa-hand-o-right">去指派</i></a>
+											</#if>
+										</h5>
+									</div>
+									<div class="ibox-content">
+										<#include "../work-order/deal-info.html"/>
+									</div>
+									</#if>
+								</div>
+						   </div>
+						   <div class="col-sm-3">
+								<div class="de-detail">
+									<div class="title text-navy">异常设备详情
+									<#if device.status == -1>
+									(该设备已被删除)
+									</#if>
+									</div>
+									<div>
+										<label>设备位置：<span>${floor.areaName!'未知'}&nbsp;<#if floor.serialNumber??>,${floor.serialNumber}F</#if>&nbsp; ${floor.floorName!'未知'}</span></label>
+									</div>
+									<div>
+										<label>位置描述：<span>
+											<#if device.remark?? && device.remark !=''>
+												${device.place}
+											<#else>
+												暂未录入
+											</#if>
+										</span></label>
+									</div>
+									<div>
+										<label>设备名：<span>${device.deviceName!'未知'}</span></label>
+									</div>
+									<div>
+										<label>设备编号：<span>${device.deviceCode!'未知'}</span></label>
+									</div>
+									<div>
+										<label>设备供应商：<span>${device.supplierName!'暂未录入'}</span></label>
+									</div>
+									<div>
+										<label>设备分组：<span>${group.deviceGroupName!'未分组'}&nbsp;<#if group.devideGroupRemark??>&nbsp;(${group.devideGroupRemark!'未知'})</#if></span></label>
+									</div>
+									<div>
+										<label>系统版本：<span>${device.deviceTypeCode!'未知'}</span></label>
+									</div>
+									<div>
+										<label>序列号：<span>${device.relationId!'未知'}</span></label>
+									</div>
+									
+									<div class="title text-navy">附加信息</div>
+									<#list device.deviceOtherInfo as do>
+									<div>
+										<label>${do.pDescription}：<span>${do.pValue}</span></label>
+									</div>
+									</#list>
+									<#if info.eventStatus !=0>
+										<div class="btn-group">
+											<a href="javascript:void(0)" class="btn btn-primary" role="deal-history-panel">追踪</a>
+										</div>
+									</#if>
+								</div>
+						   </div>
+						</div>
+                   </div>
+               </div>
+           </div>
+	</div>
+</div>
+<script src="${base}js/modules/views/device-exception/anomaly-location.js?${.now?string('yyMMddhhmmSSsss')}"></script>
+<script src="${base}js/modules/views/floor-device/scale-panel.js"></script>
+<script>
+	DeviceExceptionAnomalyLocation.init({
+		areaId: '${floor.areaId}',
+		floorPlan: '${floorPg.picture.storage[2].fileStorageUrl}',
+		deInfoId: '${info.id}'
+	});
+</script>

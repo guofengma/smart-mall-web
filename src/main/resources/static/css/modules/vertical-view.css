@@ -1,0 +1,97 @@
+#store-vertical-view .pg-oper-block{
+	height: calc(100vh - 280px);
+	background-color: rgb(252, 252, 252);
+	border: 1px dashed #ccc;
+	position: relative;
+}
+
+#store-vertical-view .pg-oper-block > .area-pgs {
+	position: absolute;
+	/* width: 40%; */
+	height: 100%;
+	background-color: rgba(0, 0, 0, .5);
+	top: 0;
+	right: 0;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+#store-vertical-view .pg-oper-block > .area-pgs > li {
+	text-align: center;
+	cursor: pointer;
+	padding: 10px;
+	border-bottom: 1px solid rgba(255, 255, 255, .2);
+}
+#store-vertical-view .pg-oper-block > .area-pgs > li:hover {
+	background-color: rgba(0, 0, 0, .2);
+}
+#store-vertical-view .pg-oper-block > .area-pgs > li > a {
+ 	overflow: hidden;
+	display: inline-block;
+}
+#store-vertical-view .pg-oper-block > .area-pgs > li img {
+	height: 200px;
+	max-width: 100%;
+}
+
+.vertical-view-handler {
+	position: relative;
+	height: 100%;
+}
+
+.vertical-view-handler > img {
+	max-height: 100%;
+}
+.vertical-view-handler > div.zoom {
+	border: 2px dashed #3A8FE2;
+	border-radius: 5px;
+
+}
+.vertical-view-handler > div.move_target {
+	cursor: move;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	background-color: transparent;
+	width: 200px;
+	display: none;
+	z-index: 999;
+}
+
+.vertical-view-handler > div.move_target > .coor {
+	width: 10px;
+	height: 10px;
+	overflow: hidden;
+	cursor: se-resize;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background-color: #3A8FE2;
+	z-index: 3;
+}
+
+.vertical-view-handler > div.move_target > i {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: transparent;
+	z-index: 2;
+
+}
+
+.configed-area-pics li > a > img {
+	position: absolute;
+	width: 0;
+	top:30px;
+	left: 30px;
+	border: 1px dashed #ccc;
+}
+
+.configed-area-pics li > a > img:hover {
+	border-color: #3A8FE2
+}
+.configed-area-pics li.current {
+	display: none;
+}

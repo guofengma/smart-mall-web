@@ -1,0 +1,26 @@
+<style>
+	div[data-id="pattern/index"], .pattern{
+		height:100%;
+	}
+	#pattern-choose {
+		position:relative;
+	}
+</style>
+<div class="wrapper-content pattern">
+    <div class="row" style="height:100%">
+        <div class="col-sm-12" style="height:100%">
+        	<div class="tabs-container" style="height:100%">
+				<div class="tab-content" >
+					<div id="pattern-choose" class="tab-pane active">
+	                   	<#include "pattern-choose.html"/>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<script src="${base}js/modules/views/mall-pattern/pattern-manage.js"></script>
+<script type="text/javascript">
+patternChooseManage.init({operationCodes:'${operationCodes}'});
+
+</script>  

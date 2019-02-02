@@ -1,0 +1,259 @@
+<style>
+
+.run-setting .ibox-content {
+	width:80%;
+	min-width: 700px;
+}
+.run-setting .run-setting-detail {
+	width:100%;
+	
+ 	padding: 0;
+	margin: 0;
+	border: 1px solid #D9E2EB;
+	border-radius: 8px;
+	overflow: hidden;
+ }
+.run-setting .run-setting-detail .above {
+	position: relative;
+	border-bottom: 1px solid #D9E2EB;
+	background: #F8F9FB;
+	padding: 8px 0px
+}
+.run-setting .run-setting-detail .above .remove {
+	position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.run-setting .run-setting-detail .above .edit {
+	position: absolute;
+    top: 10px;
+    right: 30px;
+    cursor: pointer;
+}
+.run-setting .run-setting-detail .time-select {
+	width: 120px;
+	display: inline-block;
+	line-height: 24px;
+	background: rgb(243, 245, 245);
+}
+.run-setting .run-setting-detail .disabled {
+	background: #e0e0e0!important;
+}
+.run-setting .run-setting-detail .below {
+	padding:0;
+}
+.run-setting .run-setting-detail .below .sort-name {
+	border-right: 1px solid #D9E2EB; 
+}
+.run-setting .run-setting-detail .below .item {
+	border-bottom: 1px solid #D9E2EB;
+}
+.run-setting .run-setting-detail .below .item:last-child {
+	border-bottom: none;
+}
+.run-setting .run-setting-detail .below .col-sm-8 {
+	height: 40px;
+	padding: 5px 15px;
+}
+.run-setting .run-setting-detail .below .node-date,
+.run-setting .run-setting-detail .below .sort-name,
+.run-setting .run-setting-detail .below .col-sm-4 {
+	padding: 10px 15px;
+	height: 40px;
+}
+.run-setting .run-setting-detail span {
+	display: inline-block;
+	padding: 10px 0px; 
+}
+.run-setting .ibox-content button {
+	padding: 5px 10px;
+	margin-top:20px;
+}
+.run-setting .run-setting-detail a {
+	padding: 2px 5px;
+	color: #5a98dc;
+	border: 1px solid #5a98dc;
+	border-radius: 4px;
+}
+.run-setting .run-setting-detail .no-pattern {
+	background: #FA957E;
+	border-color: #FA957E;
+	color: #ffffff;
+}
+.run-setting .ibox-content .link {
+	display: inline-block;
+    color: #5a98dc;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+.run-setting .sort-name input{
+	margin: -5px;
+	margin-left: 24px;
+    width: calc(100% - 24px);
+}
+.run-setting .sort-name .remove{
+    position: absolute;
+    top: 12px;
+    color: red;
+}
+.run-setting .day-type-name {
+	margin: 10px 0;
+}
+.run-setting .day-type-name input {
+	display: inline-block;
+	width: 200px;
+}
+.run-setting .add-day-type {
+	margin-top: 15px;
+}
+.pattern-choose-date {
+	width:126px!important;
+	transition-duration: 0s!important;
+   	-webkit-transition-duration: 0s!important;
+}
+.run-setting .run-setting-detail .add-time-sort {
+ 	height: 40px;
+    padding-left: 15px;
+    padding-top: 10px;
+    color: black;
+ }
+.run-setting .run-setting-detail .add-time-sort i {
+ 	color: #0198EB;;
+ 	margin-right: 10px;
+ }
+</style>
+<div class="wrapper-content run-setting">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                    	<select class="form-control" name="mallPatternId">
+                    		<#if mallPatternTypes?? && mallPatternTypes?size gt 0 >
+                    			<#list mallPatternTypes as d>
+                    				<option value="${d.id}" data-color="${d.color}" class="has-color">${d.name}</option>
+                    			</#list>
+                    			<#if mallPatternTypes?? && mallPatternTypes?size lt 10 >
+                    				<@codeValidation codes=operationCodes operationCode="add-day-type">
+		                			<option value="">添加其他类型</option>
+		                			</@codeValidation>
+			            		</#if>
+                    		<#else>
+                    			<@codeValidation codes=operationCodes operationCode="add-day-type">
+		                		<option value="">添加其他类型</option>
+		                		</@codeValidation>
+			            	</#if>
+                    	</select>
+                    </h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-white btn-bitbucket btn-xs" href="javascript: goPage('index',{subsystemPatternId:'${subsystemPatternId}'})">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                	<form method="get" class="form-horizontal" id="run-setting-form">
+                		<input type="hidden" name="id">
+                		<div class="day-type-name hide">
+							<span>日期类型名称：</span>
+							<input class="form-control input-border-bottom" type="text" placeholder='请填写日期类型名称' maxlength="10" autocomplete="off">
+						</div>
+                		
+	               		<div class="run-setting-detail row">
+							<div class="above clear">
+								<div class="col-sm-3">时段名称</div>
+								<div class="col-sm-9">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-7">时段</div>
+									<div class="col-sm-4">选择模式</div>
+								</div>
+								<i class="fa fa-pencil text-navy edit" title="编辑"></i>
+								<i class="fa fa-trash text-navy remove" title="删除"></i>
+							</div>
+							<div class="below col-sm-12">
+								<div class="items">
+									<div class="col-sm-12 text-center node-date">暂无数据</div>
+								</div>
+							</div>
+						</div> 
+					</form>
+					<div class="col-sm-12 text-center btns-group hide">
+						<button class="btn btn-gray cancel-btn">取消</button>
+                        <button class="btn btn-primary save-btn">保 存</button>
+                    </div>
+                    <!-- <div class="col-sm-12 text-right">
+                        <a class="link time-sort-link">调整时间段</a>
+                    </div> -->
+                    <div class="col-sm-12 text-right">
+                        <i class="fa fa-plus text-navy add-day-type" title="添加日期类型"></i>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="time_sort_item_edit_tpl" type="text/html">
+{{# if (d && d.length > 0) { }}
+{{# layui.each(d, function(index, item){ }}
+	<div class="item clear" data-timeSortId="{{item.id?item.id:''}}" data-index="{{index}}">
+		<div class="col-sm-3 sort-name">
+    		<i class="fa fa-minus-circle remove" title="删除时间段"></i>
+			<input class="form-control"  type="text" placeholder='未命名' value="{{item.name?item.name:''}}" maxlength=10>
+		</div>
+		<div class="col-sm-9">
+			<div class="col-sm-8">
+				<input class="form-control time-select" id="slot-{{item.id}}-start" type="text" name="startTime" value="{{item.startTime?item.startTime: ''}}" readOnly> 至 
+ 				<input class="form-control time-select" id="slot-{{item.id}}-end" type="text" name="endTime" value="{{item.endTime ? item.endTime : '24:00'}}" readOnly>
+			</div>
+			<div class="col-sm-4">
+				{{# if (item.subsystemPatternSetName && item.subsystemPatternSetName.length > 0) { }}
+					<a class="selected-pattern pattern-choose-btn" data-subsystemPatternSetId="{{item.subsystemPatternSetId}}">{{item.subsystemPatternSetName}}</a>
+					<a class="no-pattern pattern-choose-btn hide">未选择</a>
+				{{# }else{ }}
+					<a class="selected-pattern pattern-choose-btn hide"></a>
+					<a class="no-pattern pattern-choose-btn">未选择</a>
+				{{# } }}
+			</div>
+		</div>
+	</div>
+{{# }) }}
+	<div class="add-time-sort">
+		<i class="fa fa-plus"></i> 添加时间段
+	</div>
+{{# }else{ }}
+	<div class="col-sm-12 text-center node-date">暂无数据</div>
+{{# } }}
+</script>
+<script id="time_sort_item_tpl" type="text/html">
+{{# if (d && d.length > 0) { }}
+	{{# layui.each(d, function(index, item){ }}
+	<div class="item clear">
+		<div class="col-sm-3 sort-name">{{item.name}}</div>
+		<div class="col-sm-9">
+			<div class="col-sm-8">
+				<span>{{item.startTime}}&nbsp;&nbsp;至&nbsp;&nbsp; {{item.endTime}}</span>
+			</div>
+			<div class="col-sm-4">
+				
+			{{# if (item.subsystemPatternSetName && item.subsystemPatternSetName.length > 0) { }}
+				{{item.subsystemPatternSetName}}
+			{{# }else{ }}		
+				未选择
+			{{# } }}
+			</div>
+		</div>
+	</div>
+{{# }) }}
+{{# }else{ }}
+	<div class="col-sm-12 text-center node-date">暂无数据</div>
+{{# } }}
+</script>
+<script src="${base}js/modules/views/mall-pattern/run-setting-manage.js"></script>
+<script>
+	$('.run-setting .ibox-title select').val('${mallPatternId}');
+	RunSettingManage.init({mallPatternId:'${mallPatternId}',operationCodes:'${operationCodes}'});
+</script>

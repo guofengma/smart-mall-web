@@ -1,0 +1,87 @@
+<style>
+.area-floor-html .areas {
+	float: left;
+	position: relative;
+	width: 40px;
+	margin-right: 10px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.area-floor-html .areas .area-list {
+	background: #EBECEC;
+	z-index:1;
+}
+.area-floor-html .areas .area {
+	min-height: 50px;
+	padding: 10px;
+	width: 40px;
+	text-align: center;
+	cursor: pointer;
+    word-wrap: break-word; 
+    border-bottom: 1px solid #CCCCCC;
+}
+.area-floor-html .areas .area:last-child {
+	 border-bottom: none;
+}
+.area-floor-html .areas .area.actived {
+	background: #ffffff;
+}
+
+.area-floor-html .add-area {
+	text-align: center;
+	padding-top: 15px;
+}
+.area-floor-html .area-manage {
+	float: left; 
+	width: -webkit-calc(100% - 50px);
+	width: -moz-calc(100% - 50px);
+	width: calc(100% - 50px);
+}
+.area-floor-html .area-manage .panel-body {
+	padding:0!important;
+}
+.area-floor-html .areas .stick {
+	position: absolute;
+    height: 100%;
+    width: 1px;
+    background: #cccccc;
+    top: 0;
+    right: 0;
+}
+.area-floor-html .add-area i{
+	cursor: pointer;
+}
+.area-floor-html .area-manage .no-area {
+	text-align: center;
+}
+.area-floor-html .area-manage .no-area img {
+	margin: 30px 0 20px 0;
+}
+.area-floor-html .area-manage .no-area p {
+	text-align: center;
+}
+</style>
+<div class="area-floor-html clear">
+	<div class="left areas">
+		<ul class="area-list"></ul>
+		<@codeValidation codes=operationCodes operationCode="area-add">
+            <div class="add-area"><i class="fa fa-plus text-navy" title="添加区域"></i></div>        
+		</@codeValidation>
+		<span class="stick"></span>
+	</div>
+	<div class="right area-manage">
+	</div>
+	<div class="contextmenu" id="mall-area-oper-enter">
+		<@codeValidation codes=operationCodes operationCode="area-edit"> 
+		<div class="item">
+			<a href="javascript:;" role="edit-area"><i class="fa fa-pencil"></i>&nbsp;编辑</a>
+		</div>
+		</@codeValidation>
+		
+		<@codeValidation codes=operationCodes operationCode="area-remove">
+		<div class="item">
+			<a href="javascript:;" role="remove-area"><i class="fa fa-trash"></i>&nbsp;移除</a>
+		</div>
+		</@codeValidation>
+	</div>
+</div>

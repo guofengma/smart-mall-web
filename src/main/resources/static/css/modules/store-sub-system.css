@@ -1,0 +1,150 @@
+	div[data-id="central-con/index"], .central-con{
+		height: 100%;
+	}
+	.central-con .add-box {
+		height:525px;
+		background: transparent url(/img/floors/no-sub-system.png) no-repeat 50% 126px;
+	}
+	.central-con .add-box p {
+		margin:462px 0 20px 0;
+	}
+	.central-con .add-box a {
+		border-radius:14px 14px;
+	}
+	.central-con .sub-sys-type-items {
+		display: flex;
+		flex-wrap: wrap;	
+	}
+	.sub-sys-type-container .sub-sys-type-item {
+		width: 300px;
+		height: auto;
+		margin: 10px 15px;
+		border: 1px solid #eeeeee;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+	.sub-sys-type-container .sub-sys-type-item .above {
+		width: 100%;
+		height: 40px;
+		color: #ffffff;
+		background: linear-gradient(90deg, #FF8C1C, #F9CC9D); 
+	}
+	.sub-sys-type-container .sub-sys-type-item .above i {
+		color: #ffffff;
+	}
+	.sub-sys-type-container .sub-sys-type-item .above .left i {
+		padding: 1px 3px;
+		background: rgba(255, 255, 255, 0.3);
+	}
+	.sub-sys-type-container .sub-sys-type-door .above {
+		background: linear-gradient(90deg, #588FFF, #8FB7FF);
+	}
+	.sub-sys-type-container .sub-sys-type-vedio .above {
+		background: linear-gradient(90deg, #6BCBFC, #A1DCFB);
+	}
+	.sub-sys-type-container .sub-sys-type-passengerflow .above {
+		background: linear-gradient(90deg, #FF8662, #FF9B7F);
+	}
+	.sub-sys-type-container .sub-sys-type-item .above .left {
+		float: left;
+	    margin-top: 10px;
+	    margin-left: 16px;
+
+	}
+	.sub-sys-type-container .sub-sys-type-item .above .right {
+		float: right;
+	    margin-top: 10px;
+	    margin-right: 16px;
+	}
+	.sub-sys-type-container .sub-sys-type-item .reset-sub-sys{
+		font-size: 16px;
+	}
+	.sub-sys-type-container .sub-sys-type-item .below {
+		position: relative;
+		width: 100%;
+		height: 220px;
+		overflow: auto;
+		border-top: 1px solid #eeeeee;
+		background: #ffffff;
+	}
+	.sub-sys-type-container .sub-sys-type-item .below p {
+		height: 218px;
+		margin:10px 10px 10px 15px;
+	}
+	.sub-sys-type-container .sub-sys-type-item .below .edit {
+		position: absolute;
+		/* display: none; */
+		right: 10px;
+		bottom: 8px;
+		font-size: 16px;
+		font-weight: 100;
+	}
+	.sub-sys-type-container .sub-sys-type-item .below:hover .edit {
+		display:inline-block;
+	}
+	.sub-sys-type-container .sub-sys-type-item .statistics {
+		height: 120px;
+    	margin: 40px 15px 20px 15px;
+    	border: 1px solid #F1F4F7;
+    	border-left: 3px solid blue;
+		border-top-right-radius:8px 8px;
+		border-bottom-right-radius:8px 8px;
+		background: #FAFBFD;
+	}
+	.sub-sys-type-container .sub-sys-type-item .statistics .left {
+		float: left;
+	    width: 50px;
+	    padding: 37px 10px;
+	    border-right: 1px solid #F1F4F7;
+	    height: 100%;
+	    font-weight: 600;
+	}
+	.sub-sys-type-container .sub-sys-type-item .statistics .right {
+		float: left;
+		width: 200px;
+	}
+	.sub-sys-type-container .sub-sys-type-item .statistics p {
+		margin: 0;
+	    height: 58px;
+	    line-height: 58px;
+	    border-bottom: 1px solid #F1F4F7;
+	    padding-left: 15px;
+	}
+	.sub-sys-type-container .sub-sys-type-item .statistics .red {
+		color: red;
+	}
+	.sub-sys-type-container .sub-sys-type-item .statistics p:last-child {
+		border-bottom: none;
+	}
+	.sub-sys-type-container .sub-sys-type-door .statistics {
+		border-left-color: #8FB7FF;
+	}
+	.sub-sys-type-container .sub-sys-type-vedio .statistics {
+		border-left-color: #A1DCFB;
+	}
+	.sub-sys-type-container .sub-sys-type-vedio .statistics .red {
+		color: red;
+	}
+	.sub-sys-type-container .sub-sys-type-passengerflow .statistics {
+		border-left-color: #FF9171;
+	}
+	.sub-sys-type-container .statistics .passenger .item {
+		height: 40px;
+		border-bottom: 2px solid #ffffff;
+	}
+	.sub-sys-type-container .statistics .passenger .item:last-child: {
+		border: none;
+	}
+	.sub-sys-type-container .statistics .passenger .left,
+	.sub-sys-type-container .statistics .passenger .right {
+		height: 100%;
+		width: 130px;
+		padding: 10px 10px;
+		border: none;
+	}
+	.sub-sys-type-container .statistics .passenger .right {
+		text-align: right;
+	}
+	.sub-sys-type-container .edit-config {
+		padding:10px;
+	}

@@ -1,0 +1,16 @@
+<div class="dropdown">
+	<button class="btn btn-default dropdown-toggle" type="button" id="areaList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<span class="toggle-name"></span><span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" aria-labelledby="areaList">
+		<#list areas as item>
+			<li><a href="javascript:;" data-opt="relateFloors" data-area-id="${item.id}" data-area-name="${item.areaName}">${item.areaName}</a></li>
+		</#list>
+	</ul>
+</div>
+<div class="dropdown">
+	<button class="btn btn-default dropdown-toggle" type="button" id="floorList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<span class="toggle-name">暂无楼层</span><span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" aria-labelledby="floorList"></ul>
+</div>

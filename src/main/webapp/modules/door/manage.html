@@ -1,0 +1,70 @@
+
+<div class="wrapper-content" id="${moduleCode}-manage">
+	<div class="row">
+        <div class="col-sm-12" >
+        	<div class="tabs-container">
+				<ul class="nav nav-tabs">
+					<li class="sub-sys-pattern-set"><a data-toggle="tab" href="#${moduleCode}-sub-sys-pattern-set" aria-expanded="true">子模式配置</a></li>
+					<li class="command-template-set"><a data-toggle="tab" href="#${moduleCode}-command-template-set" aria-expanded="false">子模式指令配置</a></li>
+					<li class="group-devices" style="margin-top: 0;"><a data-toggle="tab" href="#${moduleCode}-group-devices" aria-expanded="false">设备分组</a></li>
+				</ul>
+				<div class="tab-content" >
+					<div id="${moduleCode}-sub-sys-pattern-set" class="tab-pane sub-sys-pattern-set">
+	                   	<div class="ibox-content sub-sys-pattern-container">
+		        			<p class="tips hide">模式数量已达到上限！</p>
+							<div class="sub-sys-patterns"></div>
+							<div class="pattern-detail-container hide">
+								<h5>模式详情</h5>
+								<div class="pattern-msg">
+									<div class="sub-sys-pattern-detail row"></div>
+								</div>
+							</div>	
+				        </div>
+					</div>
+					<div id="${moduleCode}-command-template-set" class="tab-pane command-template-set" style="height:100%">
+						<#include "command-template.html"/>
+					</div>
+					<div id="${moduleCode}-group-devices" class="tab-pane group-devices">
+						<#include "group-devices.html"/>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<script src="${base}js/modules/views/door-manage.js"></script>
+<script src="${base}js/modules/views/command-template-manage.js"></script>
+<script src="${base}js/modules/views/group-devices.js"></script>
+<script type="text/javascript">
+var typeCode = '${type}';
+if(typeCode == "command-template-set"){
+	CommandTemplateManage.init({moduleCode: '${moduleCode}',moduleName:'${moduleName}',operationCodes:'${operationCodes}'})
+} else if(typeCode == "group-devices") {
+	groupDevices.init({
+        systemCode:'${moduleCode}'
+    });
+} else {
+	typeCode = 'sub-sys-pattern-set';
+	DoorManage.init({moduleCode: '${moduleCode}',moduleName:'${moduleName}',subsystemPatternId:'${subsystemPatternId}',operationCodes:'${operationCodes}'});
+}
+$('.tabs-container .nav-tabs li.'+ typeCode).addClass('active');
+$('.tabs-container .tab-content div.'+ typeCode).addClass('active');
+$('.tabs-container .nav-tabs li.command-template-set').on('click',function(){
+	if(!$(this).hasClass('active')) {
+		CommandTemplateManage.init({moduleCode: '${moduleCode}',moduleName:'${moduleName}',operationCodes:'${operationCodes}'});
+	}
+});
+$('.tabs-container .nav-tabs li.sub-sys-pattern-set').on('click',function(){
+	if(!$(this).hasClass('active')) {
+		DoorManage.init({moduleCode: '${moduleCode}',moduleName:'${moduleName}',subsystemPatternId:'${subsystemPatternId}',operationCodes:'${operationCodes}'});
+	}
+});
+$('.tabs-container .nav-tabs li.group-devices').on('click',function(){
+	if(!$(this).hasClass('active')) {
+		groupDevices.init({
+	        systemCode:'${moduleCode}'
+	    });
+	}
+});
+
+</script>  

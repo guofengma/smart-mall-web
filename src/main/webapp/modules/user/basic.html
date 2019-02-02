@@ -1,0 +1,59 @@
+<style>
+	form.form-horizontal.repair-group-basic-form .form-group {
+		margin-right: 0;
+		margin-left: 0;
+	}
+</style>
+<form method="get" class="form-horizontal repair-group-basic-form" autocomplete="off">
+   	<div class="form-group">
+       	<label class="col-sm-3 control-label">班组名称</label>
+        <div class="col-sm-9">
+			<input class="form-control input-choose" type="text" name="name" value="" role="user-params" placeholder="班组名称">
+       	</div>
+   	</div>
+	<div class="form-group">
+       	<label class="col-sm-3 control-label">维修系统</label>
+        <div class="col-sm-9">
+           	<select class="form-control" name="subsystemCodes" multiple='multiple'>
+				<#if subsystems?? && subsystems?size gt 0>
+					<#list subsystems as item>
+						<option value="${item.code}">${item.name}</option>
+					</#list>
+				<#else>
+					<option value='' disabled>无可用系统</option>
+				</#if>
+			</select>
+       	</div>
+   	</div>
+</form>
+<script>
+	//初始化chosen插件
+	/* $('.repair-group-basic-form select[name="subsystemCodes"]').chosen({
+		allow_single_deselect: true, //删除选项
+		max_selected_options: 999, //多选上限
+		disable_search:true, //禁用搜索框
+		placeholder_text_multiple:'选择' //提示值
+	}); */
+	
+	/*基本信息验证*/
+	$('.repair-group-basic-form').validate({
+		rules: {
+			name:{
+				required: true,
+				rangelength: [1,20]
+			},
+			personFlocks:{
+				required: true
+			}
+		},
+		messages: {
+			name:{
+				required: icon + "请输入班组名称",
+				rangelength: icon + "班组名称的长度介于2-20之间"
+			},
+			personFlocks: {
+				required: icon+'请选择维修系统'
+			}
+		}   
+	});
+</script>

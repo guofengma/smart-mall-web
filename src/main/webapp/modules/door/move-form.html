@@ -1,0 +1,22 @@
+<div class="wrapper-content">
+    <form method="get" class="form-horizontal" id="move-group-form">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">移动至</label>
+            <div class="col-sm-8">
+                <select class="form-control" name="newGroupId">
+                    <#list moveGroups as g>
+                        <option value="${g.id}">${g.deviceGroupName}</option>
+                    </#list>
+                    <#if oldGroupId != -1>
+                    	 <option value="-1">未分组</option>
+                    </#if>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-3">
+                <button class="btn btn-primary" type="submit">保存</button>
+            </div>
+        </div>
+    </form>
+</div>

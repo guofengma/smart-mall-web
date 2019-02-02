@@ -1,0 +1,80 @@
+ <link href="${base}css/modules/alarm-manage.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+ <div class="wrapper-content alarm-style" id="work-order">
+	<div class="row">
+		<div class="col-sm-12 no-padding">
+		    <div class="ibox float-e-margins">
+		        <div class="ibox-title">
+		            <h5>工单管理</h5>
+		            <div class="ibox-tools"></div>
+		        </div>
+		        <div class="ibox-content">
+		        	<div class="filter-line" oper-code="search">
+	                	<form method="get" class="search-form" style="float: right" autocomplete="off">
+	                		<select class="form-control" name="code" role="user-params">
+								<option value="">全部系统</option>
+								<#if subsystems?? && subsystems?size gt 0>
+									<#list subsystems as ss>
+									<option value="${ss.code!''}">${ss.name!'-'}</option>
+									</#list>
+								</#if>
+							</select> 
+							
+							<input class="form-control timeRange" role="user-params" placeholder="选择报警时间段进行查询" name="timeSelect">
+							<input class="form-control" name="keyword" value="${params.keyword!''}" role="user-params" placeholder="输入关键字查询">
+							
+							<input type="hidden" name="bt" value="${params.bt}" role="user-params">
+							<input type="hidden" name="et" value="${params.et}" role="user-params">
+							<input type="hidden" name="hStat" value="${params.hStat}" role="user-params">
+							<input type="hidden" name="rangeType" value="" role="user-params">
+							<input type="hidden" name="sort" value="${params.sort}" role="user-params">
+							<input type="hidden" name="order" value="${params.order}" role="user-params">
+	                		<input type="hidden" name="page" value="${params.page!1}" role="user-params">
+	                		<input type="hidden" name="limit" value="${params.limit!10}" role="user-params">
+	                		<input type="hidden" name="type" value="${params.type!'100'}" role="user-params">
+							
+	                        <button type="button" class="btn btn-primary search" data-opt="formSearch"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-default" data-opt="formSearch" data-reset="reset"><i class="fa fa-refresh"></i></button>
+	                 	</form>
+	                </div>
+	                <div class="tabs-container" oper-code="search">
+	                	<ul class="nav nav-tabs type">
+		                    <li class="<#if !params.type?? || params.type == 100>active</#if>">
+								<a href="javascript:;" data-opt="changeType" data-type="100">我的任务</a>
+								<span class="unread-count"></span>
+		                    </li>
+		                    <li class="<#if params.type == 200>active</#if>">
+		                        <a href="javascript:;" data-opt="changeType" data-type="200">我指派的</a>
+		                    </li>
+		                    <li class="<#if params.type == 300>active</#if>">
+		                        <a href="javascript:;" data-opt="changeType" data-type="300">已处理</a>
+		                    </li>
+		                </ul>
+	                </div>
+					<div class="hStat-filter" oper-code="search">
+						<ul class="hStat">
+							<!-- <#list hStats as item>
+								<li class="<#if params.hStat == item.code>active</#if>">
+									<a href="javascript:;" data-opt="changeHStat" data-h-stat="${item.code}">${item.value}</a>
+								</li>
+							</#list> -->
+						</ul>
+                    </div>
+					<div class="list" oper-code="view"></div>
+		        </div>
+		    </div>
+		    <div class="cover show">
+		    	<i></i>
+		    	<p></p>
+		    </div>
+		</div>
+	</div>
+</div>
+
+<script>
+var deParmas = JSON.parse('<@obj2json obj=params ></@obj2json>');
+$('#work-order form.search-form select[name="code"]').val(deParmas.code);
+$('#work-order .cover').hide();
+
+WorkOrderManage.init({moduleId: 'work-order', operationCodes:'${operationCodes}', assignStatus: parseInt('${assignStatus}')});
+
+</script>

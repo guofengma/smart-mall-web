@@ -1,0 +1,105 @@
+<!-- <link href="${base}css/modules/store-sub-system.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet"> -->
+<style>
+	.sub-sys-type-container	p.sub-sys-name {
+		padding: 10px 0;
+	    font-size: 18px;
+	    font-weight: 600;
+	    border-bottom: 1px solid #cccccc;
+	}
+	.sub-sys-type-container .version {
+		display: inline-block;
+		position:relative;
+		padding: 20px 10px 10px 10px;
+    	margin: 20px 10px 40px 18px;
+	    height: 240px;
+	    width: 220px;
+	    border: 1px solid #cccccc;
+	    border-radius: 4px;
+	}
+	.sub-sys-type-container .version h5 {
+		font-size: 17px;
+		margin: 15px 0 30px 0;
+	}
+	.sub-sys-type-container .version p {
+		margin:12px 0;
+	}
+	.sub-sys-type-container .version i.edit {
+		font-size: 16px;
+	    position: absolute;
+	    bottom: 10px;
+	    right: 18px;
+	    cursor: pointer;
+	}
+
+	.sub-sys-type-container .version img {
+		height: 65px;
+	}
+	.sub-sys-type-container .add-box {
+		height:525px;
+		background: transparent url(/img/floors/no-sub-system.png) no-repeat 50% 126px;
+	}
+	.sub-sys-type-container .add-box p {
+		margin:462px 0 20px 0;
+	}
+	.sub-sys-type-container .add-box a {
+		border-radius:14px 14px;
+	}
+</style>
+<#setting datetime_format='yyyy-MM-dd HH:mm'>
+<div class="wrapper-content">
+    <div class="row" style="height:100%">
+        <div class="col-sm-12" style="height:100%">
+        	<div class="tabs-container" style="height:100%">
+				<div class="tab-content sub-sys-type-container" >
+	                    <#if pages?? && pages?size gt 0>
+							<div>
+								<@codeValidation codes=operationCodes operationCode="add-sub-sys">
+								<div class="text-right edit-config">
+			                        <a class="btn btn-white btn-bitbucket btn-xs add-sub-sys" href="javascript: goPage('sub-system-form')" title="添加子系统">
+			                            <i class="fa fa-config"></i>添加子系统
+			                        </a>
+			                    </div>
+			                    </@codeValidation>
+			                    <div class="sub-sys-type-items">
+			                    	<#list pages as d>
+		                                <div class="sub-sys-type-item sub-sys-type-${d.code}" data-code="${d.code}">
+		                                    <p class="sub-sys-name">${d.name}</p>
+		                                    <#list d.brands as b>
+		                                    	<#list b.childSystems as c>
+		                                    		<#list c.versions as v>
+					                                    <div class="version text-center">
+						                                    <img src="img/brand-logo/${d.code}.jpg">
+					                                        <h5 class="title text-center">${b.bName}</h5>
+					                                        <p class="text-left">版本：${v.vVersion}</p>
+					                                        <p class="text-left">接入时间：${v.createTime?number_to_datetime}</p>
+					                                        <@codeValidation codes=operationCodes operationCode="edit-sub-sys">
+					                                        <#if d.autoConfig?? && d.autoConfig != 0>
+					                                        <i class="fa fa-pencil text-navy edit" title="编辑"></i>
+					                                        </#if>
+					                                        </@codeValidation>
+				                                        </div>
+	                                        		</#list>
+	                                        	</#list>
+	                                        </#list>
+		                                </div>
+	                                </#list> 
+			                    </div>
+							</div>
+						<#else>
+							<div class="col-sm-12 add-box text-center">
+								<p class="text-center"></p>
+								<@codeValidation codes=operationCodes operationCode="add-sub-sys">
+								<a href="javascript: goPage('sub-system-form')" class="add-sub-sys btn btn-primary">子系统配置</a>
+								</@codeValidation>
+							</div>
+						</#if>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<script src="${base}js/modules/views/store/store-sub-system.js"></script>
+
+<script type="text/javascript">
+	cenConSubSys.init();
+</script>

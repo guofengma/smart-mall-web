@@ -1,0 +1,49 @@
+<div id="service-user-picker">
+	<div class="filter-line">
+		<form method="get">
+			<input placeholder="姓名/手机号" class="form-control" type="text" name="keyword" value="${keyword!''}" role="user-params">
+			<select class="form-control" name="flockId" role="user-params">
+				<option value="">全部角色</option>
+				<#list flocks as f>
+					<option value="${f.id}">${f.value}</option>
+				</#list>
+			</select>
+			<button type="button" class="btn btn-primary" data-opt="submitForm"><i class="fa fa-search"></i></button>
+			<button type="button" class="btn btn-default" data-opt="resetForm"><i class="fa fa-refresh"></i></button>
+		</form>
+	</div>
+	<div class="table">
+		<table class="footable table table-stripped toggle-arrow-tiny" data-page-size="100" data-paging="false">
+			<thead>
+				<tr>
+					<th data-sort-ignore="false">
+						<input class="i-checks" type="checkbox" value="all" name="select-all">
+					</th>
+					<th data-toggle="true" data-sort-ignore="true">姓名</th>
+					<th>手机号</th>
+					<th>角色</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#if pages?? && pages?size gt 0 >
+				<#list pages as d>
+				<tr>
+					<td <#if user.id==d.id>onclick="layer.msg('不能选择自己');"</#if>">
+						<input class="i-checks" type="checkbox" value="${d.id}" data-others="${d.realName}-${d.mobile}" name="select-item" <#if user.id==d.id>disabled</#if>>
+					</td>
+					<td>${d.realName}</td>
+					<td>${d.mobile}</td>
+					<td>${d.flock}</td>
+				</tr>
+				</#list>
+				<#else>
+				<tr>
+					<td colspan="4">暂无数据</td>
+				</tr>
+				</#if>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+

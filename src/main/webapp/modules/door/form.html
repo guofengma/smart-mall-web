@@ -1,0 +1,45 @@
+<link href="${base}css/modules/door-form.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+<div class="wrapper-content sub-sys-pattern-form">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5><#if subsystemPatternId??>编辑<#else>添加</#if>模式</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-white btn-bitbucket btn-xs" href="javascript: goPage('index',{subsystemPatternId:'${subsystemPatternId}'})">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                	<form method="get" class="form-horizontal" id="${moduleCode}-form">
+                		<input type="hidden" name="id">
+                        <div class="form-group col-sm-12 name-group">
+                           	<span>模式名称:</span><input class="form-control input-border-bottom" placeholder='请填写模式名称' autocomplete="off" maxlength="10" minlength="2" type="text" name="name" value="${info.name!''}">  
+                        </div>
+	               		<div class="sub-sys-pattern-detail row">
+							<div class="above clear">
+								<div class="col-sm-2 text-center">设备组</div>
+								<div class="col-sm-10">
+									<div class="col-sm-5 text-center">版本号</div>
+									<div class="col-sm-5 text-center">运行状态</div>
+									<div class="col-sm-2 text-center">设备详细</div>
+								</div>
+							</div>
+							<div class="below col-sm-12">
+								<div class="items"></div>
+							</div>
+						</div> 
+					</form>
+					<div class="col-sm-12 text-right">
+                        <button class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${base}js/modules/views/door-form.js"></script>
+<script>
+ DoorForm.init({moduleCode:'${moduleCode}', moduleName:'${moduleName}', subsystemPatternId:'${subsystemPatternId}'});
+</script>

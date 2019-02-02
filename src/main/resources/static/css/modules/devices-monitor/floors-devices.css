@@ -1,0 +1,520 @@
+
+body,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+.icon-img {
+    display: inline-block;
+    height: 18px; 
+    width: 18px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: text-bottom;
+}
+i.door {
+    background-image: url(../../../img/tools/door/door.png);
+}
+i.door-ico {
+    background-image: url(../../../img/tools/door/door-ico.png);
+}
+.active i.door-ico {
+    background-image: url(../../../img/tools/door/door-ico-selected.png);
+}
+i.door-1 {
+    background-image: url(../../../img/tools/door/door-error.png);
+}
+i.door-null {
+    background-image: url(../../../img/tools/door/door-null.png);
+}
+i.door-1.hover,
+.device-points i.selected {
+	animation: shanshuo 3s ease-out;  
+        -webkit-animation: shanshuo 3s ease-out;  
+    -moz-animation: shanshuo 3s ease-out;  
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;  
+    -moz-animation-iteration-count: infinite;
+    border-radius: 100% 100%;
+}
+.device-points i.door-1.selected,
+.device-points i.vedio-1.selected,
+.device-points i.ap-1.selected  {
+	/* background-image: url(../../img/floors/location-error.png?p=1)!important; */
+	background-image: none;
+}
+.device-points i.selected {
+	width: 23px;
+    height: 23px;
+	/* background-image: url(../../img/floors/location.png?p=1)!important; */
+	background-image: none;
+}
+.layui-layer-page .device-points i.selected {
+	background-image: url(../../../img/floors/location.png?p=1)!important;
+}
+.layui-layer-page .device-points i.door-1.selected,
+.layui-layer-page .device-points i.vedio-1.selected,
+.layui-layer-page .device-points i.ap-1.selected  {
+	background-image: url(/img/floors/location-error.png?p=1)!important;
+}
+i.vedio {
+    background-image: url(/img/tools/vedio/vedio.png);
+}
+
+i.vedio-ico {
+    background-image: url(/img/tools/vedio/vedio-ico.png);
+}
+.active i.vedio-ico {
+    background-image: url(/img/tools/vedio/vedio-ico-selected.png);
+}
+i.vedio-1 {
+    background-image: url(../../../img/tools/vedio/vedio-error.png);
+}
+i.vedio-null {
+    background-image: url(/img/tools/vedio/vedio-null.png);
+}
+i.passengerflow {
+    background-image: url(/img/tools/passengerflow/passengerflow.png);
+}
+i.passengerflow-ico {
+    background-image: url(/img/tools/passengerflow/passengerflow-ico.png);
+}
+.active i.passengerflow-ico {
+    background-image: url(/img/tools/passengerflow/passengerflow-ico-selected.png);
+}
+i.ap {
+    background-image: url(/img/tools/ap/ap.png);
+}
+
+i.ap-ico {
+    background-image: url(/img/tools/ap/ap-ico.png);
+}
+.active i.ap-ico{
+    background-image: url(/img/tools/ap/ap-ico-selected.png);
+}
+i.ap-1 {
+    background-image: url(/img/tools/ap/ap-error.png);
+}
+i.ap-null {
+    background-image: url(/img/tools/ap/ap-null.png);
+}
+i.batch-import {
+    background-image: url(/img/tools/batch-import.png);
+}
+.floor-plan-device-view > section {
+    float: left;
+    min-width: 80px;
+}
+.floor-plan-device-view > section.floor {
+    width: calc(100% - 300px);
+    margin-bottom: 10px;
+    position: relative;
+}
+.floor-plan-device-view > section.floor select {
+	display: inline-block;
+	width: 120px;
+	background: #4BAFFD!important;
+	color: #ffffff;
+	border-radius: 4px;
+	
+}
+.floor-plan-device-view > section.floor .floors {
+	display: inline-block;
+}
+.floor-plan-device-view > section.floor  h5 {
+	display: inline-block;
+    font-size: 17px;
+    padding-left: 10px;
+}
+.floor-plan-device-view h5,
+.floor-plan-device-view h5 > a {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+ul.ss-device-lst li:hover a,
+ul.ss-device-lst li.selected a {
+    color: #3A8FE2;
+    font-weight: bold;
+}
+.floor-plan-device-view > section.floor ul > li > a,
+ul.ss-device-lst li > a {
+    display: inline-block;
+    line-height: 25px;
+}
+
+.floor-plan-device-view > section.floor ul > li > a {
+    text-align: left;
+}
+.floor-plan-device-view > section.plan-graph {
+    width: calc(100% - 300px);
+    min-height: 500px;
+    position: relative;
+}
+
+.floor-plan-device-view > section.plan-graph > .pg-pos-top {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	height:20px;
+	line-height: 20px;
+}
+
+
+.floor-plan-device-view > section.plan-graph > .pg-pos-top > span {
+	margin-right: 20px;
+	font-weight:bold;
+}
+.floor-plan-device-view > section.plan-graph > .pg-bg {
+	margin-top: 40px;
+}
+.floor-plan-device-view > section.plan-graph > .pg-bg,
+.max-pg-bg {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    cursor: grab;
+}
+.floor-plan-device-view > section.device-manage {
+    width: 285px;
+    margin-left: 15px;
+    position: relative;
+    background: #F8F8F8;
+}
+.floor-plan-device-view > section.device-manage .all-subsys-div {
+	position: absolute;
+    top: 29px;
+    right: 10px;
+}
+.floor-plan-device-view > section.device-manage ul a.selected{
+    text-decoration: underline;
+}
+
+.floor-plan-device-view > section.device-manage div.panel-heading {
+    background: #cce7fa;
+    color: #333;
+}
+
+.floor-plan-device-view > section.device-manage div.panel-heading a {
+    color: #333;
+    display: block;
+    width: 100%;
+}
+.floor-plan-device-view > section h5 {
+    margin: 0;
+    padding: 10px 0;
+}
+.floor-plan-device-view > section > h5 {
+    background: #F8F8F8;
+}
+
+.pg-bg {
+    position: relative;
+}
+.mini-pg-bg {
+    position: absolute;
+}
+.max-pg-bg .zoom-container,
+.pg-bg .zoom-container{
+	cursor: move;
+}
+.pg-bg div.device-points > div,
+.mini-pg-bg div.device-points > div,
+.max-pg-bg div.device-points > div  {
+    position: absolute;
+    z-index: 1000;
+    height: 14px;
+    cursor: pointer;
+}
+    
+.pg-bg div.device-points > div.current {
+    height: 14px;
+    width: 18px;
+}
+.pg-bg div.device-points > div.current .star{
+	display: inherit;
+    animation: shanshuo 3s ease-out;  
+    -webkit-animation: shanshuo 3s ease-out;  
+    -moz-animation: shanshuo 3s ease-out;  
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;  
+    -moz-animation-iteration-count: infinite;
+    /* background-image: url(/img/tools/star.png); */
+    background-image: none;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+}
+.pg-bg div.device-points > div.current svg {
+	display: none;
+}
+.device-points div.current i,
+.mini-pg-bg div.device-points i {
+    background-image: url(/img/tools/star.png);
+}
+.mini-pg-bg div.device-points i {
+    width: 20px;
+    height: 20px;
+    animation: shanshuo 3s ease-out;  
+    -webkit-animation: shanshuo 3s ease-out;  
+    -moz-animation: shanshuo 3s ease-out;  
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;  
+    -moz-animation-iteration-count: infinite;
+    background-image: url(/img/floors/location.png);
+}
+i.door-1,
+i.vedio-1,
+i.ap-1 {
+	background-image: url(/img/floors/location-error.png);
+}
+#pg-device-form {
+    display: none;
+}
+
+.empty-tip {
+    text-align: center;
+}
+.empty-tip > div {
+    margin: 30px 0 20px 0;
+}
+.empty-tip > a > i.subsystem {
+    width: 100px;
+    height: 50px;
+    background-image: url(/img/tools/subsystem-button.png);
+}
+.empty-tip > a > i.uploadfloorpic {
+    width: 100px;
+    height: 40px;
+    background-image: url(/img/tools/upload-floor-pic-button.png);
+}
+#pg-device-form-panel .form-control[disabled],
+#pg-device-form-panel .form-control[readonly],
+#pg-device-form-panel fieldset[disabled] .form-control {
+
+    background-color: transparent;
+    border: transparent;
+    appearance: none;
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Safari 和 Chrome */
+}
+#pg-device-form-panel .position input{
+    display: inline-block;
+    width: 50px;
+    padding: 0;
+    height: 20px;
+}
+#pg-device-form-panel h5.title {
+	margin: 20px 0 10px 0;
+	padding: 5px 0;
+	font-size: 16px;
+	border-bottom: 1px solid #cccccc;
+}
+#pg-device-form-panel h5.title:first-child {
+	margin-top: 5px;
+}
+#pg-device-form-panel .control-label {
+	text-align: left;
+	font-weight: normal;
+}
+#pg-device-form-panel .col-sm-9 {
+	padding-left: 0;
+}
+.fd-floor-menu-view select {
+	background: #EEEEEE;
+	height: 40px;
+}
+.floor-plan-device-view .unusual-item {
+	padding: 5px 0 5px 16px;
+}
+.floor-plan-device-view .unusual-item span{
+	cursor: pointer;
+}
+.floor-plan-device-view .unusual-item span:hover,
+.floor-plan-device-view .unusual-item span.selected {
+	text-decoration: underline;
+}
+.floor-plan-device-view .unusual-item i {
+	float: left;
+	display: inline-block;
+	height: 18px;
+	width: 14px;
+	margin-right: 10px;
+}
+.floor-plan-device-view section {
+	border-radius: 4px;
+	overflow: hidden;
+}
+.floor-plan-device-view section.plan-graph {
+	padding: 0 10px;
+	background: #F8F8F8;
+}
+.floor-plan-device-view section.device-manage .box{
+    padding: 0 10px 1px 10px;
+    background: #F8F8F8;
+    border-radius: 4px;
+}
+.floor-plan-device-view section.device-manage .box > h5{
+    padding: 0 0 0 10px;
+	margin: 30px 0 0 0;
+	border-left: 2px solid #3A8FE2;
+}
+.floor-plan-device-view section.device-manage .sort-panel {
+	position: fixed;
+    top: 10px;
+    background: #eeeeee;
+    padding: 10px 10px 0 10px;
+}
+.floor-plan-device-view section.device-manage .sort-btn span{
+	display: inline-block;
+	padding: 0 15px 0 15px;
+	cursor: pointer;
+	text-decoration: underline;
+	background: transparent url(/img/tools/sort-change.png) no-repeat 0 4px;
+	background-size: 14px 14px;
+}
+.floor-plan-device-view section.device-manage .sort-btn button {
+	float: left;
+	margin-left: 15px;
+	border: 1px solid #3A8FE2;
+	color: #3A8FE2;
+}
+.floor-plan-device-view .unusual-tips {
+	position: absolute;
+    top: -300px;
+    left: -300px;
+    background: transparent url(/img/floors/tip-bg.png) no-repeat 0 0;
+    padding: 15px 20px;
+    background-size: 100% 100%;
+}
+.floor-plan-device-view .unusual-tips p {
+	padding: 5px 3px;
+}
+.floor-plan-device-view .all-subsys-devices {
+	display: inline-block;
+	padding-bottom: 10px;
+	color: #3A8FE2;
+	cursor: pointer;
+}
+.floor-plan-device-view .all-subsys-devices:hover {
+	color: #666666;
+}
+.floor-plan-device-view .ss-device-lst li span {
+	float:right;
+}
+.floor-plan-device-view .ss-device-lst li i {
+	display: inline-block;
+    height: 16px;
+    width: 16px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 4px;
+}
+i.physicalState-0 {
+	background: transparent url(/img/tools/door/circle-0.png) no-repeat 0 0px;
+	background-size: 16px 16px;
+}
+i.physicalState-1 {
+	background: transparent url(/img/tools/door/circle-1.png) no-repeat 0 0px;
+	background-size: 16px 16px;
+}
+i.physicalState-null {
+	background: transparent url(/img/tools/door/circle-null.png) no-repeat 0 0px;
+	background-size: 16px 16px;
+}
+.physicalState-0 {
+	color: #2F97E6;
+}
+.physicalState-1 {
+	color: #f91723;
+}
+.original-size-memo i.selected {
+	box-shadow: none!important;
+}
+/* 设备管理列表新样式  begin*/
+.floor-plan-device-view > section.device-manage .panel-default {
+	background: transparent;
+	border: none;
+}
+
+.floor-plan-device-view > section.device-manage div.panel-heading {
+	padding: 5px 15px;
+	background: transparent url(/img/tools/door/angle-right.png) no-repeat;
+	background-position: -moz-calc(100% - 20px) 50%;
+	background-position: -webkit-calc(100% - 20px) 50%;
+	background-position: calc(100% - 20px) 50%;
+	background-size: 12px 12px;
+}
+.floor-plan-device-view > section.device-manage div.panel-heading .panel-title {
+	position: relative;
+}
+.floor-plan-device-view > section.device-manage div.panel-heading h5 span {
+	display: inline-block;
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    right: 4px;
+    top: 16px;
+    z-index: -1;
+}
+.floor-plan-device-view > section.device-manage div.panel-heading h5 i {
+	margin-right: 8px;
+}
+.floor-plan-device-view > section.device-manage .selected .panel-heading{
+	background: #ECF3F9 url(/img/tools/door/angle-down.png) no-repeat;
+	background-position: -moz-calc(100% - 20px) 50%;
+	background-position: -webkit-calc(100% - 20px) 50%;
+	background-position: calc(100% - 20px) 50%;
+	background-size: 12px 12px;
+}
+.floor-plan-device-view > section.device-manage .selected h5 {
+	color: #469EE8;
+}
+.floor-plan-device-view > section.device-manage .selected h5 a{
+	color: #2f97e6;
+}
+.floor-plan-device-view > section.device-manage .panel-body {
+	min-height: 120px!important;
+	border-top: 1px solid #d6dfe9!important;
+}
+.floor-plan-device-view > section.device-manage .panel-body .sort-btn{
+	margin:15px 0;
+}
+.floor-plan-device-view > section.device-manage .list-group-item {
+	border: none;
+}
+.floor-plan-device-view section.device-manage .box {
+	padding: 0;
+}
+.floor-plan-device-view section.device-manage .box > h5 {
+	margin-left: 15px;
+}
+.floor-plan-device-view section.device-manage form {
+	margin: 20px 15px;
+}
+/* 设备管理列表新样式  end*/
+.device-manage a.link-ap-manage {
+	float: left;
+	color: #3A8FE2;
+	border-color: #3A8FE2;
+	margin-left: 10px;
+}
+.device-manage a.link-ap-manage:hover {
+	color: #3A8FE2;
+}
+#add-device-enter .add-device i {
+	display: inline-block;
+    float: left;
+	margin-top: 4px;
+}
+#add-device-enter .add-device svg {
+	font-size: 22px;
+}

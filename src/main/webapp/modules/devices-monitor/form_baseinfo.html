@@ -1,0 +1,20 @@
+<#list baseinfo as other>
+	<div class="form-group">
+		<label class="col-sm-3 control-label"><span class="text-danger">*</span>${other.pDescription}</label>
+		<div class="col-sm-9">
+			<#if other.pControlType == 'textbox'>
+			<input class="form-control" 
+			data-p-control-type="${other.pControlType}" 
+			data-p-name="${other.pName}" 
+			data-p-optional="${other.pControlType}" 
+			data-p-regex-exp="${other.pRegexExp}" 
+			data-base-parameter="${other.baseParameter}" 
+			data-p-code="${other.pCode}" 
+			data-p-value-type="${other.pValueType}"
+			data-p-description="${other.pDescription}" 
+			data-prepeat="${other.prepeat}"
+			placeholder="${other.pDescription}, 必填" type="text" name="${other.pName}" value="${other.pValue}" role="user-params">
+			</#if>
+		</div>
+	</div>
+</#list>

@@ -1,0 +1,136 @@
+<style>
+	#pattern-set h5 {
+		margin-left: 20px;
+	}
+	.pattern-set-container .pattern-set-items{
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.pattern-set-container .pattern-set-item,
+	.pattern-set-container .add-pattern {
+		position: relative;
+		width: 160px;
+		height: 100px;
+		margin:10px 15px;
+		border: 1px solid #D8E2EB;
+		border-radius: 8px;
+		overflow:hidden;
+	}
+	.pattern-set-container .add-pattern {
+		border-style: dashed;
+		background:#F6FBFE;
+	}
+	.pattern-set-container .add-pattern i {
+	    margin-top: 35px;
+		font-size:30px;
+		color: #0198EB;
+	}
+	.pattern-set-container .pattern-set-item .type {
+		position: relative;
+		height: 36px;
+		line-height: 36px;
+		border-bottom: 1px solid #D8E2EB;
+		background: linear-gradient(90deg, #A1DCFB, #6BCBFC);
+		color: #ffffff;
+	}
+	.pattern-set-container .pattern-set-item .title {
+		padding:15px 10px 10px 10px;
+	}
+	.pattern-set-container .pattern-set-item .remove {
+		position: absolute;
+		top: 12px;
+    	right: 10px;
+    	display:none;
+	}
+	.pattern-set-container .pattern-set-item:hover .remove {
+		display:inline-block;
+	}
+	.pattern-set-container .detail-container {
+		width:700px;
+		padding-left: 15px;
+	}
+	.pattern-set-container .detail-container h5 {
+		margin: 20px 0 15px 0;
+		padding-left: 5px;
+		border-left: 3px solid #00A5FF;
+		font-size: 16px;
+	}
+	.pattern-set-container .pattern-item-detail .row {
+		margin-left: 0;
+		border: 1px solid #D9E2EB;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+	.pattern-set-container .pattern-item-detail .above {
+		background: #F8F9FB;
+	}
+	
+	.pattern-set-container .tips{
+		font-size: 16px;
+    	margin: 19px 0 0 15px;
+	}
+	.pattern-set-container .pattern-set-items .actived {
+		border-color:#73CEFC;
+	}
+	.pattern-set-container .pattern-set-items .actived .type{
+		border-color:#73CEFC;
+	}
+	.detail-container .pattern-item-detail .no-data {
+		margin: 0;
+	}
+	.pattern-set-container .pattern-msg .col-sm-4 {
+		text-align: center;
+	}
+	.pattern-set-container .pattern-msg .col-sm-8 .col-sm-6 {
+		text-align: center;
+	}
+	.pattern-set-container .pattern-msg .below .title {
+		margin-top:0;
+	}
+	
+</style>
+<div class="wrapper-content" id="pattern-set">
+	<div class="row">
+		<div class="col-sm-12 no-padding">
+		    <div class="ibox float-e-margins">
+		        <div class="ibox-title">
+		            <h5>模式管理</h5>
+                    <div class="ibox-tools">
+						<a class="btn btn-white btn-bitbucket btn-xs" href="javascript: goPage('index')">
+                            <i class="fa fa-times"></i>
+                        </a>
+					</div>
+		        </div>
+		        <div class="ibox-content">
+		        	<div class="pattern-set-container">
+						<p class="tips hide">模式数量已达到上限！</p>
+						<div class="pattern-set-items"></div>
+						<div class="detail-container hide" data-id='1'>
+							<h5>模式配置</h5>
+							<div class="pattern-msg"></div>
+						</div>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		
+	</div>
+</div>		
+<script id="pattern_set_items_tpl" type="text/html">
+	{{# if(d && d.length > 0) { }}
+	{{# layui.each(d, function(index, item){ }}
+    <div class="pattern-set-item" data-id="{{item.id}}">
+    	<p class="type custom text-center">用户自定义
+    	<i class="fa fa-remove remove" title="删除"></i></p>
+    	<p class="title text-center">{{item.name}}</p>
+    </div>
+	{{# }) }}
+	{{# } }}
+    <div class="add-pattern text-center">
+    	<i class="fa fa-plus"></i>
+    </div>
+</script>
+<script src="${base}js/modules/views/com-pattern-manage.js"></script>
+<script>
+	patternSetManage.init({operationCodes:'${operationCodes}'});
+</script>

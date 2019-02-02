@@ -1,0 +1,140 @@
+<style>
+	
+#de-vertical-timeline dl {
+	overflow: hidden;
+}
+#de-vertical-timeline dl dt,
+#de-vertical-timeline dl dd {
+	float: left;
+	width: 25%;
+	line-height: 25px;
+	min-height: 25px;
+}
+
+#de-vertical-timeline dl dt {
+	width: 100px;
+}
+.vertical-timeline-content h4 {
+	margin-bottom: 10px;
+}
+.vertical-timeline-content .vertical-date {
+	margin-top: 10px;
+}
+</style>
+<div class="wrapper-content">
+	<#setting datetime_format='yyyy-MM-dd HH:mm'>
+	<div id="de-vertical-timeline" class="vertical-container dark-timeline">
+		<#if circle.appoints??>
+		<#list circle.appoints as item>
+		<div class="vertical-timeline-block">
+			<div class="vertical-timeline-icon yellow-bg">
+				<i class="fa fa-at"></i>
+			</div>
+			<div class="vertical-timeline-content">
+				<h4>
+					<#switch item.operation>  
+						<#case 10>  
+							认领任务
+							<#break> 
+						<#case 20>  
+							指派任务
+							<#break> 
+						<#case 30>  
+							任务退回
+							<#break> 
+						<#case 40>  
+							任务接受
+							<#break> 
+						<#case 50>  
+							处理结果_
+							<#assign dealInfo = item.dealResult>
+							<#switch item.dealResult.dealType>  
+								<#case 5>  
+									还未修好
+									<#break> 
+								<#case 15>  
+									转新单
+									<#break> 
+								<#case 25> 
+									维修完毕
+									<#break>
+							</#switch> 
+							<#break>
+						<#default> 
+							未知状态
+					</#switch>
+
+				</h4>
+				<dl>
+					<dt>操作人</dt><dd>${(item.userNameFrom)!'-'}</dd>
+					<dt>电话</dt><dd>
+						<#if item.operation == 10>
+							${(item.userPhoneTo)!'-'}
+						<#elseif item.operation == 50>
+							${(item.dealResult.dealUserPhone)!'-'}
+						<#else>
+							${(item.userPhoneFrom)!'-'}
+						</#if>
+					</dd>
+					<#if item.userIdFrom != item.userIdTo && item.operation == 20>
+						<dt>指派给</dt><dd>${(item.userNameTo)!'-'}</dd>
+						<dt>电话</dt><dd>${(item.userPhoneTo)!'-'}</dd>
+					</#if>
+				</dl>
+				<#if item.memo??>
+				<dl>
+					<dt><#if item.operation == 20>备注<#else>退回原因</#if></dt><dd>${(item.memo)!'-'}</dd>
+				</dl>
+				</#if>
+				<#if item.operation == 50>
+					<#assign dealInfo = item.dealResult>
+					<dl>
+						<dt>
+							<#if  dealInfo.dealType == 5 || dealInfo.dealType == 15>
+								处理结论
+							<#else>
+								异常原因
+							</#if>
+						</dt>
+						<dd>${(dealInfo.abnormalTypeName)!'异常类型未知'}, ${(dealInfo.conclusion)!'异常结论未知'}</dd>
+					</dl>
+					<dl>
+						<dt>维修耗材</dt>
+						<dd>
+							<#if dealInfo.materialDetail?? && dealInfo.materialDetail != ''>
+								${(dealInfo.materialDetail)!'无'}
+							</#if>
+						</dd>
+					</dl>
+				</#if>
+				<span class="vertical-date">${(item.createTime?number_to_datetime)!'-'}</span>
+			</div>
+		</div>
+		</#list>
+		</#if>
+		<div class="vertical-timeline-block">
+			<div class="vertical-timeline-icon red-bg">
+				<i class="fa fa-lightbulb-o"></i>
+			</div>
+			<#assign abnormal = circle.eventSource>
+			<div class="vertical-timeline-content">
+				<h4>出现异常</h4>
+				<dl>
+					<dt>子系统</dt><dd>${(abnormal.systemName)!'-'}</dd>
+					<dt>位置描述</dt>
+					<dd>
+						<#if abnormal.place?? && abnormal.place != ''>
+						${abnormal.place}
+						<#else>
+						暂未录入
+						</#if>
+					</dd>
+					<dt>设备编号</dt><dd>${(abnormal.deviceCode)!'-'}</dd>
+					<dt>设备名称</dt><dd>${(abnormal.deviceName)!'-'}</dd>
+					<dt>设备供应商</dt><dd>${(abnormal.suppier)!'暂未录入'}</dd>
+				</dl>
+				<span class="vertical-date">${(abnormal.happenTime?number_to_datetime)!'-'}</span>
+			</div>
+		</div>
+	</div>
+</div>

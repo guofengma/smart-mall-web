@@ -1,0 +1,153 @@
+<style>
+#operation-info-manage .left {
+	float: left;
+}
+#operation-info-manage .right {
+	float: right; 
+}
+#operation-info-manage .templet-area {
+	width: 150px;
+	height: 100%;
+	background: #eeeeee;
+}
+#operation-info-manage .right .empty .img {
+	height:525px;
+	background: transparent url(/img/operation-info/empty.png) no-repeat 50% 126px;
+}
+#operation-info-manage .templet-area .templet {
+	height: 40px;
+	padding: 10px 0;
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+	cursor: pointer;
+}
+#operation-info-manage .templet-area .templet.selected {
+	background: #ffffff;
+}
+#operation-info-manage .templet-area .add-templet {
+	padding: 10px 0;
+	text-align: center;
+}
+#operation-info-manage .templet-area .add-templet i {
+	font-size: 20px;
+}
+#operation-info-manage .msg {
+	height: 40px;
+    padding-top: 10px;
+}
+#operation-info-manage .msg .path {
+	display: inline-block;
+    margin-top: 4px;
+}
+#operation-info-manage .msg a,
+#operation-info-manage .msg p {
+	float: right;
+}
+#operation-info-manage .msg p {
+	margin: 5px 0 0 10px;
+}
+#operation-info-manage .msg p span{
+	color: #3A8FE2;
+}
+#operation-info-manage .info-area {
+	width: calc(100% - 150px);
+	padding-left: 15px;
+}
+.operation-info-table span.file,
+.operation-info-table span.folder {
+	cursor: pointer;
+	padding-left: 0px;
+}
+.operation-info-table span.filename {
+	padding-left: 3px;
+}
+.operation-info-table td i {
+	font-size:18px;
+}
+.operation-info-table td input {
+	padding-left: 5px;
+}
+#operation-info-manage .color-yellow {
+	color: #FFD658;
+}
+.operation-info-table .tags span {
+	padding: 0;
+}
+#operation-info-right-memu,
+.opration-info-cate .right-menu {
+	position: absolute;
+    background: #ffffff;
+    border: 1px solid #70B2E1;
+    color: #3A8FE2;
+}
+#operation-info-right-memu li ,
+.opration-info-cate .right-menu li{
+	border-bottom: 1px solid #D7E5F2;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+#operation-info-right-memu li:last-child,
+.opration-info-cate .right-menu li:last-child{
+	border-bottom: none;
+}
+#operation-info-right-memu li:hover,
+.opration-info-cate .right-menu li:hover {
+	background: #D2E0EC;
+}
+#operation-info-manage table.treetable span.file {
+	background: none;
+}
+</style>
+<div class="wrapper-content" id="operation-info-manage">
+<div class="left templet-area">
+		<ul class="templet-list">
+			<#list cates as d>
+				<li class="templet" data-id="${d.id}" data-nodeDomain="${d.nodeDomain}">${d.name}</li>
+			</#list>
+		</ul>
+		<@codeValidation codes=operationCodes operationCode="add-cate">
+        <div class="add-templet"><i class="fa fa-plus text-navy" title="添加分类"></i></div>
+        </@codeValidation>
+	</div>
+	<div class="right info-area">
+		<div class="info-msg">
+			<@codeValidation codes=operationCodes operationCode="search-file-or-folder">
+			<div class="filter-line">
+		      	<form method="get" class="dr-search-form" id="operation-info-searchform">
+		        	<input placeholder="输入关键字查询文件" class="form-control" type="text" name="name" value="${name!''}" role="user-params">
+		            <button type="button" class="btn btn-primary" role="submit"><i class="fa fa-search"></i></button>
+		            <button type="button" class="btn btn-default reset" role="reset"><i class="fa fa-refresh"></i></button>
+		       	</form>
+			</div>
+			</@codeValidation>
+			<div class="msg">
+				<span class="path">WIFI模板主目录</span>
+				<p class="file-number">文件数量：<span class="number">3</span></p>
+				<@codeValidation codes=operationCodes operationCode="add-file">
+				<a href="javascript:void(0);" class="btn btn-primary" role="upload-file">上传文件</a>
+				</@codeValidation>
+			</div>
+			<div class="table-box"></div>
+	        <div class="opers hide">
+	        	<@codeValidation codes=operationCodes operationCode="move-file">
+	        	<a href="javascript:void(0);" class="btn btn-primary" role="move">移动</a>
+	        	</@codeValidation>
+	        	<@codeValidation codes=operationCodes operationCode="remove-file">
+	        	<a href="javascript:void(0);" class="btn btn-primary" role="remove">删除</a>
+	        	</@codeValidation>
+	        </div>
+        </div>
+        <div class="empty hide">
+        	<div class="img"></div>
+        	<p class="tips text-center">暂无分类，请创建</p>
+        </div>
+	</div>
+	<div id="operation-info-right-memu" class="hide"></div>
+</div>
+<script src="${base}js/modules/views/operation-info/manage.js"></script>
+<script src="${base}js/modules/views/operation-info/tag.js"></script>
+<script>
+	OperationInfoManage.init({operationCodes:'${operationCodes}'});
+	TagManage.init({operationCodes:'${operationCodes}'});
+</script>

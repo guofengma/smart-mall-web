@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta http-equiv="Cache" content="no-cache">
+    <title>玺颂科技·智慧商场一体化管理平台</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+	
+    <!--[if lt IE 8]>
+    <script>
+        alert('H+已不支持IE6-8，请使用谷歌、火狐等浏览器\n或360、QQ等国产浏览器的极速模式浏览本页面！');
+    </script>
+    <![endif]-->
+	<link href="${base}img/favicon.ico?${.now?string('yyMMddhhmmSSsss')}" rel="shortcut icon">
+    <link href="${base}css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+    <link href="${base}css/font-awesome.min.css?v=4.3.0" rel="stylesheet">
+    <link href="${base}css/animate.css" rel="stylesheet">
+    <link href="${base}css/index.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+    <link href="${base}css/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="${base}css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="${base}css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="${base}css/plugins/periodsPicker/periodsPicker.css" rel="stylesheet">
+    <link href="${base}js/plugins/layui/css/layui.css" rel="stylesheet">
+    <link href="${base}js/plugins/layer/laydate/theme/default/laydate.css" rel="stylesheet">
+   <!--  <link href="${base}css/plugins/colorPicker/css/bootstrap-colorpicker.min.css" rel="stylesheet"> -->
+    <script src="${base}js/plugins/layer/laydate/laydate.js"></script>
+	<link href="${base}css/plugins/mag/mag.css" rel="stylesheet">
+	<link href="${base}css/plugins/mag/theme/default.css" rel="stylesheet">
+	<link href="${base}css/plugins/calendarGrid/calendar-grid.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+	<link href="${base}js/plugins/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
+    
+    <link href="${base}css/plugins/chosen/chosen.css" rel="stylesheet">
+    <link href="${base}css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="${base}css/plugins/switchery/switchery.css" rel="stylesheet">
+    <link href="${base}css/plugins/webuploader/webuploader.css" rel="stylesheet" type="text/css">
+    
+    <link href="${base}css/plugins/labels/labels.css" rel="stylesheet">
+   
+    <link href="${base}css/plugins/tree-table/jquery.treetable.css" rel="stylesheet">
+    <link href="${base}css/plugins/tree-table/jquery.treetable.theme.default.css" rel="stylesheet">
+    <link href="${base}css/plugins/tree-table/screen.css" rel="stylesheet">
+	<link href="${base}css/plugins/smartWizard/smart_wizard.css" rel="stylesheet">
+	<link href="${base}css/plugins/smartWizard/smart_wizard_theme_circles.css" rel="stylesheet">
+	
+    <link href="${base}css/style.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+    <link href="${base}css/plugins/ztree/awesomeStyle/awesome.css" rel="stylesheet">
+    <!-- 进度条 -->
+   <!--  <link href="${base}css/plugins/ionRangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="${base}css/plugins/ionRangeSlider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet"> -->
+     
+    <link href="${base}css/modules/door-manage.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+    
+    <link href="${base}css/modules/vertical-view.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+    <link href="${base}plugins/map-selection/css/map-selection.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+    
+    <!-- iconfont -->
+	<link href="${base}css/plugins/iconfont/iconfont.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+    <style>
+    	.navbar-static-top {
+    		background: #fff;
+		    border-bottom: 1px solid #eee;
+		    box-shadow: 1px 1px 15px #E2EDF9;
+		    z-index: 2002;
+    	}
+    	.navbar-static-top > div {
+    		float: left;
+			height: 46px;
+			line-height: 46px;
+    	}
+    	
+    	.navbar-static-top > div.top-menus ul {
+    		padding: 0 20px;
+    	}
+    	.navbar-static-top > div.top-menus  li {
+    		float: left;
+    		display: inline-block;
+    		padding: 0  10px;
+    	}
+    	
+    	.navbar-static-top > div.top-menus  li.active > a {
+    		color: #3A8FE2;
+    		font-weight: bold;
+    		outline: 0;
+    	}
+    	.navbar-static-top > div.user-info {
+    		float: right;
+    	}
+    	#personNickName {
+    		font-style: normal;
+    	}
+    </style>
+</head>
+<body class="fixed-sidebar full-height-layout">
+	<iframe id="ifile" style="display:none"></iframe>
+	<div id="wrapper" class="index">
+    	<nav class="navbar navbar-static-top" role="navigation">
+				<div class="logo-info">
+					<div class="sys-title">
+						<i class="img-icon logo" style="background-image: url(img/logo.png)"></i>
+						智慧商场一体化管理平台
+					</div>
+				</div>
+               	<div class="top-menus">
+               		<ul>
+		                <#if menus??>
+		               		<#list menus as m>
+		               			<#if m.code?index_of("top-") gte 0>
+		               			<li>
+			                		<a href="${m.code?split('top-')[1]}" class="J_menuItem">${m.name}</a>
+			                	</li>
+		               			</#if>
+		               		</#list>
+	               		</#if>
+               		</ul>
+                </div>
+				<div class="user-info">
+					<div class="sys-profile text-right">
+						
+						<div class="btn-group">
+							<i class="dropdown" data-toggle="dropdown"><span id="personNickName"><i class="fa fa-user-circle-o" style="font-size: 18px"></i>&nbsp;&nbsp;${userDetail.realName!'暂未设置'}&nbsp;&nbsp;</span><i class="fa fa-caret-down"></i></i>
+							<ul role="user-oper" class="dropdown-menu dropdown-menu-right">
+								<#if userDetail.userType?? && userDetail.userType == 2>
+								<li class="modify-password"><a>修改密码</a> </li>
+								</#if>
+		                        <li class="logout"><a>注销</a> </li>
+		                    </ul>
+						</div>
+					</div>
+				</div>
+        </nav>
+        <!--左侧导航开始-->
+        <nav class="navbar-static-side" >
+        	<div style="position: absolute;width: 100%;top: 0;z-index: 2;">
+			<#if menus??>
+				<#list menus as menu>
+					<#if menu.code?index_of("left-") gte 0>
+		            <div class="slide-section ${menu.code?split('left-')[1]}">
+		            	<div class="left-cate"><a href="javascript:;" class="level-1">${menu.name}</a></div>
+		                <ul class="fl_menus">
+		                	<#list menu.children as child>
+			                    <li>
+			                        <a class="J_menuItem" href="${child.code}">
+			                            <span class="nav-label">${child.name}</span>
+			                        </a>
+			                    </li>
+		                    </#list>
+		                </ul>
+		            </div>
+		            </#if>
+	            </#list>
+			</#if>
+			</div>
+        </nav>
+        <!--左侧导航结束-->
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="dashbard-1">
+            <div class="row content-tabs hide">
+                <button class="roll-nav navbar-minimalize text-navy"><i class="fa fa-bars"></i>
+                </button>
+                <button class="roll-nav roll-left J_tabLeft text-navy"><i class="fa fa-caret-left"></i>
+                </button>
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                    </div>
+                </nav>
+                <button class="roll-nav roll-right J_tabRight text-navy" style="right:60px"><i class="fa fa-caret-right"></i></button>
+                <div class="btn-group roll-nav roll-right text-navy" style="right:0">
+                    <button class="dropdown J_tabClose"  data-toggle="dropdown">关闭&nbsp;<span class="caret"></span></button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li class="J_tabCloseAll"><a>关闭全部</a> </li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseOther"><a>关闭其他</a></li>
+                    </ul>
+                </div>   
+            </div>
+            <div class="row J_mainContent" id="content-main">
+            </div>
+            <div class="footer">
+               <!--  <div class="pull-right">Copyright &copy; 2010-2015,www.emininfo.com,All rights reserved  蜀ICP备16033956号</div> -->
+            </div>
+        </div>
+		<#include "tpl/pattern-tpl.html"/>
+		<#include "tpl/fileUploaderTpl.html"/>
+		<#include "tpl/door-tpl.html"/>
+		<#include "tpl/command-template-tpl.html"/>
+		<#include "tpl/user-tpl.html"/>
+		<#include "tpl/device-upload-tpl.html"/>
+		<#include "tpl/devices-monitor-tpl.html"/>
+		<#include "tpl/report-tpl.html"/>
+		<#include "tpl/operation-info-tpl.html"/> 
+		<#include "tpl/central-con-tpl.html"/>  
+    </div>
+    <!-- 全局js -->
+    <script src="${base}js/jquery-2.1.1.min.js"></script>
+    <!-- 自定义js -->
+	<script src="${base}js/modules/util/common-util.js"></script>
+	<script src="${base}js/$http.js"></script>
+	<script src="${base}js/modules/util/date-util.js"></script>
+	<script src="${base}js/modules/util/web-socket-util.js"></script>
+	<script type="text/javascript">
+		var layerWindowIndex = null;
+		var base = '${base}',
+			icon = '<i class="fa fa-times-circle"></i>';
+			//给每一个大的分类设定高度
+		    $('.left-cate').each(function(index) {
+		    	var childrenNum = 0;
+		    		perandEl= $(this).parent();
+		    		childrenNum = perandEl.find('.fl_menus').children().length;
+		    	
+		    	$(this).css({'height':(childrenNum*40 + 1) +'px'});
+		    	 
+		    })
+		    //将未接入的系统置灰
+		     $('.navbar-static-side a.J_menuItem').each(function(index) {
+		    	var href = $(this).attr('href');
+		    	if(href.indexOf('level-') != -1) {
+		    		$(this).addClass('unavailable');
+		    	} 
+		    })
+	</script>
+	
+	<script src="http://api.map.baidu.com/api?v=2.0&ak=YXCZieRrBD8dAfXj7eUp5oF4EA6UAIrl"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/AreaRestriction/1.2/src/AreaRestriction_min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script> 
+	<script src="${base}js/GeoUtils.js"></script>
+    <script src="${base}js/jquery.cityselect.js"></script>
+	<script src="${base}js/plugins/echarts/echarts.min.js"></script>
+	<script src="${base}js/plugins/echarts/extension/bmap.min.js"></script>
+	<script src="${base}js/bootstrap.min.js?v=3.4.0"></script>
+    <script src="${base}js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="${base}js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="${base}js/plugins/layer/layer.min.js"></script>
+	<script src="${base}js/plugins/layui/layui.js" ></script>
+	<script>
+    	var indexLoading = layer.load();
+    </script>
+	<script src="${base}js/plugins/jsKnob/jquery.knob.js"></script>
+	<!-- 日历 -->
+	<script src="${base}js/plugins/calendarGrid/CalendarGridTools.js"></script>
+	<script src="${base}js/plugins/calendarGrid/ChineseCalendar.js"></script>
+	<script src="${base}js/plugins/calendarGrid/CalendarGrid.js"></script>
+    
+    <script src="${base}js/hplus.js?v=3.2.0"></script>
+    <script src="${base}js/contabs.js?${.now?string('yyMMddhhmmSSsss')}"></script>
+    <script src="${base}js/emin/common.js"></script>
+    <script src="${base}js/emin/emin.gdmap.js"></script>
+    <script src="${base}js/emin/emin.fileUpload.js"></script>
+    <!-- 第三方插件 -->
+    <script src="${base}js/plugins/pace/pace.min.js"></script>
+    <script src="${base}js/plugins/footable/footable.all.min.js"></script>
+    <script src="${base}js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="${base}js/plugins/validate/messages_zh.min.js"></script>
+    <script src="${base}js/plugins/validate/compatible_bootstrap.js"></script>
+    <script src="${base}js/plugins/validate/validate_method.js"></script>
+    <script src="${base}js/plugins/iCheck/icheck.min.js"></script>
+	<script src="${base}js/plugins/periodsPicker/periodsPicker.js" ></script>
+	<script src="${base}js/plugins/colorPicker/bootstrap-colorpicker.min.js" ></script>
+    <!-- CHOSEN -->
+    <script src="${base}js/plugins/chosen/chosen.jquery.js" ></script>
+    <!-- Steps -->
+    <script src="${base}js/plugins/steps/jquery.steps.min.js" ></script> 
+    <!-- Switchery -->
+    <script src="${base}js/plugins/switchery/switchery.js"></script>
+    <!-- ztree -->
+    <script src="${base}js/plugins/ztree/jquery.ztree.core.js"></script>
+	<script src="${base}js/plugins/ztree/jquery.ztree.excheck.js"></script>
+	<script src="${base}js/plugins/ztree/jquery.ztree.exedit.js"></script>
+	<script src="${base}js/plugins/webuploader/webuploader.js"></script>
+    <script src="${base}js/plugins/webuploader/upload.js"></script>
+    <script src="${base}js/plugins/labels/labels.js" ></script>
+    <script src="${base}js/plugins/draggabilly/dist/draggabilly.pkgd.min.js" ></script>
+    <script src="${base}js/plugins/mag/jquery.event.drag.js"></script>
+    <script src="${base}js/plugins/mag/jquery.bridget.js"></script>
+    <script src="${base}js/plugins/mag/PreventGhostClick.js"></script>
+	<script src="${base}js/plugins/mag/mag.js"></script>
+    <script src="${base}js/plugins/mag/mag-analytics.js"></script>
+    <script src="${base}js/plugins/mag/mag-control.js"></script>
+    <script src="${base}js/plugins/mag/mag-jquery.js"></script>
+    <script src="${base}js/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="${base}js/plugins/tree-table/jquery.treetable.js"></script>
+    <script src="${base}js/plugins/smartWizard/jquery.smartWizard.js"></script>
+    <script src="${base}plugins/map-selection/js/map-selection.js"></script>
+    
+    <!-- iconfont图标 -->
+    <script src="${base}js/plugins/iconfont/iconfont.js"></script>
+	
+    <script src="${base}js/jquery.md5.js"></script>
+    
+    <!-- emin封装js -->
+    <script src="${base}js/emin/dataLoad.js"></script>
+    <script src="${base}js/emin/emin.ztree.js"></script>
+    <!-- 进度条 -->
+   <!--  <script src="${base}css/plugins/ionRangeSlider/js/ion.rangeSlider.js"></script> -->
+    
+	<!-- 项目的逻辑js -->
+	<script src="${base}js/modules/interfaces/user-interface.js"></script>
+	<script src="${base}js/modules/interfaces/sub-sys-interface.js"></script>
+	<script src="${base}js/modules/interfaces/pattern-interface.js"></script>
+	<script src="${base}js/modules/tpls/staffs-choosen-tpl.js"></script>
+	<script src="${base}js/modules/tpls/grid-picker-tpl.js"></script>
+	
+	<script src="${base}js/modules/views/index.js"></script>
+	<script src="${base}js/modules/views/supplier.js"></script>
+	<script src="${base}js/modules/views/device-exception/manage.js?${.now?string('yyMMddhhmmSSsss')}"></script>
+	<script src="${base}js/modules/views/work-order/manage.js?${.now?string('yyMMddhhmmSSsss')}"></script>
+
+	<script src="${base}js/modules/views/user-picker.js"></script>
+	
+</body>
+<script>
+	layer.close(indexLoading);
+</script>
+</html>

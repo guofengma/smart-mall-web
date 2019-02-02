@@ -1,0 +1,159 @@
+<!-- table -->
+<script id="report_table_tpl" type="text/html">
+	{{# if(d.resultList && d.resultList.length > 0) { }}
+		{{# layui.each(d.resultList, function(index,item) { }}
+			<tr data-id="{{item.id}}" data-taskId="{{item.taskId}}">
+				<td>{{(d.currentPage - 1) * d.pageSize + index + 1}}</td>
+				<td class="reportTypeName">{{item.reportTypeName ? item.reportTypeName : '暂缺'}}</td>
+				<td class="reportFileName" 
+					{{# if(item.reportUrl) { }}
+						onclick="layer.msg('当前文件暂不支持在线预览',{icon:5})" data-url="filePreview.preview('{{item.reportUrl}}','{{item.reportFileName?item.reportFileName:'暂缺'}}')"
+					{{# } }}
+				>
+					<span class="name">
+						{{item.reportFileName?item.reportFileName:'暂缺'}}
+					</span>
+				</td>
+				<td>{{new Date(item.createTime).Format("yyyy-MM-dd hh:mm")}}</td>
+				<td>{{item.userName?item.userName:'暂缺'}}</td>
+				<td class="oper" data-reportStatus="{{item.reportStatus}}">
+				{{# if(item.reportStatus == 20){ }}
+					<a href="javascript:void(0)" title="下载" class="download" data-url="{{item.reportUrl}}"><i class="fa fa-download text-navy">&nbsp;</i></a>&nbsp;
+					<a href="javascript:void(0)" title="删除" class="remove"><i class="fa fa-trash text-navy">&nbsp;</i></a>&nbsp;
+				{{# }else if (item.reportStatus == 10 || item.reportStatus == 0) { }}
+					<i class=" circle-icon">&nbsp;</i>&nbsp;(正在生成报表...)
+				{{# }else{ }}
+					<i class="fa fa-exclamation-triangle text-navy">&nbsp;</i>&nbsp;<span class="error">(生成失败，请<a class="reTry">重新生成</a>)</span>
+				{{# } }}
+				</td>
+			</tr>
+		{{# }) }}
+	{{# }else{ }}
+		<tr><td>暂无数据</td><td></td><td></td><td></td><td></td><td></td></tr>
+	{{# } }}
+</script>
+
+<!-- 报表form -->
+<style>
+.report-form-panel .form-horizontal .form-group{
+	margin: 10px 0;
+}
+
+.report-form-panel div.i-checks {
+ 	margin-top: 9px;
+}
+.report-form-panel .btns {
+	padding-top: 10px;
+}
+.report-form-panel .btns .btn{
+	margin: 0 10px;
+	width: 84px;
+	text-align: center;
+	
+}
+ .layui-laydate-range-width {
+	width: 547px;
+}
+.report-form-panel div.radio.i-checks {
+	display: inline-block;
+	margin: 0 10px;
+}
+.report-form-panel .radio-group {
+	margin-bottom: 15px!important;
+	margin-top: 0!important;
+}
+.report-form-panel .tips {
+	margin-left: 25px;
+	margin-bottom: 10px;
+    font-size: 12px;
+    color: #3A8FE2;    
+}
+</style>
+<script id="report_form_panel_tpl" type="text/html">	
+	<div class="report-form-panel">
+       	<form method="get" class="form-horizontal"  autocomplete="off">
+		  	<div class="form-group" style="margin-bottom:0;">
+		      	<label class="col-sm-3 control-label">选择统计范围</label>
+				<div class="col-sm-9"></div>
+		  	</div>
+			<div class="form-group radio-group">
+				<div class="col-sm-12">
+					<div class="radio i-checks">
+						<input type="radio" checked="" value="day" name="date-type"> <i></i>日报
+                    </div>
+					<div class="radio i-checks">
+						<input type="radio" value="week" name="date-type"> <i></i>周报
+                    </div>
+					<div class="radio i-checks">
+						<input type="radio" value="month" name="date-type"> <i></i>月报
+                    </div>
+					<div class="radio i-checks">
+						<input type="radio" value="quarter" name="date-type"> <i></i>季报
+                    </div>
+					<div class="radio i-checks">
+						<input type="radio" value="custom" name="date-type"> <i></i>自定义
+                    </div>
+		      	</div>
+		  	</div>
+			<div class="form-group register-date">
+			</div>
+			{{# if(d && (d == 'deviceBusinessStatus')) { }}
+			<div class="form-group">
+		      	<label class="col-sm-3 control-label">选择统计类型</label>
+		        <div class="col-sm-9">
+					<div class="i-checks">
+                    	<input type="checkbox" value="door" name="systemCode" checked='checked'>门禁设备
+             		</div>
+					<div class="i-checks">
+                    	<input type="checkbox" value="vedio" name="systemCode" checked='checked'>视频监控设备
+             		</div>
+		      	</div>
+		  	</div>
+			{{# } }}
+
+			{{# if(d && (d == 'visitor-statistics')) { }}
+				<input type="hidden" name="engineId" value="restTemplateEngine">
+			{{# } }}
+			{{# if(d && d == 'alarm') { }}
+			<div class="form-group">
+		      	<label class="col-sm-3 control-label">选择统计级别</label>
+		        <div class="col-sm-9">
+					<div class="i-checks">
+                    	<input type="checkbox" value="1" name="eventAlertLevel" checked='checked'>严重
+             		</div>
+					<div class="i-checks">
+                    	<input type="checkbox" value="2" name="eventAlertLevel" checked='checked'>较重
+             		</div>
+					<div class="i-checks">
+                    	<input type="checkbox" value="3" name="eventAlertLevel">一般
+             		</div>
+		      	</div>
+		  	</div>
+			{{# } }}
+		  	<div class="form-group btns">
+		        <div class="col-sm-8 col-sm-offset-2 text-center">
+		        	<a class="btn btn-default" type="cancel">取消</a>
+		            <button class="btn btn-primary" type="submit">生成报表</button>
+		        </div>
+		    </div>
+       	</form>
+	</div>
+</script>
+<script id="register_date_tpl" type="text/html">
+{{# if(d.type != 'text') { }}
+	<label class="col-sm-3 control-label">选择统计范围</label>
+	<div class="col-sm-9">
+	{{# if(d.type && d.type=="select") { }}
+		<select class="form-control" name="date">
+			{{# layui.each(d.data, function(index,item) { }}
+        		<option value="{{item.value}}">{{item.name}}</option>
+			{{# }) }}                   		
+        </select>
+	{{# } else { }}
+		<input class="form-control date-choose" type="text" name="date" id="report-register-date-range" placeholder="请选择" value="{{d.value}}">
+	{{# } }}	
+	</div>
+{{# } else { }}
+	<p class="tips">统计本周的数据</p>
+{{# } }}
+</script>

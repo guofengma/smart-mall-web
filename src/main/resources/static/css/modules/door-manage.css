@@ -1,0 +1,271 @@
+.sub-sys-pattern-container {
+	padding: 0px!important;
+}
+.sub-sys-patterns {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+.sub-sys-patterns .pattern-item,
+.sub-sys-patterns .add-pattern {
+	position: relative;
+	width: 160px;
+	height: 100px;
+	margin:10px 15px;
+	border: 1px solid #D8E2EB;
+	border-radius: 8px;
+	overflow:hidden;
+}
+.sub-sys-patterns .add-pattern {
+	border-style: dashed;
+	background:#F6FBFE;
+}
+.sub-sys-patterns .add-pattern i {
+    margin-top: 35px;
+	font-size:30px;
+	color: #0198EB;
+	cursor: pointer;
+}
+.sub-sys-patterns .pattern-item .type {
+	position: relative;
+	height: 36px;
+	line-height: 36px;
+	border-bottom: 1px solid #D8E2EB;
+	background: linear-gradient(90deg, #A1DCFB, #6BCBFC);
+	color: #ffffff;
+}
+.sub-sys-patterns .pattern-item .title {
+	padding:15px 10px 10px 10px;
+}
+.sub-sys-patterns .pattern-item .remove {
+	position: absolute;
+	top: 12px;
+   	right: 10px;
+   	display:none;
+}
+.sub-sys-patterns .pattern-item:hover .remove {
+	display:inline-block;
+	cursor: pointer;
+}
+.sub-sys-patterns .actived,
+.sub-sys-patterns .actived .type{
+	border-color:#73CEFC;
+}
+
+.sub-sys-pattern-container .pattern-detail-container {
+		width:80%;
+		min-width: 700px;
+		max-width: 1400px;
+		padding-left: 15px;
+}
+.sub-sys-pattern-container .pattern-detail-container h5 {
+	margin: 20px 0 15px 0;
+	padding-left: 5px;
+	border-left: 3px solid #00A5FF;
+	font-size: 16px;
+}
+
+
+/* 详情 开始 */
+.sub-sys-pattern-detail .col-sm-2,
+.sub-sys-pattern-detail .col-sm-3,
+.sub-sys-pattern-detail .col-sm-4,
+.sub-sys-pattern-detail .col-sm-5,
+.sub-sys-pattern-detail .col-sm-6,
+.sub-sys-pattern-detail .col-sm-8,
+.sub-sys-pattern-detail .col-sm-10,
+.sub-sys-pattern-detail .col-sm-12 {
+	padding: 0!important;
+}
+.sub-sys-pattern-detail .above .col-sm-8 .col-sm-8 {
+	padding-left: 15px!important;
+}
+.sub-sys-pattern-detail {
+	padding: 0;
+	margin: 0;
+	border: 1px solid #D9E2EB;
+	border-radius: 8px;
+	overflow: hidden;
+}
+.sub-sys-pattern-detail .above {
+	position: relative;
+	padding:10px 0px;
+	background: #F8F9FB;
+	border-bottom: 1px solid #D9E2EB;
+}
+.sub-sys-pattern-detail .above .edit{
+	position: absolute;
+	top: 13px;
+	right: 10px;
+	cursor: pointer;
+} 
+.sub-sys-pattern-detail .below .items {
+	border-left:1px solid #D9E2EB;
+}
+.sub-sys-pattern-detail .below .item {
+	border-bottom: 1px solid #D9E2EB;
+}
+.sub-sys-pattern-detail .below .item:last-child {
+	border-bottom: none;
+}
+.sub-sys-pattern-detail .below .floor {
+	border-right: 1px solid #D9E2EB;
+}
+.sub-sys-pattern-detail .device-msg .version,
+.sub-sys-pattern-detail .device-msg .no-data {
+	 padding: 13px 0 13px 15px!important;
+}
+.sub-sys-pattern-detail .device-msg .status {
+	 padding: 13px 0!important;
+}
+.sub-sys-pattern-detail .device-list{
+	padding-left: 15px!important;
+}
+.sub-sys-pattern-detail .device-list i{
+	font-size: 18px;
+	cursor: pointer;
+}
+.sub-sys-pattern-detail .no-data {
+	padding: 14px 0 13px 0!important;
+}
+/* 详情 结束 */
+
+/* 版本设备列表 开始 */
+.version-devices-list .devices .above p{
+	font-weight: 600;
+	margin-bottom: 10px;	
+}
+.version-devices-list .devices .below p{
+	margin-top: 5px;
+	margin-bottom: 5px;	
+}
+.version-devices-list form {
+	margin-left: 50px;
+	margin-top: 15px;
+}
+/* 版本设备列表 结束  */
+/* 楼层设备列表 开始  */
+.floor-devices-list .devices .above p{
+	font-weight: 600;
+	margin-bottom: 10px;	
+}
+.floor-devices-list .devices .below p{
+	margin-top: 5px;
+	margin-bottom: 5px;	
+}
+.floor-devices-list form {
+	margin-left: 30px;
+	margin-top: 15px;
+}
+.floor-devices-list .row {
+	margin: 0;
+	padding: 15px 0;
+}
+.floor-devices-list .above, 
+.floor-devices-list .below {
+	margin: 0;
+}
+.floor-devices-list .col-sm-3,
+.floor-devices-list .col-sm-9 {
+	margin: 0;
+}
+.floor-devices-list .version {
+	margin: 0!important;
+}
+.floor-devices-list .item {
+	border-bottom: 1px solid #D9E2EB;
+}
+.floor-devices-list .item:last-child {
+	border: none;
+}
+/* 楼层设备列表 结束  */
+
+/* 命令模版 列表 开始 */
+.command-template-set-container {
+	margin-top: 15px;
+}
+.command-template-set-container form {
+	margin-left: 15px;
+}
+.command-template-set-container .versions {
+	min-width: 700px;
+	max-width: 1200px;
+	width: 80%;
+}
+.command-template-set-container .version .title {
+	margin: 20px 0 10px 0;
+	font-size: 16px;
+	font-weight: 600;
+}
+.command-template-set-container .version .col-sm-4,
+.command-template-set-container .version .no-data {
+	text-align: center;
+	padding: 8px 0;
+}
+.command-template-set-container .version .command-templates {
+	border-right: 1px solid #D9E2EB;
+	border-top: 1px solid #D9E2EB;
+}
+.command-template-set-container .version .above {
+	background: linear-gradient(90deg, #6BCBFC, #A1DCFB);
+	border-bottom: 1px solid #D9E2EB;
+	border-left: 1px solid #D9E2EB;
+	color: #ffffff;
+}
+.command-template-set-container .version .below .col-sm-4,
+.command-template-set-container .version .no-data {
+	border-bottom: 1px solid #D9E2EB;
+	border-left: 1px solid #D9E2EB;
+}
+.command-template-set-container .version .below p {
+	height: 37px;
+}
+.command-template-set-container .version .detail {
+	text-decoration: underline;
+}
+
+/* 命令模版 列表 结束 */
+/* 命令模版 form 开始 */
+.command-template-form .configure {
+	position: relative;
+	padding: 15px 15px 1px 15px;
+	margin: 8px 0;
+	background: #F8F9FB;
+}
+.command-template-form .configure .remove {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	
+}
+.command-template-form .add-configure,
+.command-template-form .no-data {
+	margin: 8px 0;
+}
+.command-template-form .add-configure i {
+	font-size: 18px;
+}
+/* 命令模版 form 结束 */
+/* 指令模板 详情 开始 */
+.command-template-detail h4 {
+	margin: 15px 10px 10px 10px;
+}
+.command-template-detail .configure {
+	margin: 10px 10px;
+	padding: 5px 10px;
+	
+}
+.command-template-detail .configure {
+	border-bottom: 1px solid #DCE6F4;
+}
+.command-template-detail .configure:last-child {
+	border-bottom: none;
+}
+.command-template-detail .parameters p {
+	margin: 5px 0px;
+}
+.command-template-detail .no-data {
+	padding: 10px 20px;	
+}  
+/* 指令模板 详情 结束 */
+

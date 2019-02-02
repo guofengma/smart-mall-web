@@ -1,0 +1,237 @@
+<style>
+	.pattern-choose-container {
+		height:100%;
+	}
+	.pattern .pattern-choose-items {
+		display:flex;
+		flex-wrap: wrap;
+	}
+	.pattern-choose-container .pattern-choose-item {
+		position: relative;
+		width:350px;
+		height: 235px;
+		margin-top: 10px;
+		padding: 20px 40px;
+		border-radius:8px;
+		color:#fff;
+		z-index:2;
+		background-position: 0px 0px;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+	}
+	.pattern-choose-container .pattern-choose-item  .item-shade {
+		position: absolute;
+    	height: 172px;
+    	width: 304px;
+    	top: 40px;
+    	left: 22px;
+    	border-radius: 9px;
+    	cursor: pointer;
+	}
+	
+	.pattern-choose-container .time {
+		padding: 25px 15px 10px 15px;
+		border-bottom: 1px solid #eeeeee;
+	}
+	.pattern-choose-container .pattern-choose-item .title {
+		margin-top: 40px;
+		font-size: 18px;
+		font-weight: 600;
+	}
+	.pattern-choose-container .pattern-choose-item .below{
+		margin-top: 76px;
+    	color: #666666;
+	}
+	.pattern-choose-container .time-slot {
+		margin:10px 0;
+	}
+	.pattern-choose-container .slot-1 {
+		background-image: url(../img/time-sort-1.png);
+	}
+	.pattern-choose-container .slot-1 .no-pattern-btn {
+		color: #8FCDEE!important;
+	}
+	.pattern-choose-container .slot-2 {
+		background-image: url(../img/time-sort-2.png);
+	}
+	.pattern-choose-container .slot-2 .no-pattern-btn {
+		color: #FADD7E!important;
+	}
+	.pattern-choose-container .slot-3 {
+		background-image: url(../img/time-sort-3.png);
+	}
+	.pattern-choose-container .slot-3 .no-pattern-btn {
+		color: #FA947E!important;
+	}
+	.pattern-choose-container .slot-4 {
+		background-image: url(../img/time-sort-4.png);
+	}
+	.pattern-choose-container .slot-4 .no-pattern-btn {
+		color: #8B9AAB!important;
+	}
+	.pattern-choose-container .operation {
+		margin-left:240px;
+		font-size:16px;
+		cursor: pointer;
+	}
+	.pattern-choose-date {
+		width:126px!important;
+		transition-duration: 0s!important;
+    	-webkit-transition-duration: 0s!important;
+	}
+	#pattern-choose .bottom-cover {
+		position:absolute;
+		height:100%;
+		width:100%;
+		top:0;
+		left:0;
+		z-index:1;
+	}
+	/* .pattern-choose-container .time {
+		background-position: 0px 0px;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		background-image: url(../img/triangle.png);
+	} */
+	.pattern-choose-container .time {
+		position: relative;
+    	overflow: visible;
+    	height: 107px;
+	}
+	.pattern-choose-container .time:after {
+		content: '';
+	    width: 10px;
+	    height: 10px;
+	    display: block;
+	    position: absolute;
+	    border: 1px solid #e7eaec;
+	    background: #fff;
+	    transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	    -moz-transform: rotate(45deg);
+	    -webkit-transform: rotate(45deg);
+	    -o-transform: rotate(45deg);
+	    border-bottom: 0;
+	    border-right: 0;
+	    left: 61px;
+	    bottom: -6px;
+	}
+	.pattern-choose-container .time .left {
+		float: left;
+	}
+	.pattern-choose-container .time .day {
+		height: 50px;
+    	width: 60px;
+    	font-size: 36px;
+    	padding-top: 15px;
+    	font-weight: 600;
+    	text-align: center;
+    	color: #333333;
+	}
+	.pattern-choose-container .year-month {
+		margin-top: 5px;
+	}
+	.pattern-choose-container .year-month p{
+		color: #666666;
+		font-size: 14px;
+	} 
+	.pattern-choose-container .time .time-time {
+		margin: 25px 10px;
+    	font-size: 16px;
+    	color: #999999; 
+	}
+	.pattern-choose-container .time .below span {
+		font-size: 14px;
+    	color: #999999;
+	}
+	.pattern-choose-container .time .right {
+		float: right;
+	}
+	.pattern-choose-container .time .icons i {
+		font-size: 36px;
+		color: #999999;		
+	}
+	.pattern-choose-container .time .icons p {
+		color: #999999;		
+	}
+	.pattern-choose-container .time .icons .right {
+		position: relative;
+		text-align: center;
+		margin-left:20px;
+		z-index: 2;
+		cursor: pointer;
+	}
+	.pattern-choose-container .pattern-choose-items .today {
+		margin: 15px 0 2px 23px;
+		padding-left: 5px;
+		width: 100%;
+		border-left: 3px solid #18A4FB;
+		
+    	
+	}
+</style>
+<div class="pattern-choose-container">
+	<div class="time clear">
+		<div class="left time-date">
+			<div class="above clear">
+				<div class="left day"></div>
+				<div class="left year-month">
+					<p class="month"></p>
+					<p class="year"></p>
+				</div>
+			</div>
+			<div class="below">
+				<span class="week-day"></span>
+				<span class="dayName">${dayName}</span>
+			</div>
+		</div>
+		<div class="left time-time">
+			<span></span>
+		</div>
+		<div class="right icons">
+			<@codeValidation codes=operationCodes operationCode="calendar-view">
+			<div class="right" onClick="goPage('mall-pattern-calendar')">
+				<i class="fa fa-calendar text-navy"></i>
+				<p>运行日历</p>
+			</div>
+			</@codeValidation>
+			<@codeValidation codes=operationCodes operationCode="run-setting-view">
+			<div class="right" onClick="goPage('run-setting')">
+				<i class="fa fa-clock-o text-navy"></i>
+				<p>运行设置</p>
+			</div>
+			</@codeValidation>
+			<@codeValidation codes=operationCodes operationCode="com-pattern-view">
+			<div class="right" onClick="goPage('com-pattern')">
+				<i class="fa fa-cogs text-navy"></i>
+				<p>模式管理</p>
+			</div>
+			</@codeValidation>
+		</div>
+		<!-- <i class="fa fa-calendar"></i>
+		<span></span> -->
+	</div>
+	<div class="pattern-choose-items">
+		<p class="today">今日运行</p>
+		<#list mallPatterns as d>
+		 <div class="pattern-choose-item" data-sort="${d.sort}" data-id="${d.id}" data-subsystemPatternSetId =${d.subsystemPatternSetId} >
+	       	<div class="title">${d.name}</div>
+	        <div class="time-slot">
+	        	时间段：<span>${d.startTime}-${d.endTime}</span>
+	        </div>
+	        <div class="below">
+	           	 运行模式：
+	           	 <#if d.subsystemPatternSetId?? && d.subsystemPatternSetId?length gt 0>
+	           	 	${d.subsystemPatternSetName}
+	           	 <#else>
+	           	 	<span class="no-choose">未选择</span>
+            	</#if> 
+	        </div>
+	        <div class="item-shade"></div>
+	    </div>
+		</#list>
+	</div>
+</div>
+<div class="bottom-cover"></div>
+							
+						

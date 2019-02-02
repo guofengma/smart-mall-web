@@ -1,0 +1,322 @@
+<style>
+.pattern-open .row {
+	margin: 10px 0 0 0!important;
+}
+.pattern-open .cl-no-padding {
+	padding-left: 0!important;
+	padding-right: 0!important;
+}
+.pattern-open .above div{
+	margin:5px 0 10px 0;
+}
+.pattern-open .pattern-choose-item {
+	padding: 0 0 15px 0!important;
+	border-bottom: 1px solid #F5F5F5;
+	background: #FDFDFD;
+}
+.pattern-open .actived {
+	background: #79CAFF!important;
+	background-image: none!important;
+}
+.pattern-open .selected-pattern {
+	background-position: 100% 0px;
+	background-repeat: no-repeat;
+	background-size: 50px 50px;
+	background-image: url(../img/selected.png);
+}
+.pattern-open .actived p {
+	background: #79CAFF!important;
+	color: #ffffff!important;
+}
+.pattern-open p.title {
+	margin-top: 15px;
+	color: #939393;
+}
+.pattern-open .pattern-msg {
+	padding-top: 10px;
+}
+.pattern-open .pattern-msg p {
+	padding: 5px 15px;
+	color: #939393;
+}
+.pattern-open .pattern-choose-btn button {
+	margin: 10px 0;
+	padding: 4px 0;
+	min-width: 90px;
+	text-align: center;
+	background: #ffffff;
+	color: #79CAFF;
+	border-radius: 14px 14px;
+	border: 0;
+}
+.pattern-open .pattern-choose-item i {
+	font-size: 18px;
+	color: #79CAFF;
+}
+.pattern-open .below.pattern-box {
+	height: 311px;
+	overflow: auto;
+} 
+</style>
+<!-- 模式选择的弹框 -->
+<script id="pattern_choose_tpl" type="text/html">
+	<div class="row">
+		<div class="above clear">
+			<div class="col-sm-4">模式名称</div>
+			<div class="col-sm-4">子系统</div>
+			<div class="col-sm-4">子系统模式</div>
+		</div>
+		<div class="below clear pattern-box">
+		{{# if(d && d.length > 0) { }}
+			{{# layui.each(d, function(index,item) { }}
+				<div class="pattern-choose-item col-sm-12" data-id="{{item.id}}" data-value='{"subsystemPatternSetId":"{{item.id}}","subsystemPatternSetName":"{{item.name}}"}' data-index="{{index}}">
+					<p class="col-sm-4 title">{{item.name}}</p>
+					<div class="pattern-msg col-sm-8 hide">
+						{{# layui.each(item.subsystemPatternSetDetail, function(index, sp) { }}
+							<p class="col-sm-6 cl-no-padding">{{sp.subsystemName}}</p>
+							<p class="col-sm-6">{{sp.subsystemPatternName}}</p>
+						{{# }) }}
+						<div class="col-sm-12 text-right cl-no-padding pattern-choose-btn">
+	                		<button class="btn-1">应用模式</button>
+	                		<button class="btn-2 hide">取消应用</button>
+	           			 </div>
+					</div>
+				</div>
+			{{# }) }}
+		{{# }else{ }}
+			<p class="col-sm-6">暂无数据</p>
+		{{# } }}
+		</div>
+	</div>
+</script>
+<div class="pattern-choose-panel hide">
+</div>
+<!-- 模式详情弹框 -->
+<style>
+	.pattern-open .pattern-item-detail .row {
+		margin-top:0px!important;
+	}
+	.pattern-item-detail .row div,
+	.pattern-item-detail .row p  {
+		padding: 5px 0;
+	}
+	.pattern-item-detail .above {
+		position: relative;
+		padding: 5px 15px!important;
+		border-bottom: 1px solid #D9E2EB;
+		top: 0px;
+		background: #FFFFFF;
+	}
+	.pattern-item-detail .above .edit {
+		position: absolute;
+	    top: 14px;
+	    right: 15px;
+	}
+	.pattern-item-detail .below {
+		padding: 5px 15px!important;
+		margin-top: 0;
+	}
+	.pattern-item-detail .no-data {
+		margin:1px 10px;
+	}
+	.pattern-item-detail .below .title {
+		margin-top: 5px
+	}
+</style>
+<script id="pattern_detail_tpl" type="text/html">
+	<div class="pattern-item-detail">
+		<div class="row">
+			<div class="above clear">
+				<div class="col-sm-4">模式名称</div>
+				<div class="col-sm-4">子系统</div>
+				<div class="col-sm-4">子系统模式</div>
+				<i class="fa fa-edit text-navy edit hide" title="编辑" data-id={{d.id}} data-value='{{d.string}}'></i>
+			</div>
+			<div class="below col-sm-12">
+				<p class="col-sm-4 title">{{d.name}}</p>
+				<div class="col-sm-8">
+				{{# if(d.subsystemPatternSetDetail && d.subsystemPatternSetDetail.length > 0) { }}
+				{{# layui.each(d.subsystemPatternSetDetail, function(index, item){ }}
+					<p class="col-sm-6">{{item.subsystemName}}</p>
+					<div class="col-sm-6">{{item.subsystemPatternName}}</div>
+				{{# }) }}
+				{{# } else { }}
+					<p class="no-data col-sm-6">暂无</p>
+				{{# } }}
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+<!-- 新增/编辑模式的弹框 -->
+<style>
+	.pattern-set-open .row {
+		margin: 0;
+		height: 280px;
+		overflow: auto;
+	}
+	.pattern-set-open input {
+		margin: 10px 25px;
+		width: 300px;
+	}
+	.pattern-set-open .sub-sys-item p {
+		padding: 15px 25px;
+	}
+	.pattern-set-open .sub-sys-item button {
+		display: inline-block;
+		margin: 4px 0px;
+		padding : 4px 10px;
+		border: 1px solid #79CAFF;
+		border-radius: 14px 14px;
+		color: #79CAFF;
+		background: #ffffff;
+	}
+	.pattern-set-open .no-data {
+		margin: 4px 0px;
+	}
+	.pattern-set-open .actived {
+		background: #79CAFF!important;
+	}
+	.pattern-set-open .actived .selected {
+		border-color: #FDA114;
+		color: #FDA114;
+	}
+	.pattern-set-open input[type="checkbox"] {
+		height:1px!important;
+		z-index: 0;
+	}
+	.pattern-set-open .checkbox  {
+		display: inline-block;
+		margin:0px;
+		width:22px;
+		z-index: 2;
+	}
+	.pattern-set-open .sub-sys-item .all-itmes {
+		margin-top: 7px;
+	}
+</style>
+<div class="pattern-set-panel hide">
+	<div class="row">
+	</div>
+</div>
+<script id="pattern_set_tpl" type="text/html">
+	<input class="form-control" type="hidden" name="id" autocomplete="off">
+	<input class="form-control input-border-bottom" type="text" name="name" placeholder='请输入模式名称' autocomplete="off" maxlength="10" minlength="2">
+	{{# if (d && d.length > 0) { }}
+	{{# layui.each(d, function(index, subSys){ }}
+		{{# if (subSys && subSys.patternType != 3) { }}
+		<div class="sub-sys-item clear" data-code="{{subSys.code}}" data-id = "{{subSys.id}}">
+			<p class="col-sm-5 sub-sys-name">
+                <label class="checkbox i-checks">
+                	<input type="checkbox" value="{{subSys.code}}"> <i></i>
+				</label>
+				{{subSys.name}}
+			</p>
+			<p class="col-sm-5 selected-item">未选择</p>
+			<div class="col-sm-7 all-itmes hide">
+				{{# if (subSys.patterns && subSys.patterns.length > 0) { }}
+				{{# layui.each(subSys.patterns, function(index, p){ }}
+					<div><button data-id="{{p.id}}" data-value='{"subsystemCode":"{{p.subsystemCode}}","subsystemPatternId":"{{p.id}}","subsystemPatternName":"{{p.name}}"}'>{{p.name}}</button></div>
+				{{# }) }}
+				{{# }else{ }}
+					<p class="no-data">无可用模式</p>
+				{{# } }}
+			</div>
+		</div>
+		{{# } }}
+	{{# }) }}
+	{{# }else{ }}
+		无接入的子系统
+	{{# } }}
+</script>
+<!--  时间段管理   -->
+<style>
+.time-sorts-manage {
+	margin:0;
+	padding-top:15px;
+}
+.time-sorts-manage  .remove {
+	font-size: 18px;
+    color: red;
+    margin-top: 6px;
+    cursor: pointer;
+}
+.time-sorts-manage .time-sort {
+	margin: 10px;
+}
+.time-sorts-manage .add-time-sort {
+	margin-top: 10px;
+	margin-left: 27px;
+	color: #0198EB;
+	font-size: 18px;
+	cursor: pointer;
+}
+.time-sorts-manage .time-select {
+	width: 160px;
+    display: inline-block;
+    line-height: 24px;
+    background: rgb(243, 245, 245);
+}
+.time-sorts-manage .disabled {
+	background-color: #e0e0e0!important;
+}
+    background-color: #e0e0e0;
+.pattern-choose-date {
+	width:126px!important;
+	transition-duration: 0s!important;
+   	-webkit-transition-duration: 0s!important;
+}
+.time-sorts-manage .day-type-name {
+	margin-left: 25px;
+	margin-top: 10px;
+	margin-bottom: 25px;
+}
+.time-sorts-manage .day-type-name input {
+	display: inline-block;
+    width: 180px;
+}
+.time-sorts-manage .day-type-name span {
+	font-weight: 600px;
+}
+</style>
+<script id="time_sorts_tpl" type="text/html">
+<div class="time-sorts-manage clear row">
+	<div class="day-type-name clear">
+		<span>日期类型名称：</span>
+		<input class="form-control"  type="text" name="day-type-name" placeholder='未命名' autocomplete="off" maxlength="10" value={{d.name?d.name:''}}>
+	</div>
+	{{# layui.each(d.list, function(index, item){ }}
+   	<div class="time-sort clear" data-timeSortId="{{item.id?item.id:''}}" data-index="{{index}}">
+    	<div class="col-sm-3">
+    		<input class="form-control"  type="text" name="name" placeholder='未命名' value="{{item.name?item.name:''}}">
+    	</div>
+    	<div class="col-sm-1">
+    		<i class="fa fa-minus-circle remove" title="删除时间段"></i>
+    	</div>
+    	<div class="col-sm-8">
+			<input class="form-control time-select layui-input"  type="text" name="startTime" placeholder='请选择时间' value="{{item.startTime?item.startTime:''}}" readOnly> - 
+			<input class="form-control time-select layui-input"  type="text" name="endTime" placeholder='请选择时间' value="{{item.endTime?item.endTime:'24:00'}}" readOnly>
+    	</div>
+   	</div>
+	{{# }) }}
+	<i class="fa fa-plus add-time-sort" title="添加时间段"></i>
+</div>	
+</script>
+
+<!-- 时间滑块弹框 -->
+<style>
+	.time-slider {
+		padding-top: 20px;
+	}
+	.timer-slider-msg {
+		margin: 0!important;
+		padding-top: 30px;
+	}
+</style>
+<div class="time-slider-panel">
+	<div class="time-slider" style="width:600px;margin-left:10px"></div>
+	<div class="timer-slider-msg row">
+		<span class="col-sm-5 text-right name">时段名称-开始时间：</span>
+		<div class="col-sm-6 text-left time-value">时段名称</div>
+	</div>
+</div>

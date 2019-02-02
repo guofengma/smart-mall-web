@@ -1,0 +1,31 @@
+<form role="form" class="form-horizontal supplierDevice" id="sd${nowTime}">
+	<input type="hidden" name="id" value="${id!''}">
+	<input type="hidden" name="supplierId" value="${supplierId!''}">
+	<input type="hidden" name="systemCode" value="${systemCode!''}">
+	<div class="form-group">
+		<label class="control-label col-sm-4 text-left">供应系统</label>
+		<div class="col-sm-8">
+			<select class="form-control" name="type">
+			<#list systems as sys>
+				<option <#if systemCode == sys.code>selected</#if> value="${sys.code}" data-obj='<@obj2json obj=sys ></@obj2json>'>${(sys.name)!''}</option>
+			</#list>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-4 text-left">供应品牌</label>
+		<div class="col-sm-8">
+			<#list brands as b>
+				<label class="checkbox-inline i-checks">
+                	<input <#list checked as check><#if check.brandCode == b.bcode>checked</#if></#list> type="checkbox" value="${b.id}" name="brands"  data-obj='<@obj2json obj=b ></@obj2json>'>${(b.bname)!''}
+                </label>
+			</#list>
+		</div>
+	</div>
+</form>
+<script>
+	new SupplierSysBrands({
+		formId: '#sd${nowTime}'
+	})
+</script>
+

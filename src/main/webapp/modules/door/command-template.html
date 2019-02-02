@@ -1,0 +1,22 @@
+<div class="command-template-set-container" id="${moduleCode}-command-template">
+	<@codeValidation codes=operationCodes operationCode="search-ct">
+	<div class="filter-line">
+    	<form method="get" class="dr-search-form" id="${moduleCode}-command-template-searchform">
+        	<input placeholder="指令名称查询" class="form-control" type="text" name="keyword" value="${keyword!''}" role="user-params">
+            <button type="button" class="btn btn-primary search"><i class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-default reset"><i class="fa fa-refresh"></i></button>
+     	</form>
+    </div>
+    </@codeValidation>
+    <@codeValidation codes=operationCodes operationCode="add-ct">
+    <div class="ibox-title">
+        <div class="ibox-tools">
+            <a class="btn btn-primary" href="javascript:goPage('command-template-form')" alt="添加指令" title="添加指令">
+                <i class="fa fa-plus"></i>
+            </a>
+        </div>
+    </div>
+    </@codeValidation>
+   	<div class="ibox-content versions"></div>
+</div>
+

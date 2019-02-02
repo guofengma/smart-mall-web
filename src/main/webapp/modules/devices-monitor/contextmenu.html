@@ -1,0 +1,37 @@
+<style>
+    .contextmenu {
+        width: 200px;
+    }
+    
+    .contextmenu svg {
+        width: 20px;
+        height: 20px;
+        vertical-align: text-top;
+        display: inline-block;
+    }
+</style>
+<div class="contextmenu hide" data-role="device">
+    <div class="item hide" oper-code="detail">
+        <a href="javascript:;" data-opt="detail"><i class="fa fa-info"></i>&nbsp;详情</a>
+    </div>
+    <div class="item hide" oper-code="move">
+        <a href="javascript:;" data-opt="move"><i class="fa fa-arrows"></i>&nbsp;编辑位置</a>
+    </div>
+    <div class="item hide" oper-code="form">
+        <a href="javascript:;" data-opt="form"><i class="fa fa-pencil"></i>&nbsp;编辑信息</a>
+    </div>
+    <div class="item hide" oper-code="remove">
+        <a href="javascript:;" data-opt="remove"><i class="fa fa-trash"></i>&nbsp;移除</a>
+    </div>
+</div>
+
+<div class="contextmenu hide" data-role="floor-plan">
+    <#list systems.addItems as item>
+    <div class="item hide" oper-code="add">
+        <a href="javascript:;" data-opt="add" data-system-code="${item.systemCode}" data-system-name="${item.systemName}"><svg><use xlink:href="#icon-${item.systemCode}-blue"></use></svg>&nbsp;添加${item.systemName}设备</a>
+    </div>
+    </#list>
+    <div class="item">
+        <a href="javascript:;" data-opt="upload"><i class="icon-img batch-import"></i>&nbsp;批量上传</a>
+    </div>
+</div>

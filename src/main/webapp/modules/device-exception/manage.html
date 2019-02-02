@@ -1,0 +1,134 @@
+<link href="${base}css/modules/alarm-manage.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+<style>
+	
+.hStat-nav ul {
+	display: inline-block;
+	overflow: hidden;
+	border-radius: 3px;
+}
+.hStat-nav li {
+	float: left;
+	border: 1px solid #eee;
+	margin-left: -1px;
+}
+
+.hStat-nav li.active {
+	border-color:#3A8FE2;
+}
+
+.hStat-nav li.normal {
+	margin-right: -1px;
+	margin-left: 0;
+}
+.hStat-nav li:first-child {
+	margin-left: 0;
+}
+.hStat-nav li:last-child {
+	margin-right: 0;
+}
+
+.hStat-nav li > a {
+	display: inline-block;
+	padding: 5px 16px;
+	color: #666;
+	position: relative;
+	margin-left: -1px;
+}
+
+.hStat-nav li > a:hover {
+	color: #333;
+}
+
+.hStat-nav li.active > a {
+	color: #3A8FE2;
+	font-weight: bold;
+}
+
+.hStat-nav li.active > a::after {
+	content: '';
+	width: 15px;
+	height: 15px;
+	position:absolute;
+	right: 0;
+	bottom: 0;
+	background-image: url(img/success.png);
+	background-size: contain;
+	background-position: center;
+}
+.new-event-count {
+	color: red;
+	font-weight: bold;
+	margin-left: 5px;
+}
+</style>
+<div class="wrapper-content alarm-style" id="device-exception">
+	<div class="row">
+		<div class="col-sm-12 no-padding">
+		    <div class="ibox float-e-margins">
+		        <div class="ibox-title">
+		            <h5>异常设备告警</h5>
+		            <div class="ibox-tools"></div>
+		        </div>
+		        <div class="ibox-content">
+		        	<div class="filter-line" oper-code="search">
+	                	<form method="get" class="search-form" style="float: right" autocomplete="off">
+	                		<input type="hidden" name="page" value="${params.page!1}" role="user-params">
+							<input type="hidden" name="limit" value="${params.limit!10}" role="user-params">
+							<input type="hidden" name="bt" value="${params.bt}" role="user-params">
+							<input type="hidden" name="et" value="${params.et}" role="user-params">
+							<input type="hidden" name="hStat" value="${params.hStat}" role="user-params">
+							<input type="hidden" name="rangeType" value="" role="user-params">
+							<input type="hidden" name="sort" value="${params.sort}" role="user-params">
+							<input type="hidden" name="order" value="${params.order}" role="user-params">
+
+							<select class="form-control" name="code" role="user-params">
+								<option value="">全部系统</option>
+								<#if subsystems?? && subsystems?size gt 0>
+									<#list subsystems as ss>
+									<option value="${ss.code!''}">${ss.name!'-'}</option>
+									</#list>
+								</#if>
+							</select> 
+							<select class="form-control" name="rStat" role="user-params">
+								<option value="">全部</option>
+								<option value="200">已读</option>
+								<option value="0">未读</option>
+							</select>
+							<input class="form-control timeRange" role="user-params" placeholder="选择报警时间段进行查询" name="timeSelect">
+							<input class="form-control" name="keyword" value="${params.keyword!''}" role="user-params" placeholder="输入关键字查询">
+	                        <button type="button" class="btn btn-primary submit" data-opt="formSearch"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-default reset" data-opt="formSearch" data-reset="reset"><i class="fa fa-refresh"></i></button>
+	                 	</form>
+	                </div>
+					<div class="hStat-nav" oper-code="search">
+						<ul>
+							<#list hStats as item>
+							<li class="<#if params.hStat?index_of(item.code?string.number) gt -1>active<#else>normal</#if>" >
+								<a href="javascript:;" data-opt="changeHStat" data-h-stat="${item.code}">${item.value}
+								</a>
+							</li>
+							</#list>
+						</ul>
+					</div>
+					<div class="list" oper-code="view"></div>
+		        </div>
+		    </div>
+		    <div class="cover show">
+		    	<div class="icon"></div>
+		    	<div class="context">
+		    		<i></i>
+		    		<p></p>
+		    	</div>
+		    </div>
+		</div>
+	</div>
+</div>
+<script>
+var deParmas = JSON.parse('<@obj2json obj=params ></@obj2json>');
+$('#ddevice-exception-manage select[name="code"]').val(deParmas.code);
+$('#device-exception-manage select[name="rStat"]').val(deParmas.rStat);
+$('#device-exception-manage .cover').hide();
+
+DeviceExceptionManage.init({operationCodes:'${operationCodes}'});
+
+</script>

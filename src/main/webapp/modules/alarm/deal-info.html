@@ -1,0 +1,36 @@
+<form method="get" class="form-horizontal" id="alarm-dealinfo-form" autocomplete="off">
+    <input type="hidden" name="eventSourceId" value="${id}">
+    <input type="hidden" name="handlerUserId" value="${userId}">
+    <input type="hidden" name="handlerUserName" value="${realName}">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">处理结果</label>
+        <div class="col-sm-9">
+            <label class="radio-inline i-checks">
+                <input value="0" name="handlerType" type="radio" checked>&nbsp;设备调试
+            </label>
+            <label class="radio-inline i-checks">
+                <input value="10" name="handlerType" type="radio">&nbsp;真实报警
+            </label>
+            <label class="radio-inline i-checks">
+                <input value="20" name="handlerType" type="radio">&nbsp;误报
+            </label>
+            <label class="radio-inline i-checks">
+                <input value="100" name="handlerType" type="radio">&nbsp;其它
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">处理批注</label>
+        <div class="col-sm-9">
+            <textarea class="form-control" name="handlerMessage" placeholder="请填写处理批注"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-5 col-sm-offset-2">
+            <button class="btn btn-primary" type="submit">保存</button>
+        </div>
+    </div>
+</form>
+<script>
+DealInfo.init()
+</script>

@@ -1,0 +1,103 @@
+<link href="${base}css/modules/devices-monitor/manage.css?${.now?string('yyMMddhhmmSSsss')}" rel="stylesheet">
+<div class="wrapper-content sys-devices" data-operationCodes="${operationCodes}">
+	<div class="oper-center">
+		<div class="title">设备列表</div>
+		<div class="filters hide" oper-code="searchDevices">
+			<div class="tabs-container">
+				<ul class="nav nav-tabs">
+					<li class="active" style="margin-left: 12px;">
+						<a data-toggle="tab" href="#filter1${timestamp}" aria-expanded="true" data-opt="resetSearchForm" data-key-search="0">设备筛选</a>
+					</li>
+					<li class="" style="margin-left: 40px;">
+						<a data-toggle="tab" href="#filter2${timestamp}" aria-expanded="false" data-opt="resetSearchForm" data-key-search="1">关键词搜索</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div id="filter1${timestamp}" class="filter tab-pane active">
+						<#include "area_floor.html"/>
+						<div class="dropdown" style="margin-right:0">
+							<button class="btn btn-default dropdown-toggle" type="button" id="systemList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								<span class="toggle-name">${systems.sortItems[0].systemName}</span><span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="systemList">
+								<li><a href="javascript:;" data-opt="searchDevices" data-system-code="" data-system-name="全部系统" data-page="1">全部系统</a></li>
+								<#list systems.sortItems as item>
+									<li><a href="javascript:;" data-opt="searchDevices" data-system-code="${item.systemCode}" data-system-name="${item.systemName}" data-page="1">${item.systemName}</a></li>
+								</#list>
+							</ul>
+						</div>
+						<div style="clear: both"></div>
+					</div>
+					<div id="filter2${timestamp}" class="filter tab-pane">
+						<form method="get" class="form-horizontal search">
+							<input class="form-control" type="text" placeholder="匹配设备名称、序列号" name="keyword" />
+							<button class="btn" type="submit"><i class="fa fa-search"></i></button>
+							<a class="btn btn-primary" href="javascript:;"  data-opt="resetSearchForm"><i class="fa fa-refresh"></i></a>
+						</form>
+						<div style="clear: both"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="datas">
+			<#list systems.sortItems as item>
+			<div id="by-system-${item.systemCode}" class="by-system">
+				<div class="title">
+					<a href="javascript:;" data-opt="foldSystem" data-system-code="${item.systemCode}">
+						<i class="sys-icon ${item.systemCode}-ico"></i>
+						<span>${item.systemName}</span>
+						<i class="caret-icon fa fa-angle-right"></i>
+					</a>
+				</div>
+				<div class="content">
+					<#if item.systemCode="ap">
+					<div class="text-right ap-oper" style="padding-top:10px">
+						<a href="javascript:;" class="btn btn-primary hide" oper-code="syncAp" data-opt="syncAp">同步</a>
+						<a href="javascript:;" class="btn btn-primary hide" oper-code="manageAp" data-opt="manageAp">管理</a>
+					</div>
+					</#if>
+					<div class="stat-oper">
+						<div class="dropdown hide" oper-code="searchDevices">
+							<button class="btn btn-default dropdown-toggle" type="button" id="sortList-${item.systemCode}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								<span class="toggle-name">默认↑↓</span><span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="sortList-${item.systemCode}">
+								<li><a href="javascript:;" data-opt="searchSortList" data-system-code="${item.systemCode}" data-sort="" data-order="" data-name="默认↑↓">默认排序</a></li>
+								<li><a href="javascript:;" data-opt="searchSortList" data-system-code="${item.systemCode}" data-sort="deviceName" data-order="asc" data-name="名称↑">按名称(a-z)</a></li>
+								<li><a href="javascript:;" data-opt="searchSortList" data-system-code="${item.systemCode}" data-sort="deviceName" data-order="desc" data-name="名称↓">按名称(z-a)</a></li>
+								<li><a href="javascript:;" data-opt="searchSortList" data-system-code="${item.systemCode}" data-sort="createTime" data-order="asc" data-name="时间↑">按添加时间升序</a></li>
+								<li><a href="javascript:;" data-opt="searchSortList" data-system-code="${item.systemCode}" data-sort="createTime" data-order="desc" data-name="时间↓">按添加时间降序</a></li>
+							</ul>
+						</div>
+						<div class="dropdown hide" oper-code="searchDevices">
+							<button class="btn btn-default dropdown-toggle" type="button" id="physicalState-${item.systemCode}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								<span class="toggle-name">状态</span><span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="physicalState-${item.systemCode}">
+								<li><a href="javascript:;" data-opt="searchByPhysicalState" data-system-code="${item.systemCode}" data-value="" data-name="状态">所有状态</a></li>
+								<li><a href="javascript:;" data-opt="searchByPhysicalState" data-system-code="${item.systemCode}" data-value="0" data-name="正常">正常</a></li>
+								<li><a href="javascript:;" data-opt="searchByPhysicalState" data-system-code="${item.systemCode}" data-value="1" data-name="异常">异常</a></li>
+							</ul>
+						</div>
+						<span class="text-navy">匹配到<span class="match-count">0</span>项</span>
+					</div>
+				</div>
+
+			</div>
+			</#list>
+		</div>
+	</div>
+	<div class="view-center">
+		<div class="title">
+			<div class="brief">主馆 1F</div>
+			<div class="stat"></div>
+		</div>
+		<div class="core"></div>
+	</div>
+</div>
+
+<script>
+	window.localStorage["mallId"] = '${mallId}';
+	window.localStorage["dm-codes"] = '<@obj2json obj=systems.add_codes ></@obj2json>';
+	window.localStorage["dm-vcodes"] = '<@obj2json obj=systems.add_vcodes ></@obj2json>';
+</script>
